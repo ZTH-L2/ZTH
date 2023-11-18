@@ -8,9 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "marked": "^10.0.0",
     "pinia": "^2.1.7",
+    "require": "^0.4.4",
+    "sanitize-html": "^2.11.0",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-sanitize": "^0.2.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
