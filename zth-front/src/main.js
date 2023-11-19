@@ -7,8 +7,8 @@ import App from "./App.vue";
 import router from "./router";
 
 // import Markdown from "vue3-markdown-it";
-import "highlight.js/styles/monokai.css";
-
+// import "highlight.js/styles/monokai.css";
+// import "highlight.js/lib/languages/python.js";
 const app = createApp(App);
 // app.use(Markdown);
 app.use(createPinia());

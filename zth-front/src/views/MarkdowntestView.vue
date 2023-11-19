@@ -9,6 +9,7 @@
 import Markdown from "vue3-markdown-it";
 import { ref } from "vue";
 
-const source = ref("y");
-const props = defineProps(["source"]);
+import "highlight.js/styles/github.css";
+
+const source = ref("```python\nconst x = 5;\n```");
 </script>
