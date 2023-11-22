@@ -8,11 +8,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "kafka-client": "^1.1.0",
+    "markdown-it": "^13.0.2",
     "marked": "^10.0.0",
     "pinia": "^2.1.7",
     "require": "^0.4.4",
     "sanitize-html": "^2.11.0",
+    "vite-plugin-node-polyfills": "^0.16.0",
     "vue": "^3.3.4",
+    "vue-dompurify-html": "^4.1.4",
     "vue-router": "^4.2.5",
     "vue-sanitize": "^0.2.3"
   },

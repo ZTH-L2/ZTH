@@ -3,15 +3,23 @@
 	import { ref, onMounted, computed } from 'vue'
 	import { marked } from 'marked'
 	
+import MarkdownIt from 'markdown-it';
+
+import { defineConfig } from 'vite'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import KafkaNode from 'kafka-node';
+	
+	
+	
 	const arrayInputed = ref([ ref('# titre1') , ref('# titre2') ])
 	
-let rightObject = ['p','h1','h2','ul','li'];
-
+let rightObject = ['p','h1','h2','ul','li','img','div'];
+/*
 const arrayOutputed = computed(() => {
   return arrayInputed.value.map(input => sanitize(marked(input.value), rightObject));
 });
-
-
+*/
+/*
 function sanitize(stringHTML, valide) {
   let test = new DOMParser().parseFromString(stringHTML, "text/html");
   test = test.querySelector('body');
@@ -25,6 +33,18 @@ function sanitize(stringHTML, valide) {
   
   return test.innerHTML;
 }
+*/
+/*
+function sanitize(stringHTML){
+	const md = window.markdownit();
+	
+	const htmlContent = md.render(stringHTML)
+	
+	const sanitizedHtml = DOMPurify.sanitize(htmlContent)
+	
+	return sanitizedHtml
+}
+*/
 /*
 onMounted(() => {
 	let list = ref([])
