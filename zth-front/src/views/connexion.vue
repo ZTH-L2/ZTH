@@ -4,11 +4,30 @@ import { ref } from 'vue'
 const username = ref('')
 const password = ref('')
 
-function envoi() {
-  console.log(username, password)
-  // passer en php ?
-  username.value = ''
-  password.value = ''
+async function envoi() {
+  console.log(username.value, password.value)
+  await fetch("http://localhost:8080/user/login", {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    body: JSON.stringify({
+	  "username": username.value,
+    "password": password.value
+    
+  })
+  }).then((Response)=>{
+    console.log(Response)
+    if (Response.status == "200"){
+      //redirection vers menu
+      username.value = ''
+      password.value = ''
+
+    }
+    else{
+      error.value = "erreur donnée incorrecte"
+      username.value = ''
+      password.value = ''
+    }
+  })
+
 }
 </script>
 
