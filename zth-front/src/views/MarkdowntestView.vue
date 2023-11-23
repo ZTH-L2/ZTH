@@ -1,5 +1,73 @@
 <template>
-	<div>
+	
+	<div id='mainContent'>
+		<div id="content">
+			<div id="write">
+				<textarea v-model="source"></textarea>
+			</div>
+			<div id="read">
+				<div v-html="markdown"></div>
+			</div>
+		</div>
+	</div>
+	<object data="http://localhost:5173/2_IntroPoo.pdf" type="application/pdf" width="700px" height="700px">
+</object>
+
+</template>
+
+<script setup>
+import MarkdownIt from 'markdown-it';
+import hljs from 'highlight.js';
+import DOMPurify from 'dompurify';
+import { ref, computed, onMounted } from "vue";
+
+//import { nextTick } from 'vue';
+
+import "highlight.js/styles/github.css";
+
+function sanitize(stringHTML){
+	const md = new MarkdownIt({ // ╚> https://www.npmjs.com/package/markdown-it#init-with-presets-and-options
+		html: true, // ╚> Active les balises HTML
+		highlight: function (str, lang) { // ╚> https://www.npmjs.com/package/markdown-it#syntax-highlighting
+			if (lang && hljs.getLanguage(lang)) {
+				try {
+					return hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
+				} catch (__) {}
+			}
+			return '';
+		},
+		breaks: false, // ╚> Convertit '\n' en <br>
+		linkify: true , // ╚> Conversion automatique du texte URL en lien
+		typographer: true, 	// ╠> Active un remplacement neutre en termes de langue + embellissement des guillemets 
+							// ╚> https://github.com/markdown-it /markdown-it/blob/master/lib/rules_core/replacements.js
+	});
+	
+	const htmlContent = md.render(stringHTML)
+	
+	const sanitizedHtml = DOMPurify.sanitize(htmlContent)
+	
+	return sanitizedHtml
+}
+
+//const source = ref("```python\nconst x = 5;\n``` \n# titre \n");
+const source = ref("");
+
+const markdown = computed(() => {
+	return sanitize( source.value )
+	//return source.value 
+});
+
+// Gestion de taille du textarea
+
+const heightInputSize = computed( () => {
+	return "300px";
+} );
+
+/**
+
+Espace de dépot:
+// Template
+<div>
 		<textarea v-model="source"></textarea>
 		<div v-html="markdown"></div>
 	</div>
@@ -10,31 +78,7 @@
 	
 	<div>
 		<input type="file" id="fileTest" accept="image/png, image/jpeg" @change="testExport"/>
-	</div>
-</template>
-
-<script setup>
-import MarkdownIt from 'markdown-it';
-import hljs from 'highlight.js';
-import DOMPurify from 'dompurify';
-import { ref, computed, onMounted } from "vue";
-
-import { nextTick } from 'vue';
-
-// Test boutton
-function uploadFile(event) {
-    let file = event.target.files[0];
-    let formData = new FormData();
-    formData.append('file', file);
-	/*
-	axios.post('http://your-server.com/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-	}
-	*/
-}
-//
+</div>
 
 // Test ACE
 
@@ -64,58 +108,47 @@ const markdownBis = computed(() => {
 
 // Fin Ace
 
-import "highlight.js/styles/github.css";
-
-function sanitize(stringHTML){
-	const md = new MarkdownIt({ // ╚> https://www.npmjs.com/package/markdown-it#init-with-presets-and-options
-		html: true, // ╚> Active les balises HTML
-		highlight: function (str, lang) { // ╚> https://www.npmjs.com/package/markdown-it#syntax-highlighting
-			if (lang && hljs.getLanguage(lang)) {
-				try {
-					return hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
-				} catch (__) {}
-			}
-			return '';
-		},
-		breaks: false, // ╚> Convertit '\n' en <br>
-		linkify: true , // ╚> Conversion automatique du texte URL en lien
-		typographer: true, 	// ╠> Active un remplacement neutre en termes de langue + embellissement des guillemets 
-							// ╚> https://github.com/markdown-it /markdown-it/blob/master/lib/rules_core/replacements.js
-	});
-	
-	const htmlContent = md.render(stringHTML)
-	
-	const sanitizedHtml = DOMPurify.sanitize(htmlContent)
-	
-	return sanitizedHtml
+// Test boutton
+function uploadFile(event) {
+    let file = event.target.files[0];
+    let formData = new FormData();
+    formData.append('file', file);
+	/*
+	axios.post('http://your-server.com/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+	}
 }
-
-const source = ref("```python\nconst x = 5;\n``` \n# titre \n");
-
-const markdown = computed(() => {
-	return sanitize( source.value )
-});
-
-
+//
+*/
 </script>
 
 <style score>
 
-#editor{
-	background-color: red;
-	
-	width: 200px;
-	height: 200px;
-	
+#content{
+	display: flex;
+	flex-direction: row;
+    flex-wrap: nowrap;
+	justify-content: space-between;
 }
 
-
-textarea {
-    overflow: hidden;
-    resize: none;
-	width: 100%
+#write{
+	width: 50%;
 }
 
+#write>textarea{
+	resize: none;
+	width: 100%;
+	height: 300px;
+}
 
+#read{
+	width: 50%;
+}
+
+#read>div{
+	word-wrap: break-word;
+}
 
 </style>
