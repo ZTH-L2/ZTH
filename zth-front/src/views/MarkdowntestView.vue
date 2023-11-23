@@ -9,9 +9,12 @@
 				<div v-html="markdown"></div>
 			</div>
 		</div>
+		<!--<button type="button" @click="console.log(source)">Add to favorites</button>-->
+		<button type="button" @click="testEnvoie( source )">Save</button>
+		<!--<button type="button" @click="testEnvoie()">test fetch</button>-->
 	</div>
-	<object data="http://localhost:5173/2_IntroPoo.pdf" type="application/pdf" width="700px" height="700px">
-</object>
+	<!--<object data="http://localhost:5173/2_IntroPoo.pdf" type="application/pdf" width="700px" height="700px">
+</object> -->
 
 </template>
 
@@ -44,7 +47,7 @@ function sanitize(stringHTML){
 	
 	const htmlContent = md.render(stringHTML)
 	
-	const sanitizedHtml = DOMPurify.sanitize(htmlContent)
+	const sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object"], ADD_ATTR:['data']})
 	
 	return sanitizedHtml
 }
@@ -63,6 +66,32 @@ const heightInputSize = computed( () => {
 	return "300px";
 } );
 
+function testEnvoie( data ){
+	fetch("https://l1.dptinfo-usmb.fr/~grp9/testSauvegarde.php", {
+     
+	 // Adding method type
+	 method: "POST",
+	  
+	 // Adding body or contents to send
+	 body: JSON.stringify({
+		 string: data
+	 }),
+	  
+	 // Adding headers to the request
+	 headers: {
+		 "Content-type": "application/json; charset=UTF-8"
+	 }
+ }).then(response => {
+    if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+    }
+    return response.json();
+})
+.then(json => console.log(json))
+.catch(function() {
+    console.log("Une erreur s'est produite lors de la récupération des données.");
+});
+}
 /**
 
 Espace de dépot:
@@ -148,7 +177,13 @@ function uploadFile(event) {
 }
 
 #read>div{
+	height: 100%;
+
 	word-wrap: break-word;
+}
+
+#read>div>object{
+	width: 100%;
 }
 
 </style>
