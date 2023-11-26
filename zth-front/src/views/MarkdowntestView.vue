@@ -11,6 +11,9 @@
 		</div>
 		<!--<button type="button" @click="console.log(source)">Add to favorites</button>-->
 		<button type="button" @click="testEnvoie( source )">Save</button>
+		<button type="button" @click="testRecuperation()">Charger les données</button>
+		<input type="file" id="inputTest"/>
+		<button type="button" @click="testEnvoieFichier()">Envoyer fichier externe</button>
 		<!--<button type="button" @click="testEnvoie()">test fetch</button>-->
 	</div>
 	<!--<object data="http://localhost:5173/2_IntroPoo.pdf" type="application/pdf" width="700px" height="700px">
@@ -53,7 +56,7 @@ function sanitize(stringHTML){
 }
 
 //const source = ref("```python\nconst x = 5;\n``` \n# titre \n");
-const source = ref("");
+let source = ref("");
 
 const markdown = computed(() => {
 	return sanitize( source.value )
@@ -67,30 +70,46 @@ const heightInputSize = computed( () => {
 } );
 
 function testEnvoie( data ){
-	fetch("https://l1.dptinfo-usmb.fr/~grp9/testSauvegarde.php", {
+	fetch("https://l1.dptinfo-usmb.fr/~grp9/testSauvegarde.php", { // !
      
-	 // Adding method type
 	 method: "POST",
 	  
-	 // Adding body or contents to send
 	 body: JSON.stringify({
 		 string: data
 	 }),
 	  
-	 // Adding headers to the request
 	 headers: {
 		 "Content-type": "application/json; charset=UTF-8"
 	 }
- }).then(response => {
-    if (!response.ok) {
-        throw new Error("HTTP error " + response.status);
-    }
-    return response.json();
-})
-.then(json => console.log(json))
-.catch(function() {
-    console.log("Une erreur s'est produite lors de la récupération des données.");
-});
+ });
+}
+
+function testRecuperation(){
+	console.log("Chargement");
+	let url = "https://l1.dptinfo-usmb.fr/~grp9/testEnvoie.php"; // à changer
+	fetch(url)
+  		.then(response => response.text())
+  		.then(data => { console.log(data); source.value = data;  })
+		.then( data => { console.log( source.value ) } )
+}
+
+function testEnvoieFichier(){
+	console.log("Envoie Fichier");
+
+	const input = document.getElementById('inputTest');
+
+	const fichier = input.files[0]; // Posibilité de faire une boucle pour input - multipee | à voir si pultiple ou simple
+	const formData = new FormData();
+
+	formData.append('fichier', fichier);
+
+	console.log(formData);
+
+	fetch('https://l1.dptinfo-usmb.fr/~grp9/testSauvegardeFichier.php', { // Url fichier PHP
+  		method: 'POST',
+  		body: formData
+	});
+
 }
 /**
 
