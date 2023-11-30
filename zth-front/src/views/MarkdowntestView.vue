@@ -105,10 +105,13 @@ function testEnvoieFichier(){
 
 	console.log(formData);
 
-	fetch('https://l1.dptinfo-usmb.fr/~grp9/testSauvegardeFichier.php', { // Url fichier PHP
+	fetch('https://l1.dptinfo-usmb.fr/~grp9/testSauvegardeFichierBis.php', { // Url fichier PHP
   		method: 'POST',
   		body: formData
-	});
+	})
+	.then(response => response.text())
+  	.then(data => { console.log(data);})
+	;
 
 }
 /**
