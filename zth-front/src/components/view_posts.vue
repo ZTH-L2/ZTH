@@ -1,25 +1,36 @@
 <script setup>
 import { ref } from 'vue'
 
-    const posts = ref([
-  { id: 1, title: 'My journey with Vue', note:3, nbr_note : 15, createur : 'elian'},
-  { id: 2, title: 'Blogging with Vue', note:2.3, nbr_note : 93, createur : 'elian'},
-  { id: 3, title: 'Blogging with Vue', note:2.3, nbr_note : 93, createur : 'elian'},
-  { id: 14, title: 'Blogging with Vue', note:2.3, nbr_note : 93, createur : 'elian'}
-  
-    ])
+
 </script>
 <template> 
-    <div>   
-        <Post v-for="post in posts" :id_post= "post.id" :titre="post.title" :createur="post.createur" :note="post.note" :nbr_note="post.nbr_note"></Post>
+    <div id="mesPosts">   
+        <Post v-for="post in posts" :id_post= "post[0]" :titre="post[2]" :createur="post[1]" :note="post[4]" :nbr_note="post[5]"></Post>
     </div>
 </template>
 <script>
     import Post from './view_post.vue'
     export default {
         name: 'Posts',
+        props: ['id_course', 'category'],
         components:{
             Post,
+        },
+        data() {
+            return {
+                posts: null,
+            };
+        },
+        async created() {
+            this.posts = await fetch("http://localhost:8080/post/" + this.id_course + "/" + this.category,{
+                credentials: 'include'
+            }).then((Response)=>{
+                console.log(Response)
+                return Response.json()
+            }).then((data)=>{
+                console.log(data)
+                return data
+            })
         }
     }
 </script>

@@ -14,7 +14,7 @@ const router = createRouter({
       component: () => import('../views/inscription.vue')
     },
     {
-      path: '/voir_post',
+      path: '/voir_post/:id_course/:category', // Ajout des paramètres
       name: 'voir_post',
       component: () => import('../views/voir_post.vue')
     },

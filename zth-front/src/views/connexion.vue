@@ -7,6 +7,7 @@ async function envoi() {
   console.log(username.value, password.value)
   await fetch("http://localhost:8080/user/login", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
+    credentials: 'include',
     body: JSON.stringify({
 	  "username": username.value,
     "password": password.value
