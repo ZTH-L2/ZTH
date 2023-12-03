@@ -1,16 +1,19 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from "vue-router";
+import TheNavbar from "./components/TheNavbar.vue";
 </script>
 
 <template>
   <header>
-      <nav>
-        
-        <RouterLink to="/inscription" >Inscription</RouterLink>
-        <RouterLink to="/connexion">Connexion</RouterLink>
-      </nav>
+    <TheNavbar></TheNavbar>
   </header>
 
   <RouterView />
 </template>
 
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
