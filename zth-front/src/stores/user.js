@@ -1,14 +1,18 @@
 import { defineStore } from "pinia";
-
-export const useUserStore = defineStore("user", {
-  // comme setup
-  state: () => ({
-    user: null,
-  }),
-  // comme computed
-  getters: {
-    loggedIn: (state) => state.user !== null,
-  },
-  // comme methodes
-  actions: {},
+import { ref, computed } from "vue";
+export const useUserStore = defineStore("user", () => {
+  //const = ref(val)
+  const user = ref(null);
+  const isLoggedIn = computed(() => {
+    return user !== null;
+  });
+  const isAdmin = computed(() => {
+    // TO DO
+    return isLoggedIn && false;
+  });
+  return {
+    user,
+    isLoggedIn,
+    isAdmin,
+  };
 });
