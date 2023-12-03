@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -6,20 +6,24 @@ const router = createRouter({
     {
       path: '/connexion',
       name: 'connexion',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/connexion.vue')
     },
     {
       path: '/inscription',
       name: 'inscription',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/inscription.vue')
+    },
+    {
+      path: '/voir_post',
+      name: 'voir_post',
+      component: () => import('../views/voir_post.vue')
+    },
+    {
+      path: '/lire_post/:id', // Correction ici
+      name: 'lire_post',
+      component: () => import('../views/lire_post.vue')
     }
   ]
-})
+});
 
-export default router
+export default router;

@@ -3,7 +3,6 @@ import { ref } from 'vue'
 
 const username = ref('')
 const password = ref('')
-
 async function envoi() {
   console.log(username.value, password.value)
   await fetch("http://localhost:8080/user/login", {
@@ -14,7 +13,9 @@ async function envoi() {
     
   })
   }).then((Response)=>{
-    console.log(Response)
+    return Response.json().then((data)=>{
+      console.log(data);
+    })
     if (Response.status == "200"){
       //redirection vers menu
       username.value = ''
