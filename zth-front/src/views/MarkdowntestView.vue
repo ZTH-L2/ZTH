@@ -70,7 +70,8 @@ const heightInputSize = computed( () => {
 } );
 
 function testEnvoie( data ){
-	fetch("https://l1.dptinfo-usmb.fr/~grp9/testSauvegarde.php", { // !
+	//fetch("https://l1.dptinfo-usmb.fr/~grp9/testSauvegarde.php", { // !
+	fetch("localhost:8080", { // !
      
 	 method: "POST",
 	  
@@ -86,7 +87,8 @@ function testEnvoie( data ){
 
 function testRecuperation(){
 	console.log("Chargement");
-	let url = "https://l1.dptinfo-usmb.fr/~grp9/testEnvoie.php"; // à changer
+	//let url = "https://l1.dptinfo-usmb.fr/~grp9/testEnvoie.php"; // à changer
+	let url = "localhost:8080"; // à changer
 	fetch(url)
   		.then(response => response.text())
   		.then(data => { console.log(data); source.value = data;  })
