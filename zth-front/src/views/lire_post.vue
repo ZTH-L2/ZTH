@@ -1,15 +1,37 @@
 <template>
-    <div id = post>
-        <div v-if="creator">
-          <h3> {{ postData.title }}  créé par : {{ creator }}</h3>
-        </div>
-        <div id="read">
-				    <div v-html="markdown"></div>
-			    </div>
-        <div id="fichiers">
-        </div>
+  <div id="post">
+    <div class="post-header" v-if="creator">
+      <h3>
+        {{ postData.title }} créé par :
+        <router-link
+          :to="{ name: 'profil', params: { id: postData.id_creator, username: creator }}"
+          class="creator-link"
+        >
+          {{ creator }}
+        </router-link>
+      </h3>
     </div>
 
+    <div id="read" class="post-content" v-if="creator">
+      <div v-html="markdown"></div>
+    </div>
+    <div class="note" v-if="creator">
+      <div>
+        <span class="note-label">Note:</span>
+        <span class="note-value">{{ postData.grade }}</span>
+      </div>
+      <div>
+        <span class="nbr-note-label">Nombre de notes:</span>
+        <span class="nbr-note-value">{{ postData.nb_note }}</span>
+      </div>
+    </div>
+    <div class="button" v-if="creator">
+      <button @click="montrer_cacher">Montrer/cacher les annexes</button>
+    </div>
+    <div id="fichiers" class="file-list">
+      <!-- Vos fichiers ici -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,15 +40,7 @@ import hljs from 'highlight.js';
 import DOMPurify from 'dompurify';
 import { ref, computed, onMounted } from "vue";
 
-//import { nextTick } from 'vue';
-
 import "highlight.js/styles/github.css";
-
-
-
-
-
-
 
 export default {
   data() {
@@ -34,10 +48,11 @@ export default {
       postData: null,
       creator: null,
       markdown: null,
+      affichage: true,
     };
   },
   methods: {
-  sanitize(stringHTML) {
+    sanitize(stringHTML) {
       const md = new MarkdownIt({
         html: true,
         highlight: function (str, lang) {
@@ -57,64 +72,85 @@ export default {
       const sanitizedHtml = DOMPurify.sanitize(htmlContent, { ADD_TAGS: ['object'], ADD_ATTR: ['data'] });
       return sanitizedHtml;
     },
+    montrer_cacher() {
+      let fichiers = document.getElementById("fichiers");
+      this.affichage = !this.affichage;
+      if(this.affichage){
+        fichiers.style.display = "none"
+      }
+      else{
+        fichiers.style.display = "flex"
+      }
+
+    },
   },
   created() {
-    
     fetch("http://localhost:8080/post/" + this.$route.params.id, {
-      credentials: 'include'
-    }).then((Response)=>{
-      
-        return Response.json()
-    }).then((data)=>{
-        console.log(data)
-        this.postData = data
+      credentials: 'include',
+    })
+      .then((Response) => Response.json())
+      .then((data) => {
+        console.log(data);
+        this.postData = data;
         return fetch("http://localhost:8080/user/name/" + data.id_creator, {
-          credentials: 'include'
-
-        }).then((Response)=>{
-          return Response.json()
-    }).then((data)=>{
-        this.markdown = this.sanitize(this.postData.text)
+          credentials: 'include',
+        });
+      })
+      .then((Response) => Response.json())
+      .then((data) => {
+        this.markdown = this.sanitize(this.postData.text);
         this.creator = data.username;
-        let div = document.querySelector("#fichiers")
-        for (let i = 0; i < Object.keys(this.postData).length -13; i++){
-          let ext = this.postData[i].split('.').pop()
-          if (ext == "png")
-          {
-            let fichier = document.createElement("img")
-            fichier.width = 400
-            fichier.height = 400
-            fichier.src = "http://localhost:8080/data/" + this.postData.id_post + "/" + this.postData[i]
-            div.appendChild(fichier)
-          }
-          else
-          {
-            let fichier = document.createElement("iframe")
-            fichier.height = 700
-            fichier.src = "http://localhost:8080/data/" + this.postData.id_post + "/" + this.postData[i]
-            fichier.classList.add("file-iframe");
-            div.appendChild(fichier)
+        let div = document.querySelector("#fichiers");
+        for (let i = 0; i < Object.keys(this.postData).length - 13; i++) {
+          let ext = this.postData[i].split('.').pop();
+          if (ext == 'png') {
+            let fichier = document.createElement('img');
+
+            fichier.src = "http://localhost:8080/data/" + this.postData.id_post + "/" + this.postData[i];
+            div.appendChild(fichier);
+          } else {
+            let fichier = document.createElement('iframe');
+            fichier.height = 700;
+            fichier.src = "http://localhost:8080/data/" + this.postData.id_post + "/" + this.postData[i];
+            fichier.classList.add('file-iframe');
+            div.appendChild(fichier);
           }
         }
-    })
-    })
+      });
   },
 };
 </script>
 
 <style scoped>
-#post{
-  margin-top: 10%;
-  margin-left: 10%
+#post {
+  margin: 5% 5%;
+  /* Ajustez selon vos besoins */
 }
 
-#fichiers {
-  display: flex;
+.post-header {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.post-header h3 {
+  margin: 0;
+}
+
+.post-content {
+  margin-top: 20px;
+}
+
+.file-list {
+  display: none;
   flex-direction: column;
+  margin-top: 20px;
+  
 }
 
-/* Ajoutez une règle pour la classe "file-iframe" */
 .file-iframe {
-  max-width: 100%; /* Définissez la largeur maximale à 100% */
+  max-width: 100%;
+  margin-bottom: 10px;
 }
+
 </style>
