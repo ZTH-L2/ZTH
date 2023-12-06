@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import MajorComp from "./MajorComp.vue";
+
 </script>
 
 <template>
@@ -10,15 +12,7 @@ import { ref } from "vue";
       <button @click="$emit('SideBarCloseMenu')">Close</button>
     </div>
     <!-- BODY -->
-    <div class="sidebar-body-menu">
-      <nav>
-        <ul>
-          <li>Ex 1</li>
-          <li>Ex 2</li>
-          <li>Ex 3</li>
-        </ul>
-      </nav>
-    </div>
+    <MajorComp></MajorComp>
   </div>
 </template>
 
