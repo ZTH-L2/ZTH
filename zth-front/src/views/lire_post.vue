@@ -9,6 +9,9 @@
         >
           {{ creator }}
         </router-link>
+        <button class="modifier-button">
+          <router-link :to="{ name: 'ecrire_post', params: { id: postData.id_post}}"> Modifier</router-link>
+        </button>
       </h3>
     </div>
 
@@ -132,7 +135,9 @@ export default {
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
-
+.modifier-button{
+  float: right;
+}
 .post-header h3 {
   margin: 0;
 }

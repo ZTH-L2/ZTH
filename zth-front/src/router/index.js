@@ -27,6 +27,11 @@ const router = createRouter({
       path: '/profil/:id/:username', // Correction ici
       name: 'profil',
       component: () => import('../views/profil.vue')
+    },
+    {
+      path: '/ecrire_post/:id', // Correction ici
+      name: 'ecrire_post',
+      component: () => import('../views/ecrire_post.vue')
     }
   ]
 });

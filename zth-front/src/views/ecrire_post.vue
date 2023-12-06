@@ -1,10 +1,8 @@
 <template>
-  <!--<p> {{ postData }} </p>-->
-
   <div id='mainContent'>
     <div v-if="creator">
-      <h3> {{ postData.title }} </h3>
-      <h3> {{ creator }} </h3>
+      <h3>{{ postData.title }}</h3>
+      <h3>{{ creator }}</h3>
 
       <div id="content">
         <div id="write">
@@ -14,25 +12,22 @@
           <div v-html="markdown"></div>
         </div>
       </div>
-	  
-      <h2>
-          Fichier disponible:
-        </h2>
+
+      <h2>Fichier disponible:</h2>
       <div v-for="(item, index) in listeFichier" :key="index">
-        <a :href="`http://localhost:8080/data/${this.postData['id_post']}/${item}`"> {{ item }} </a> <!-- Changer URL -->
+        <div class="file-link">
+          <a :href="`http://localhost:8080/data/${this.postData['id_post']}/${item}`">{{ item }}</a>
+          <p @click="Supprime(item)">X</p>
+        </div>
       </div>
 
       <div class="button">
-        
         <button type="button" @click="Envoie()">Save</button>
-
-        <input type="file" id="inputTest" multiple/>
+        <input type="file" id="inputTest" multiple />
         <button type="button" @click="testEnvoieFichier()">Envoyer fichier externe</button>
       </div>
-
     </div>
   </div>
-
 </template>
 
 <script>
@@ -54,6 +49,22 @@ export default {
     };
   },
   methods: {
+    Supprime(fichier){
+        fetch("http://localhost:8080/post/file/"+ this.postData["id_post"] + "/" + fichier, { 
+          credentials: 'include'
+        }).then((Response)=>{
+          return fetch("http://localhost:8080/post/" + this.$route.params.id, {credentials: 'include'});
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.postData = data; // Mettre à jour postData avec les nouvelles données
+      this.listeFichier = Object.keys(this.postData)
+      .filter(key => !isNaN(key))
+      .map(key => this.postData[key]);
+    })
+    .then( (_) => {console.log('yop');} )
+    .catch(error => console.error('Error:', error));
+    },
     Envoie() {
       const formData = new FormData();
       formData.append('id_post', this.postData["id_post"]);
@@ -64,6 +75,7 @@ export default {
 
       fetch("http://localhost:8080/post/put", { 
         method: "POST",
+        credentials: 'include',
         body: formData
       });
     },
@@ -86,14 +98,15 @@ export default {
   }
 
   console.log(formData);
-  fetch("http://localhost:8080/post/put", { 
+  fetch("http://localhost:8080/post/put", {
     method: "POST",
+    credentials: 'include',
     body: formData
   })
   .then(response => response.text())
   .then(data => { 
     console.log(data);
-    return fetch("http://localhost:8080/post/" + this.$route.params.id);
+    return fetch("http://localhost:8080/post/" + this.$route.params.id, {credentials: 'include'});
   })
   .then(response => response.json())
   .then(data => {
@@ -128,9 +141,10 @@ export default {
     }
   },
   created() {
-    fetch("http://localhost:8080/post/" + this.$route.params.id).then((Response)=>{
+    fetch("http://localhost:8080/post/" + this.$route.params.id, {credentials: 'include'}).then((Response)=>{
       return Response.json()
     }).then((data)=>{
+      console.log(data)
       this.postData = data
       this.markdown = this.sanitize(this.postData["text"])
       this.source = this.markdown
@@ -138,7 +152,7 @@ export default {
       .filter(key => !isNaN(key))
       .map(key => this.postData[key]);
 
-      return fetch("http://localhost:8080/user/name/" + data.id_creator).then((Response)=>{
+      return fetch("http://localhost:8080/user/name/" + data.id_creator, {credentials: 'include'}).then((Response)=>{
         return Response.json()
       }).then((data)=>{
         this.creator = data.username;
@@ -153,22 +167,86 @@ export default {
 </script>
 
 <style scoped>
-object {
-  width: 100%;
+#mainContent {
+  margin: 20px;
 }
-#content{
+
+h3 {
+  color: #333;
+}
+
+#content {
   display: flex;
   padding-bottom: 3em;
 }
-#read{
+
+#read {
   width: 50%;
+  padding-right: 1em;
+  padding-left: 10px;
 }
+
 textarea {
-    width: 90%;
-    height: 100%;
-    resize: none;
+  width: 100%;
+  height: 300px; /* Ajustez selon vos besoins */
+  resize: none;
 }
-#write{
+
+#write {
   width: 50%;
+}
+
+.button {
+  margin-top: 1em;
+}
+
+button {
+  padding: 0.5em 1em;
+  margin-right: 0.5em;
+  cursor: pointer;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  color: red;
+  cursor: pointer;
+  margin-left: 0.5em;
+}
+
+p:hover {
+  text-decoration: underline;
+}
+
+.file-link {
+  display: flex;
+  align-items: center;
+}
+
+
+.file-link p {
+  margin-left: 1em;
+  cursor: pointer;
+  color: red;
+
+}
+
+.file-link p:hover {
+  text-decoration: underline;
 }
 </style>
