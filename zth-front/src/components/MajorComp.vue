@@ -4,7 +4,7 @@
       <button @click="toggleSection(button.name)">
         {{ button.label }}
       </button>
-      <CoursesComp v-if="isActive(button.name)">></CoursesComp>
+      <CoursesComp v-if="isActive(button.name)" id="button.name">></CoursesComp>
     </div>
     </div>
   </template>
@@ -14,13 +14,9 @@
   import { useUrlStore } from "./../stores/url";
 
   import { ref } from "vue";
-import TheNavbar from "./TheNavbar.vue";
 const urlStore = useUrlStore();
 
-  const buttons = ref([
-    {name: "section1", label: "Ex 1"}
-    // Ajoutez d'autres boutons avec le même schéma au besoin
-  ]);
+  const buttons = ref([]);
   
   const activeSections = ref([]);
   
@@ -34,13 +30,15 @@ const urlStore = useUrlStore();
   
   
   const isActive = (section) => activeSections.value.includes(section);
-  let matieres = fetch(urlStore.api + "/subscription/user" , {credentials: 'include'}).then((Reponse)=>{
+  
+  fetch(urlStore.api + "/subscription/user" , {credentials: 'include'}).then((Response)=>{
     console.log(Response)
     return Response.json()
   }).then((data)=>{
-    console.log(data)
-    
+    data.forEach(button => {buttons.value.push({name: button.id_major, label: button.year + "-" + button.major_name})})
+    console.log(buttons.value)
   })
+  
 
   </script>
   

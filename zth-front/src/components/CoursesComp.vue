@@ -15,9 +15,16 @@
     </div>
   </template>
   
+
+
+
+
   <script setup>
   import { ref } from "vue";
-  
+  import { useUrlStore } from "./../stores/url";
+
+  const urlStore = useUrlStore();
+
   const buttons = ref([
     {name: "1", label: "MATH301"},
     {name: "2", label: "MATH302"}
@@ -33,8 +40,16 @@
     }
   };
   
-  
   const isActive = (section) => activeSections.value.includes(section);
+
+  fetch(urlStore.api + "/majors_courses_link/major/" + id, {credentials: 'include'}).then((Response)=>{
+    console.log(Response)
+    return Response.json()
+  }).then((data)=>{
+    console.log(data.value)
+  })
+
+
   </script>
   
   <style>
