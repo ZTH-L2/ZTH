@@ -25,10 +25,7 @@
 
   const urlStore = useUrlStore();
   const props = defineProps(["id"]);
-  const buttons = ref([
-    {name: "1", label: "MATH301"},
-    {name: "2", label: "MATH302"}
-  ]);
+  const buttons = ref([]);
   
   const activeSections = ref([]);
   
@@ -46,29 +43,29 @@
     console.log(Response)
     return Response.json()
   }).then((data)=>{
-    console.log(data)
+    data.forEach(button => {buttons.value.push({name: button.id_course, label: button.course_name})})
   })
-
-
   </script>
   
-  <style>
-  .sidebar-menu {
-    height: 100%;
-    z-index: 100;
-    width: 15rem;
-    background-color: #ffffff;
-  }
+<style scoped>
+
+
+/* Dropdown button */
+
+
+button {
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
   
-  .sidebar-header-menu {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 4rem;
-  }
-  
-  .sidebar-body-menu {
-    margin-top: 10px;
-  }
+}
+button:hover{
+  background-color: red;
+}
   </style>
   

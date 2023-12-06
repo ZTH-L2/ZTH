@@ -40,25 +40,23 @@ const urlStore = useUrlStore();
   })
   
 
-  </script>
+</script>
   
-  <style>
-  .sidebar-menu {
-    height: 100%;
-    z-index: 100;
-    width: 15rem;
-    background-color: #ffffff;
+<style scoped>
+
+  button {
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial;
+    
   }
-  
-  .sidebar-header-menu {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 4rem;
+  button:hover{
+    background-color: red;
   }
-  
-  .sidebar-body-menu {
-    margin-top: 10px;
-  }
-  </style>
+</style>
   
