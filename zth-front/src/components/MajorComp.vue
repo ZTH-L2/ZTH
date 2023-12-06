@@ -34,7 +34,7 @@ const urlStore = useUrlStore();
   
   
   const isActive = (section) => activeSections.value.includes(section);
-  let matieres = fetch(urlStore.api + "/subscription/user").then((Reponse)=>{
+  let matieres = fetch(urlStore.api + "/subscription/user" , {credentials: 'include'}).then((Reponse)=>{
     console.log(Response)
     return Response.json()
   }).then((data)=>{
