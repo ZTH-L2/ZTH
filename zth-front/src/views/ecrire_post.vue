@@ -51,6 +51,7 @@ export default {
   methods: {
     Supprime(fichier){
         fetch("http://localhost:8080/post/file/"+ this.postData["id_post"] + "/" + fichier, { 
+          method: 'DELETE',
           credentials: 'include'
         }).then((Response)=>{
           return fetch("http://localhost:8080/post/" + this.$route.params.id, {credentials: 'include'});
