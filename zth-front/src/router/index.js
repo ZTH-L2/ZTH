@@ -32,8 +32,20 @@ const router = createRouter({
       path: '/ecrire_post/:id', // Correction ici
       name: 'ecrire_post',
       component: () => import('../views/ecrire_post.vue')
+    },
+    {
+      path: "/",
+      name: "home",
+      component: () => import("../views/HomePage.vue"),
+    },
+    {
+      path: "/filiere",
+      name: "filiere",
+      component: () => import("../views/MajorPage.vue"),
     }
   ]
+  
+    
 });
 
 export default router;

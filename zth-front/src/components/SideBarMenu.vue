@@ -1,0 +1,36 @@
+<script setup>
+import { ref } from "vue";
+import MajorComp from "./MajorComp.vue";
+
+</script>
+
+<template>
+  <div class="sidebar-menu">
+    <!-- HEADER -->
+    <div class="sidebar-header-menu">
+      HEADER
+      <button @click="$emit('SideBarCloseMenu')">Close</button>
+    </div>
+    <!-- BODY -->
+    <MajorComp></MajorComp>
+  </div>
+</template>
+
+<style>
+.sidebar-menu {
+  height: 100%;
+  z-index: 100;
+  width: 15rem;
+  background-color: #ffffff;
+}
+
+.sidebar-header-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 4rem;
+}
+
+/* .sidebar-body-menu {
+} */
+</style>
