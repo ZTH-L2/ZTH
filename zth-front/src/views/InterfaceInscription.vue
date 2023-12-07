@@ -132,41 +132,25 @@
 
 <style>
 
-    body:not(img) {
+    body {
         font-family: system-ui;
         text-align: center;
         justify-content: center;
         margin:2%;
     }
 
+
     #titre {
         margin-top: 15%;
     }
+    
 
-
-    img {
-        /* width: 30%;
-        text-align: left;
-        display: flex;
-        padding: 10px 12px; */
-      
-        position: absolute;
-        width: 10%;
-        text-align: left;
-        display: flex;
-        left: 0%;
-        min-width: 30px;
-        max-width: 70px;
-        margin-right: 15%;
-    }
-      
     #menu {
       display: inline-block;
       overflow: hidden;
       white-space: nowrap;
       margin-bottom: 5%;
     }
-
 
 
     #sinscrire, #seconnecter, #autre {
@@ -188,7 +172,6 @@
     }
 
 
-
     input {
         width: 20%;
         padding: 12px 20px;
@@ -200,6 +183,7 @@
         border-width: 2;
         margin: 2%;
     }
+
 
     h1 {
         color: #333333;
@@ -214,17 +198,13 @@
         touch-action: manipulation;
     }
 
+
     div#authentification {
         border: 2px solid;
         padding: 2%;
         border-radius: 20px;
         border-width: border-box;
     }
-
-    /* body {
-        background-image: url("source/background.webp");
-        background-size: cover;
-    } */
 
 
     button#autre {
