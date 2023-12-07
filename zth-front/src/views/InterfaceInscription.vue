@@ -23,21 +23,6 @@
 <template>
 
     <div>
-        <!-- <label for="mail">mail :</label>
-        <input type="email" id="mail" name="mail" required minlength="4" maxlength="500" size="20" />
-
-        <br>
-
-        <label for="mdp">mot de passe (8 caractères minimum) :</label>
-        <input type="password" id="mdp" name="mdp" minlength="8" required />
-
-        <br>
-
-        <input type="submit" value="se connecter" /> -->
-
-
-
-
         <form
             id="authentification"
             @submit="checkForm"
@@ -88,8 +73,6 @@
                 >
             </p>
 
-            {{ val }}
-
             <p>
                 <input
                 type="submit"
@@ -98,14 +81,9 @@
                 >
             </p>
 
-            
-
         </form>
 
-
         <button id="autre">se connecter</button>
-
-
 
     </div>
 

@@ -23,66 +23,54 @@
 <template>
 
     <div>
-            <!-- <label for="mail">mail :</label>
-            <input type="email" id="mail" name="mail" required minlength="4" maxlength="500" size="20" />
+        <form
+            id="authentification"
+            @submit="checkForm"
+            action="http://localhost:8080/user/login"
+            method="post"
+            >
 
-            <br>
+            <p v-if="errors.length">
+                <ul>
+                <li v-for="error in errors">{{ error }}</li>
+                </ul>
+            </p>
 
-            <label for="mdp">mot de passe (8 caractères minimum) :</label>
-            <input type="password" id="mdp" name="mdp" minlength="8" required />
-
-            <br>
-
-            <input type="submit" value="se connecter" /> -->
-
-            <form
-                id="authentification"
-                @submit="checkForm"
-                action="http://localhost:8080/user/login"
-                method="post"
+            <p>
+                <label for="mail">nom d'utilisateur ou mail :</label>
+                <br>
+                <input
+                id="num"
+                v-model="num"
+                type="text"
+                name="num"
                 >
+            </p>
 
-                <p v-if="errors.length">
-                    <ul>
-                    <li v-for="error in errors">{{ error }}</li>
-                    </ul>
-                </p>
+            <p>
+                <label for="mdp">mot de passe :</label>
+                <br>
+                <input
+                id="mdp"
+                v-model="mdp"
+                type="password"
+                name="mdp"
+                min="5"
+                max="20"
+                >
+            </p>
 
-                <p>
-                    <label for="mail">nom d'utilisateur ou mail :</label>
-                    <br>
-                    <input
-                    id="num"
-                    v-model="num"
-                    type="text"
-                    name="num"
-                    >
-                </p>
+            <p>
+                <input
+                type="submit"
+                value="se connecter"
+                id="seconnecter"
+                >
+            </p>
 
-                <p>
-                    <label for="mdp">mot de passe :</label>
-                    <br>
-                    <input
-                    id="mdp"
-                    v-model="mdp"
-                    type="password"
-                    name="mdp"
-                    min="5"
-                    max="20"
-                    >
-                </p>
+        </form>
 
-                <p>
-                    <input
-                    type="submit"
-                    value="se connecter"
-                    id="seconnecter"
-                    >
-                </p>
-
-            </form>
-
-            <button id="autre">s'inscrire</button>
+        <button id="autre">s'inscrire</button>
 
     </div>
 
