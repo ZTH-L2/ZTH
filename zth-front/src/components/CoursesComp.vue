@@ -60,9 +60,10 @@ button {
   padding: 14px 16px;
   text-decoration: none;
   overflow: hidden;
-  background-color: #333;
+  background-color: grey;
   font-family: Arial;
-  
+  width: 100%
+
 }
 button:hover{
   background-color: red;

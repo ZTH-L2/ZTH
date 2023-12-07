@@ -53,6 +53,8 @@ const urlStore = useUrlStore();
     overflow: hidden;
     background-color: #333;
     font-family: Arial;
+    width: 100%
+
     
   }
   button:hover{
