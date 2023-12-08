@@ -1,6 +1,5 @@
 <template>
     <div class="affichage">
-        <h1> mes posts : </h1>
         <Posts></Posts>
     </div>
 </template>
