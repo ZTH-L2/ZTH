@@ -5,11 +5,10 @@
                 {{ button.label }}
             </button>
             <ul v-if="isActive(button.name)">
-                <li>CM</li>
-                <li>TD</li>
-                <li>TP</li>
-                <li>EXAM</li>
-
+                <li><router-link @click="chargerCourse(button.name, 'cm')" :to="{ name: 'voir_post', params: { id_course: button.name, category: 'cm' }}" >CM</router-link></li>
+                <li><router-link @click="chargerCourse(button.name, 'td')"  :to="{ name: 'voir_post', params: { id_course: button.name, category: 'td' }}" >TD</router-link></li>
+                <li><router-link @click="chargerCourse(button.name, 'tp')"  :to="{ name: 'voir_post', params: { id_course: button.name, category: 'tp' }}" >TP</router-link></li>
+                <li><router-link @click="chargerCourse(button.name, 'exam')"  :to="{ name: 'voir_post', params: { id_course: button.name, category: 'exam' }}">EXAM</router-link></li>
             </ul>
         </div>
     </div>
@@ -22,13 +21,15 @@
   <script setup>
   import { ref } from "vue";
   import { useUrlStore } from "./../stores/url";
-
+  import { useCourseStore } from "./../stores/course";
+  const courseStore = useCourseStore();
   const urlStore = useUrlStore();
+
+
   const props = defineProps(["id"]);
   const buttons = ref([]);
-  
-  const activeSections = ref([]);
-  
+
+  const activeSections = ref([]);  
   const toggleSection = (section) => {
     if (activeSections.value.includes(section)) {
       activeSections.value = activeSections.value.filter((s) => s !== section);
@@ -38,7 +39,10 @@
   };
   
   const isActive = (section) => activeSections.value.includes(section);
-
+  function chargerCourse(id_course, category){
+    courseStore.id_course = id_course
+    courseStore.category = category
+  }
   fetch(urlStore.api + "/majors_courses_link/major/" + props.id, {credentials: 'include'}).then((Response)=>{
     console.log(Response)
     return Response.json()
