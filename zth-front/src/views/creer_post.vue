@@ -15,7 +15,7 @@ import { useUserStore } from "./../stores/user";
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const userStore = useUserStore();
-console.log("l'id de l'utilisateur est : ", userStore.user)
+console.log("l'id de l'utilisateur est : ", userStore.user.id_user)
 const titre = ref(null)
 const id_post = ref(null)
 const id_course = ref(null)
@@ -27,7 +27,7 @@ async function envoi(){
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: 'include',
         body: JSON.stringify({
-	    "id_creator": userStore.user,
+	    "id_creator": userStore.user.id_user,
         "id_course": id_course.value,
         "title": titre.value,
         "category":category.value,

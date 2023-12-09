@@ -1,12 +1,45 @@
 <script setup>
 import { useUrlStore } from "../stores/url";
 import { useUserStore } from "../stores/user";
+import { ref } from "vue";
 
 const props = defineProps(["id", "name", "year"]);
 // See if user is subscribe to
 const urlStore = useUrlStore();
 const userStore = useUserStore();
+const sub = ref(0)
+async function isSub(){
+  return await fetch("http://localhost:8080/subscription/user/" + props.id, {
+    credentials: 'include'
+  }).then((Response)=>{
+    return Response.json()
+  }).then((data)=>{
+    sub.value = data
+    console.log(sub.value)
 
+  })
+}
+isSub()
+
+
+async function desabonne(){
+  await fetch(urlStore.api + "/subscription/delete/user/" + props.id, {
+  credentials: 'include'
+  })
+  sub.value = false
+}
+
+async function abonne(){
+  await fetch(urlStore.api + "/subscription", {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    credentials: 'include',
+    body: JSON.stringify({
+	  "id_user": userStore.user.id_user,
+    "id_major": props.id
+  })
+})
+  sub.value = true
+}
 // TO DO :
 
 // Ceci pourrait etre fait dans un store.
@@ -17,6 +50,11 @@ const userStore = useUserStore();
 <template>
   <div>
     <p>{{ props.year }} - {{ props.name }}</p>
+    <button @click="abonne" v-if="!sub">S'abonner</button>
+    <button @click="desabonne" v-else>Se désabonner</button>
   </div>
 </template>
-<style></style>
+
+
+<style scoped>
+</style>
