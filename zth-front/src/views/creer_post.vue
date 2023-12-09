@@ -1,12 +1,12 @@
 <template>
-    <div>
-        Créer un post
-        <div>
-            <input v-model="titre" placeholder="titre du post" />
-            <button @click="envoi()">valider</button>
-        </div>
+    <div class="affichage center-container">
+      <h1>Créer un post</h1>
+      <div>
+        <input v-model="titre" placeholder="Titre du post" class="custom-input" />
+        <button @click="envoi()" class="custom-button">Valider</button>
+      </div>
     </div>
-</template>
+  </template>
 
 <script setup>
 import { ref, watch, computed } from 'vue'
@@ -53,5 +53,34 @@ watch(flag, () => {
 </script>
 
 <style scoped>
+.center-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+.custom-input {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.custom-button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: #45a049;
+}
 </style>

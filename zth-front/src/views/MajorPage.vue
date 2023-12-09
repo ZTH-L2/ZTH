@@ -53,31 +53,34 @@ const majorsFiltered = computed(() => {
     );
 });
 </script>
+
 <template>
   <div>
-    <input
-      type="text"
-      v-model="filterName"
-      placeholder="Filtrer par nom de filière"
-    />
+    <div class="header">
+      <input
+        type="text"
+        v-model="filterName"
+        placeholder="Filtrer par nom de filière"
+      />
 
-    <p v-if="nbPages>0">Page: {{ currentPage + 1 }}/{{ nbPages }}</p>
-    <p v-else>Page: 1/1</p>
-    <button @click="nextPage">Page suivante</button>
-    <button @click="previousPage">Page précédente</button>
+      <p v-if="nbPages > 0">Page: {{ currentPage + 1 }}/{{ nbPages }}</p>
+      <p v-else>Page: 1/1</p>
+      <button @click="nextPage">Page suivante</button>
+      <button @click="previousPage">Page précédente</button>
 
-    <select v-model="filterYear">
-      <option disabled value="">Année</option>
-      <option value="">Toutes</option>
-      <option>L1</option>
-      <option>L2</option>
-      <option>L3</option>
-      <option>M1</option>
-      <option>M2</option>
-    </select>
+      <select v-model="filterYear">
+        <option disabled value="">Année</option>
+        <option value="">Toutes</option>
+        <option>L1</option>
+        <option>L2</option>
+        <option>L3</option>
+        <option>M1</option>
+        <option>M2</option>
+      </select>
+    </div>
     <div v-if="loading">Loading</div>
     <div v-else class="majors">
-      <div v-for="major in majorsFiltered">
+      <div v-for="major in majorsFiltered" :key="major.id_major">
         <MajorItem
           :id="major.id_major"
           :name="major.name"
@@ -87,15 +90,23 @@ const majorsFiltered = computed(() => {
     </div>
   </div>
 </template>
+
 <style>
 .majors {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  gap: 20px; /* Ajout d'un espacement entre les éléments */
+  place-items: center; /* Centrage des éléments */
 }
 
+.header {
+  margin-bottom: 20px;
+}
+
+
 .majors div {
-  height: 10rem;
-  background-color: rgb(156, 104, 156);
+  background-color: rgb(186, 134, 186); /* Couleur de fond légèrement modifiée */
+  padding: 20px; /* Ajout de rembourrage pour un look plus esthétique */
 }
 </style>

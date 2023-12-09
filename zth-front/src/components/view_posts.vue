@@ -1,13 +1,19 @@
 
-<template> 
-  <div v-if="title">
+<template>
+  <div v-if="title" class="posts-container">
     <h2>Posts de {{ title }} :</h2>
-    <router-link :to="{ name: 'creer_post', params: { id_course: id_course, category: category }}" class="router-link-button">Creer un post</router-link>
-    <div id="mesPosts">   
-        <Post v-for="post in posts" :id_post= "post[0]" :titre="post[2]" :createur="post[1]" :note="post[4]" :nbr_note="post[5]"></Post>
+    <div class="header">
+
+      <router-link :to="{ name: 'creer_post', params: { id_course: id_course, category: category }}" class="router-link-button">
+        Creer un post
+      </router-link>
+    </div>
+    <div id="mesPosts">
+      <Post v-for="post in posts" :key="post[0]" :id_post="post[0]" :titre="post[2]" :createur="post[1]" :note="post[4]" :nbr_note="post[5]" />
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, watch, computed } from 'vue'
@@ -58,5 +64,28 @@ watch(flag, () => {
 </script>
 
 <style scoped>
+.posts-container {
+  display: flex;
+  flex-direction: column;
+}
 
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.router-link-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin-bottom: 30px;
+}
+
+.router-link-button:hover {
+  background-color: #2980b9;
+}
 </style>

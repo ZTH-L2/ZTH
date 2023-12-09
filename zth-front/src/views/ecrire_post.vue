@@ -1,9 +1,10 @@
 <template>
   <div id='mainContent'>
-    <div v-if="creator">
-      <h3>{{ postData.title }}</h3>
-      <h3>{{ creator }}</h3>
-
+    <div v-if="creator" >
+      <div class="post-header">
+      <h3>titre : {{ postData.title }}</h3>
+      <h3>createur : {{ creator }}</h3>
+    </div>
       <div id="content">
         <div id="write">
           <textarea v-model="source"></textarea>
@@ -173,6 +174,13 @@ export default {
 </script>
 
 <style scoped>
+.post-header {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+}
+
 #mainContent {
   margin: 20px;
 }

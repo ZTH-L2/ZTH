@@ -49,7 +49,7 @@ data() {
 
 <style scoped>
 .affichage{
-  margin-top: 5%;
-  margin-left: 5%
+  margin-left: 1rem;
+  margin-top: 1rem;
 }
 </style>
