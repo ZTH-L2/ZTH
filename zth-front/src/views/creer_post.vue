@@ -15,7 +15,7 @@ import { useUserStore } from "./../stores/user";
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const userStore = useUserStore();
-console.log(userStore.user)
+console.log("l'id de l'utilisateur est : ", userStore.user)
 const titre = ref(null)
 const id_post = ref(null)
 const id_course = ref(null)
