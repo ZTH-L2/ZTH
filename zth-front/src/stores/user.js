@@ -6,7 +6,7 @@ export const useUserStore = defineStore("user", {
   }),
   getters: {
     isLoggedIn: (state) => state.user !== null,
-    isAdmin: (state) => state.user !== null && state.user.permission,
+    isAdmin: (state) => state.user !== null && state.user.permission == 1,
     id_user: (state) => state.user ? state.user.id_user : null,
     username: (state) => state.user ? state.user.username : null,
   },
