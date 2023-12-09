@@ -11,10 +11,10 @@ const nbPages = ref(0);
 const amountPerPage = ref(6);
 const filterName = ref("");
 const filterYear = ref("");
+
 async function get_all_majors() {
   loading.value = true;
-  console.log("store is", urlStore);
-  console.log("api", urlStore.api);
+
   let res = await fetch(urlStore.api + "/major").then((resp) => {
     return resp.json();
   });
@@ -26,6 +26,7 @@ async function get_all_majors() {
     });
   });
   nbPages.value = Math.ceil(majors.value.length / amountPerPage.value);
+
   loading.value = false;
 }
 
@@ -60,8 +61,8 @@ const majorsFiltered = computed(() => {
       placeholder="Filtrer par nom de filière"
     />
 
-    <p>Page: {{ currentPage + 1 }}/{{ nbPages }}</p>
-
+    <p v-if="nbPages>0">Page: {{ currentPage + 1 }}/{{ nbPages }}</p>
+    <p v-else>Page: 1/1</p>
     <button @click="nextPage">Page suivante</button>
     <button @click="previousPage">Page précédente</button>
 

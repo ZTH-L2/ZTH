@@ -21,7 +21,8 @@ async function envoi() {
 
       return Response.json().then((data)=>{
         console.log(data)
-        userStore.user = data.id_user
+        userStore.setUser(data)
+        //userStore.user = data.id_user
         username.value = ''
         password.value = ''
         console.log(userStore.user)

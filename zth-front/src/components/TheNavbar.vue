@@ -6,7 +6,7 @@ import SideBarMenu from "./SideBarMenu.vue";
 import SideBarMe from "./SideBarMe.vue";
 
 const userStore = useUserStore();
-
+userStore.init()
 const SideBarMenuState = ref(false);
 const SideBarMeState = ref(false);
 
@@ -20,6 +20,10 @@ function toogleSideBarMenu() {
 function toogleSideBarMe() {
   toogle(SideBarMeState);
 }
+function logout(){
+  toogleSideBarMe()
+  userStore.logout()
+}
 </script>
 
 <template>
@@ -31,7 +35,6 @@ function toogleSideBarMe() {
       </div>
 
       <RouterLink to="/" class="navElement">Home</RouterLink>
-
       <div class="navElement" v-if="!userStore.isLoggedIn">
         <RouterLink to="/connexion">Connexion</RouterLink>
       </div>
@@ -48,6 +51,7 @@ function toogleSideBarMe() {
       id="SideBarMe"
       v-if="SideBarMeState"
       @side-bar-close-me="toogleSideBarMe"
+      @logout="logout"
     ></SideBarMe>
   </div>
 </template>

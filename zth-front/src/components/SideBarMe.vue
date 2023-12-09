@@ -1,13 +1,18 @@
 <script setup>
 import { RouterLink } from "vue-router";
 import { ref } from "vue";
+import { useUserStore } from "../stores/user";
+
+const userStore = useUserStore();
+userStore.init()
+
 </script>
 
 <template>
   <div class="sidebar-me">
     <!-- HEADER -->
     <div class="sidebar-header-me">
-      HEADER
+      <p> {{  userStore.user.username }}</p>
       <button @click="$emit('SideBarCloseMe')">Close</button>
     </div>
     <!-- BODY -->
@@ -16,6 +21,12 @@ import { ref } from "vue";
         <ul>
           <li>
             <RouterLink to="/me">Me</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/" @click="$emit('logout')">Logout</RouterLink>
+          </li>
+          <li v-if="userStore.isAdmin">
+            Admin page
           </li>
         </ul>
       </nav>
