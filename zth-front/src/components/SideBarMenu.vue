@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import MajorComp from "./MajorComp.vue";
+import { useUserStore } from "./../stores/user";
+const userStore = useUserStore();
 
 </script>
 
@@ -12,7 +14,7 @@ import MajorComp from "./MajorComp.vue";
       <button @click="$emit('SideBarCloseMenu')">Close</button>
     </div>
     <!-- BODY -->
-    <MajorComp></MajorComp>
+    <MajorComp v-if="userStore.isLoggedIn"></MajorComp>
   </div>
 </template>
 

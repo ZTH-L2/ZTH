@@ -9,8 +9,21 @@
         >
           {{ creator }}
         </router-link>
-        <button class="modifier-button">
-          <router-link :to="{ name: 'ecrire_post', params: { id: postData.id_post}}"> Modifier</router-link>
+        <div class="note" v-if="creator">
+      <div>
+        <span class="note-label">Note:</span>
+        <span class="note-value">{{ postData.grade }}</span>
+        <div class="rating" v-if="userStore.user !== postData.id_creator">
+          <span v-if="!userRating" v-for="i in 5" :key="i" @click="noter(i) " :class="{ 'rated': i <= userRating }">&#9733;</span>
+        </div>
+      </div>
+      <div>
+        <span class="nbr-note-label">Nombre de notes:</span>
+        <span class="nbr-note-value">{{ postData.nb_note }}</span>
+      </div>
+    </div>
+        <button class="modifier-button" v-if="userStore.user.id_user == postData.id_creator">
+          <router-link :to="{ name: 'ecrire_post', params: { id: postData.id_post}}">Modifier</router-link>
         </button>
       </h3>
     </div>
@@ -18,18 +31,8 @@
     <div id="read" class="post-content" v-if="creator">
       <div v-html="markdown"></div>
     </div>
-    <div class="note" v-if="creator">
-      <div>
-        <span class="note-label">Note:</span>
-        <span class="note-value">{{ postData.grade }}</span>
-      </div>
-      <div>
-        <span class="nbr-note-label">Nombre de notes:</span>
-        <span class="nbr-note-value">{{ postData.nb_note }}</span>
-      </div>
-    </div>
     <div class="button" v-if="creator">
-      <button @click="montrer_cacher">Montrer/cacher les annexes</button>
+      <button @click="montrer_cacher" v-if="Object.keys(postData).length > 13">Montrer/cacher les annexes</button>
     </div>
     <div id="fichiers" class="file-list">
       <!-- Vos fichiers ici -->
@@ -42,7 +45,7 @@ import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import DOMPurify from 'dompurify';
 import { ref, computed, onMounted } from "vue";
-
+import { useUserStore } from "./../stores/user";
 import "highlight.js/styles/github.css";
 
 export default {
@@ -52,6 +55,8 @@ export default {
       creator: null,
       markdown: null,
       affichage: true,
+      userStore: useUserStore(),
+      userRating: false 
     };
   },
   methods: {
@@ -75,6 +80,25 @@ export default {
       const sanitizedHtml = DOMPurify.sanitize(htmlContent, { ADD_TAGS: ['object'], ADD_ATTR: ['data'] });
       return sanitizedHtml;
     },
+    async noter(rating){
+      await fetch("http://localhost:8080/grade/post",{
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        credentials: 'include',
+        body: JSON.stringify({
+	      "id_user": this.userStore.user.id_user,
+        "id_post": this.$route.params.id,
+        "grade": rating
+      })
+    }).then((Response)=>{
+        return Response.json()
+      }).then((data)=>{
+        console.log(data)
+        console.log(this.userStore.user.id_user)
+        this.postData.nb_note = data.nb_note
+        this.postData.grade = data.grade
+        this.userRating = true
+      })
+  },
     montrer_cacher() {
       let fichiers = document.getElementById("fichiers");
       this.affichage = !this.affichage;
@@ -117,6 +141,8 @@ export default {
             fichier.src = "http://localhost:8080/data/" + this.postData.id_post + "/" + this.postData[i];
             fichier.classList.add('file-iframe');
             div.appendChild(fichier);
+            
+
           }
         }
       });
@@ -134,6 +160,9 @@ export default {
   background-color: #f2f2f2;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .modifier-button{
   float: right;

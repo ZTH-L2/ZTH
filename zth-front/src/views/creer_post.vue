@@ -5,7 +5,6 @@
             <input v-model="titre" placeholder="titre du post" />
             <button @click="envoi()">valider</button>
         </div>
-    <router-link v-if=id_post  :to="{ name: 'ecrire_post', params: { id: id_post }}">Suivant</router-link>
     </div>
 </template>
 
@@ -15,9 +14,8 @@ import { useUserStore } from "./../stores/user";
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const userStore = useUserStore();
-console.log(userStore.user)
+console.log("l'id de l'utilisateur est : ", userStore.user.id_user)
 const titre = ref(null)
-const id_post = ref(null)
 const id_course = ref(null)
 const category = ref(null)
 id_course.value = route.params.id_course
@@ -27,7 +25,7 @@ async function envoi(){
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: 'include',
         body: JSON.stringify({
-	    "id_creator": userStore.user,
+	    "id_creator": userStore.user.id_user,
         "id_course": id_course.value,
         "title": titre.value,
         "category":category.value,
@@ -39,7 +37,8 @@ async function envoi(){
         return Response.json()
     }).then((data)=>{
         console.log(data)
-        this.id_post = data.id_post
+        document.location.href='http://localhost:5173/ecrire_post/' + data.id_post
+
     })
 }
 

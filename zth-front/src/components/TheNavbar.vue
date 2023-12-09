@@ -31,10 +31,9 @@ function logout(){
     <nav class="TheNavBar white-shadow">
       <div class="navElement">
         <button @click="toogleSideBarMenu">menu</button>
-        <h2>NoteSync</h2>
+        <h2><RouterLink to="/" class="navElement">NoteSync</RouterLink></h2>
       </div>
 
-      <RouterLink to="/" class="navElement">Home</RouterLink>
       <div class="navElement" v-if="!userStore.isLoggedIn">
         <RouterLink to="/connexion">Connexion</RouterLink>
       </div>
@@ -86,9 +85,15 @@ function logout(){
   top: 0px;
   left: 0px;
 }
+
 #SideBarMe {
   position: absolute;
   top: 0px;
   right: 0px;
+}
+
+.TheNavBar h2 a {
+  color: inherit; /* Utilise la couleur par défaut du texte */
+  text-decoration: none; /* Enlève le soulignement */
 }
 </style>

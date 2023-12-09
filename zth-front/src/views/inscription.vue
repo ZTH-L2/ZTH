@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
-
+import { useUserStore } from "./../stores/user";
+const userStore = useUserStore();
 const mail = ref("");
 const username = ref("");
 const password = ref("");
@@ -47,7 +48,22 @@ async function envoi() {
         }).then((Response) => {
           console.log("azezaeaz", Response);
           if (Response.status == "200") {
-            //redirection vers menu
+            fetch("http://localhost:8080/user/login", {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            credentials: 'include',
+            body: JSON.stringify({
+            "username": username.value,
+            "password": password.value   
+          })
+          }).then((Response)=>{
+            return Response.json().then((data)=>{
+              console.log(data)
+              userStore.setUser(data)
+              username.value = ''
+              password.value = ''
+              document.location.href='http://localhost:5173'
+            })
+          })
           } else {
             error.value = "erreur donnée incorrecte";
             username.value = "";
