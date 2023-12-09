@@ -25,7 +25,7 @@ async function envoi() {
         //userStore.user = data.id_user
         username.value = ''
         password.value = ''
-        console.log(userStore.user)
+        document.location.href='http://localhost:5173'
       })
     }
     else{

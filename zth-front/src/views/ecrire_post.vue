@@ -25,6 +25,8 @@
         <button type="button" @click="Envoie()">Save</button>
         <input type="file" id="inputTest" multiple />
         <button type="button" @click="testEnvoieFichier()">Envoyer fichier externe</button>
+        <button type="button" @click="publier()">Publier</button>
+
       </div>
     </div>
   </div>
@@ -64,6 +66,10 @@ export default {
     })
     .then( (_) => {console.log('yop');} )
     .catch(error => console.error('Error:', error));
+    },
+    async publier(){
+      await this.testEnvoieFichier()
+      document.location.href='http://localhost:5173'
     },
     Envoie() {
       const formData = new FormData();

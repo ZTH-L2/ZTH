@@ -31,18 +31,8 @@
     <div id="read" class="post-content" v-if="creator">
       <div v-html="markdown"></div>
     </div>
-    <div class="note" v-if="creator">
-      <div>
-        <span class="note-label">Note:</span>
-        <span class="note-value">{{ postData.grade }}</span>
-      </div>
-      <div>
-        <span class="nbr-note-label">Nombre de notes:</span>
-        <span class="nbr-note-value">{{ postData.nb_note }}</span>
-      </div>
-    </div>
     <div class="button" v-if="creator">
-      <button @click="montrer_cacher">Montrer/cacher les annexes</button>
+      <button @click="montrer_cacher" v-if="Object.keys(postData).length > 13">Montrer/cacher les annexes</button>
     </div>
     <div id="fichiers" class="file-list">
       <!-- Vos fichiers ici -->
