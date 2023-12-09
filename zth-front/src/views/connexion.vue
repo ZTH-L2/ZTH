@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import { useUserStore } from "./../stores/user";
+const userStore = useUserStore();
 
 const username = ref('')
 const password = ref('')
@@ -14,22 +16,23 @@ async function envoi() {
     
   })
   }).then((Response)=>{
-    return Response.json().then((data)=>{
-      console.log(data);
-    })
+    
     if (Response.status == "200"){
-      //redirection vers menu
-      username.value = ''
-      password.value = ''
 
+      return Response.json().then((data)=>{
+        console.log(data)
+        userStore.user = data.id_user
+        username.value = ''
+        password.value = ''
+        console.log(userStore.user)
+      })
     }
     else{
-      error.value = "erreur donnée incorrecte"
+      error.value = "erreur nom d'utilisateur ou mot de passe incorrecte"
       username.value = ''
       password.value = ''
     }
-  })
-
+    })
 }
 </script>
 

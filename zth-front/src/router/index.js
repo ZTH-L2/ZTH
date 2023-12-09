@@ -42,6 +42,11 @@ const router = createRouter({
       path: "/filiere",
       name: "filiere",
       component: () => import("../views/MajorPage.vue"),
+    },
+    {
+      path: "/creer_post/:id_course/:category",
+      name: "creer_post",
+      component: () => import("../views/creer_post.vue"),
     }
   ]
   
