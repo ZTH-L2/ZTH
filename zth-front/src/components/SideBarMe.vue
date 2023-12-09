@@ -26,7 +26,7 @@ userStore.init()
             <RouterLink to="/" @click="$emit('logout')">Logout</RouterLink>
           </li>
           <li v-if="userStore.isAdmin">
-            Admin page
+            <RouterLink to="/admin" @click="$emit('SideBarCloseMe')">page admin</RouterLink>
           </li>
         </ul>
       </nav>

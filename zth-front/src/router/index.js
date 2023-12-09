@@ -1,4 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useUserStore } from "../stores/user";
+
+
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,10 +52,25 @@ const router = createRouter({
       path: "/creer_post/:id_course/:category",
       name: "creer_post",
       component: () => import("../views/creer_post.vue"),
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: () => import("../views/AdminPage.vue")
     }
   ]
-  
-    
 });
+
+// protect admin route
+router.beforeEach(async (to, from) => {
+  const userStore = useUserStore()
+  userStore.init()
+  if (
+    !userStore.isAdmin && to.name == 'admin'
+  ) {
+    // redirect the user to the login page
+    return { name: 'connexion' }
+  }
+})
 
 export default router;
