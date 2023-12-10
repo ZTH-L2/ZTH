@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from '../stores/user';
+
 import UserAdmin from '../components/AdminUser/UserAdmin.vue'
 import PostAdmin from '../components/AdminPost/PostAdmin.vue'
 import MajorAdmin from '../components/AdminMajor/MajorAdmin.vue'
 import CourseAdmin from '../components/AdminCourse/CourseAdmin.vue'
 import MCLAdmin from '../components/AdminMCL/MCLAdmin.vue'
+
 
 const userStore = useUserStore()
 userStore.init()

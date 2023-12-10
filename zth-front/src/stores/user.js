@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null, 
@@ -12,11 +13,21 @@ export const useUserStore = defineStore("user", {
   },
   actions: {
     init() { 
-      let u = localStorage.getItem("user") 
+      let u = localStorage.getItem("user")
+      const route = useRouter();
+      // check if we had it for more than 20 min
+      if (u && Date.now() - JSON.parse(u)["time"] >= 20 * 60 * 1000)
+      {
+        localStorage.removeItem("user");
+        u = null;
+        route.push("/connexion");
+      }
+
       this.user = u ? JSON.parse(u) : null
     },
     setUser(data){
       this.user = data
+      this.user["time"] = Date.now()
       localStorage.setItem("user", JSON.stringify(this.user))
     },
     logout(){

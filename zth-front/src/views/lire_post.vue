@@ -38,8 +38,19 @@
     <div id="fichiers" class="file-list">
       <!-- Vos fichiers ici -->
     </div>
+
+    <!-- espace commentaire -->
+    <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post" ></CommentsComp>
+
+
   </div>
 </template>
+
+<!-- for comments -->
+<script setup>
+import CommentsComp from "../components/Comments/CommentsComp.vue"
+</script>
+
 <script>
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
@@ -56,7 +67,7 @@ export default {
       markdown: null,
       affichage: true,
       userStore: useUserStore(),
-      userRating: false 
+      userRating: false,
     };
   },
   methods: {
@@ -98,7 +109,7 @@ export default {
         this.postData.grade = data.grade
         this.userRating = true
       })
-  },
+    },
     montrer_cacher() {
       let fichiers = document.getElementById("fichiers");
       this.affichage = !this.affichage;
@@ -109,7 +120,7 @@ export default {
         fichiers.style.display = "flex"
       }
 
-    },
+    }
   },
   created() {
     fetch("http://localhost:8080/post/" + this.$route.params.id, {
