@@ -1,45 +1,45 @@
 <template>
   <div id="post">
     <div class="post-header" v-if="creator">
-      <h3>
-        {{ postData.title }} créé par :
-        <router-link
-          :to="{ name: 'profil', params: { id: postData.id_creator, username: creator }}"
-          class="creator-link"
-        >
-          {{ creator }}
-        </router-link>
-        <div class="note" v-if="creator">
-      <div>
-        <span class="note-label">Note:</span>
-        <span class="note-value">{{ postData.grade }}</span>
-        <div class="rating" v-if="userStore.user !== postData.id_creator">
-          <span v-if="!userRating" v-for="i in 5" :key="i" @click="noter(i) " :class="{ 'rated': i <= userRating }">&#9733;</span>
-        </div>
+      <div class="left-section">
+        <h3>{{ postData.title }} créé par :
+          <router-link
+            :to="{ name: 'profil', params: { id: postData.id_creator, username: creator }}"
+            class="creator-link"
+          >
+            {{ creator }}
+          </router-link>
+        </h3>
       </div>
-      <div>
-        <span class="nbr-note-label">Nombre de notes:</span>
-        <span class="nbr-note-value">{{ postData.nb_note }}</span>
-      </div>
-    </div>
+
+      <div class="right-section">
+        <h3>
+          <span v-if="!userRating" v-for="i in 5" :key="i" @click="noter(i)" class="note">&#9733;</span>
+        </h3>
+
+        <h3><span class="note-label">Note : {{ postData.grade }}</span></h3>
+
+        <h3><span class="nbr-note-label">Nombre de notes : {{ postData.nb_note }}</span></h3>
+
         <button class="modifier-button" v-if="userStore.user.id_user == postData.id_creator">
           <router-link :to="{ name: 'ecrire_post', params: { id: postData.id_post}}">Modifier</router-link>
         </button>
-      </h3>
+      </div>
     </div>
 
     <div id="read" class="post-content" v-if="creator">
       <div v-html="markdown"></div>
     </div>
+    
     <div class="button" v-if="creator">
       <button @click="montrer_cacher" v-if="Object.keys(postData).length > 13">Montrer/cacher les annexes</button>
     </div>
+    
     <div id="fichiers" class="file-list">
       <!-- Vos fichiers ici -->
     </div>
   </div>
 </template>
-
 <script>
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
@@ -162,29 +162,35 @@ export default {
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-.modifier-button{
-  float: right;
-}
-.post-header h3 {
-  margin: 0;
 }
 
-.post-content {
-  margin-top: 20px;
+.left-section {
+  width: 70%; /* Ajustez la largeur selon vos besoins */
+}
+
+.right-section {
+  width: 30%; /* Ajustez la largeur selon vos besoins */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modifier-button {
+  float: right;
+}
+
+.post-header h3 {
+  margin: 0;
 }
 
 .file-list {
   display: none;
   flex-direction: column;
   margin-top: 20px;
-  
 }
 
 .file-iframe {
   max-width: 100%;
   margin-bottom: 10px;
 }
-
 </style>
