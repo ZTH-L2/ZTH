@@ -19,29 +19,27 @@
 import { ref, watch, computed } from 'vue'
 import Post from './view_post.vue'
 import { useRoute } from 'vue-router'
+import { useUrlStore } from "../stores/url";
 
+const urlStore = useUrlStore();
 const title = ref(null)
 const posts = ref(null)
 const id_course = ref(null)
 const category = ref(null)
 
 async function chargerDonnee(id_course, category){
-  posts.value = await fetch("http://localhost:8080/post/" + id_course + "/" + category,{
+  posts.value = await fetch(urlStore.api + "/post/" + id_course + "/" + category,{
     credentials: 'include'
   }).then((Response)=>{
-      console.log(Response)
       return Response.json()
   }).then((data)=>{
-      console.log(data)
       return data
   })
-  title.value = await fetch("http://localhost:8080/course/name/" + id_course,{
+  title.value = await fetch(urlStore.api + "/course/name/" + id_course,{
     credentials: 'include'
   }).then((Response)=>{
-      console.log(Response)
       return Response.json()
   }).then((data)=>{
-      console.log(data)
       return data
 })
 }

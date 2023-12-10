@@ -50,7 +50,6 @@ const toggleSection = (section) => {
 const isActive = (section) => activeSections.value.includes(section);
 
 fetch(urlStore.api + "/majors_courses_link/major/" + props.id, { credentials: "include" }).then((Response) => {
-  console.log(Response);
   return Response.json();
 }).then((data) => {
   data.forEach((button) => {

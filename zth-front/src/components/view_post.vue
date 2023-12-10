@@ -19,16 +19,19 @@
 </template>
 
 <script>
+import { useUrlStore } from "../stores/url";
 export default {
   name: "Post",
   props: ["id_post", "titre", "createur", "note", "nbr_note"],
   data() {
     return {
       username: null,
+      urlStore: useUrlStore(),
+
     };
   },
   async created() {
-    this.username = await fetch("http://localhost:8080/user/name/" + this.createur, {
+    this.username = await fetch(this.urlStore.api + "/user/name/" + this.createur, {
       credentials: "include",
     })
       .then((Response) => {

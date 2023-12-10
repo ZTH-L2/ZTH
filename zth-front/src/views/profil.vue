@@ -21,18 +21,21 @@
   
   <script>
   import Post from './../components/view_post.vue';
-  
+  import { useUrlStore } from "../stores/url";
+
   export default {
     data() {
       return {
         postData: null,
+        urlStore: useUrlStore()
+
       };
     },
     components: {
       Post,
     },
     async created() {
-      fetch("http://localhost:8080/post/user/" + this.$route.params.id, {
+      fetch(this.urlStore.api + "/post/user/" + this.$route.params.id, {
         credentials: 'include',
       })
         .then((Response) => Response.json())

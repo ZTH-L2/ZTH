@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import { useUserStore } from "./../stores/user";
 const userStore = useUserStore();
+import { useUrlStore } from "../stores/url";
+
+const urlStore = useUrlStore();
 const mail = ref("");
 const username = ref("");
 const password = ref("");
@@ -29,7 +32,7 @@ async function envoi() {
   } else if (!validatePassword(password.value)) {
     error.value = "Entrez un mot de passe valide";
   } else {
-    await fetch("http://localhost:8080/user/register", {
+    await fetch(urlStore.api + "/user/register", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       body: JSON.stringify({
         username: username.value,
@@ -37,18 +40,16 @@ async function envoi() {
         password: password.value,
       }),
     }).then((Response) => {
-      console.log(Response);
       if (Response.status == "201") {
-        fetch("http://localhost:8080/user/login", {
+        fetch(urlStore.api + "/user/login", {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           body: JSON.stringify({
             username: username.value,
             password: password.value,
           }),
         }).then((Response) => {
-          console.log("azezaeaz", Response);
           if (Response.status == "200") {
-            fetch("http://localhost:8080/user/login", {
+            fetch(urlStore.api + "/user/login", {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             credentials: 'include',
             body: JSON.stringify({
@@ -57,7 +58,6 @@ async function envoi() {
           })
           }).then((Response)=>{
             return Response.json().then((data)=>{
-              console.log(data)
               userStore.setUser(data)
               username.value = ''
               password.value = ''

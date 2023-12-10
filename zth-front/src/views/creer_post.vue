@@ -2,7 +2,7 @@
     <div class="affichage center-container">
       <h1>Créer un post</h1>
       <div>
-        <input v-model="titre" placeholder="Titre du post" class="custom-input" />
+        <input v-model="titre" placeholder="Titre du post" class="custom-input" required/>
         <button @click="envoi()" class="custom-button">Valider</button>
       </div>
     </div>
@@ -12,16 +12,19 @@
 import { ref, watch, computed } from 'vue'
 import { useUserStore } from "./../stores/user";
 import { useRoute } from 'vue-router'
+import { useUrlStore } from "../stores/url";
+
+const urlStore = useUrlStore();
 const route = useRoute()
 const userStore = useUserStore();
-console.log("l'id de l'utilisateur est : ", userStore.user.id_user)
-const titre = ref(null)
+const titre = ref("")
 const id_course = ref(null)
 const category = ref(null)
 id_course.value = route.params.id_course
 category.value = route.params.category
 async function envoi(){
-    await fetch("http://localhost:8080/post",{
+  if (titre.value!=""){
+    await fetch(urlStore.api + "/post",{
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: 'include',
         body: JSON.stringify({
@@ -36,10 +39,10 @@ async function envoi(){
     }).then((Response)=>{
         return Response.json()
     }).then((data)=>{
-        console.log(data)
         document.location.href='http://localhost:5173/ecrire_post/' + data.id_post
 
     })
+  }
 }
 
 const flag = computed(()=>{

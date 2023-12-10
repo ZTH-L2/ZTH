@@ -1,13 +1,15 @@
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from "./../stores/user";
+import { useUrlStore } from "../stores/url";
+
+const urlStore = useUrlStore();
 const userStore = useUserStore();
 
 const username = ref('')
 const password = ref('')
 async function envoi() {
-  console.log(username.value, password.value)
-  await fetch("http://localhost:8080/user/login", {
+  await fetch(urlStore.api + "/user/login", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     credentials: 'include',
     body: JSON.stringify({
@@ -20,7 +22,6 @@ async function envoi() {
     if (Response.status == "200"){
 
       return Response.json().then((data)=>{
-        console.log(data)
         userStore.setUser(data)
         //userStore.user = data.id_user
         username.value = ''

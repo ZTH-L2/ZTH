@@ -2,7 +2,8 @@
   <div id="post">
     <div class="post-header" v-if="creator">
       <div class="left-section">
-        <h3>{{ postData.title }} créé par :
+        <h3>
+          {{ postData.title }} créé par :
           <router-link
             :to="{ name: 'profil', params: { id: postData.id_creator, username: creator }}"
             class="creator-link"
@@ -14,7 +15,21 @@
 
       <div class="right-section">
         <h3>
-          <span v-if="!userRating" v-for="i in 5" :key="i" @click="noter(i)" class="note">&#9733;</span>
+          <span
+            v-if="!userRating"
+            v-for="i in 5"
+            :key="i"
+            @click="noter(i)"
+            @mouseover="setHoveredRating(i)"
+            @mouseout="clearHoveredRating"
+            class="note"
+          >
+            &#9733;
+          </span>
+          <span v-else> votre note : </span>
+          <span v-if="hoveredRating !== null" class="hovered-rating-text">
+            {{ hoveredRating }}
+          </span>
         </h3>
 
         <h3><span class="note-label">Note : {{ postData.grade }}</span></h3>
@@ -41,8 +56,6 @@
 
     <!-- espace commentaire -->
     <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post" ></CommentsComp>
-
-
   </div>
 </template>
 
@@ -58,7 +71,9 @@ import DOMPurify from 'dompurify';
 import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "./../stores/user";
 import "highlight.js/styles/github.css";
+import { useUrlStore } from "../stores/url";
 
+const urlStore = useUrlStore();
 export default {
   data() {
     return {
@@ -68,6 +83,8 @@ export default {
       affichage: true,
       userStore: useUserStore(),
       userRating: false,
+      hoveredRating: null,
+      urlStore: useUrlStore()
     };
   },
   methods: {
@@ -92,7 +109,7 @@ export default {
       return sanitizedHtml;
     },
     async noter(rating){
-      await fetch("http://localhost:8080/grade/post",{
+      await fetch(this.urlStore.api + "/grade/post",{
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: 'include',
         body: JSON.stringify({
@@ -103,8 +120,6 @@ export default {
     }).then((Response)=>{
         return Response.json()
       }).then((data)=>{
-        console.log(data)
-        console.log(this.userStore.user.id_user)
         this.postData.nb_note = data.nb_note
         this.postData.grade = data.grade
         this.userRating = true
@@ -119,18 +134,22 @@ export default {
       else{
         fichiers.style.display = "flex"
       }
-
-    }
+    },
+    setHoveredRating(rating) {
+      this.hoveredRating = rating;
+    },
+    clearHoveredRating() {
+      this.hoveredRating = null;
+    },
   },
   created() {
-    fetch("http://localhost:8080/post/" + this.$route.params.id, {
+    fetch(this.urlStore.api + "/post/" + this.$route.params.id, {
       credentials: 'include',
     })
       .then((Response) => Response.json())
       .then((data) => {
-        console.log(data);
         this.postData = data;
-        return fetch("http://localhost:8080/user/name/" + data.id_creator, {
+        return fetch(this.urlStore.api + "/user/name/" + data.id_creator, {
           credentials: 'include',
         });
       })
@@ -144,16 +163,14 @@ export default {
           if (ext == 'png') {
             let fichier = document.createElement('img');
 
-            fichier.src = "http://localhost:8080/data/" + this.postData.id_post + "/" + this.postData[i];
+            fichier.src = this.urlStore.api + "/data/" + this.postData.id_post + "/" + this.postData[i];
             div.appendChild(fichier);
           } else {
             let fichier = document.createElement('iframe');
             fichier.height = 700;
-            fichier.src = "http://localhost:8080/data/" + this.postData.id_post + "/" + this.postData[i];
+            fichier.src = this.urlStore.api + "/data/" + this.postData.id_post + "/" + this.postData[i];
             fichier.classList.add('file-iframe');
             div.appendChild(fichier);
-            
-
           }
         }
       });
@@ -163,8 +180,8 @@ export default {
 
 <style scoped>
 #post {
-  margin: 5% 5%;
-  /* Ajustez selon vos besoins */
+  margin-left: 1rem;
+  margin-top: 1rem;
 }
 
 .post-header {
@@ -176,11 +193,11 @@ export default {
 }
 
 .left-section {
-  width: 70%; /* Ajustez la largeur selon vos besoins */
+  width: 70%;
 }
 
 .right-section {
-  width: 30%; /* Ajustez la largeur selon vos besoins */
+  width: 30%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -203,5 +220,14 @@ export default {
 .file-iframe {
   max-width: 100%;
   margin-bottom: 10px;
+}
+
+.note {
+  cursor: pointer;
+}
+
+.hovered-rating-text {
+  font-size: 0.8rem;
+  color: #555;
 }
 </style>

@@ -9,14 +9,12 @@ const urlStore = useUrlStore();
 const userStore = useUserStore();
 const sub = ref(0)
 async function isSub(){
-  return await fetch("http://localhost:8080/subscription/user/" + props.id, {
+  return await fetch(urlStore.api + "/subscription/user/" + props.id, {
     credentials: 'include'
   }).then((Response)=>{
     return Response.json()
   }).then((data)=>{
     sub.value = data
-    console.log(sub.value)
-
   })
 }
 isSub()

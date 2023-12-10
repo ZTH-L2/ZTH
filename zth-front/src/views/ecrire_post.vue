@@ -40,6 +40,7 @@ import DOMPurify from 'dompurify';
 import { ref, computed, onMounted, watch } from "vue";
 
 import "highlight.js/styles/github.css";
+import { useUrlStore } from "../stores/url";
 
 export default {
   data() {
@@ -49,14 +50,15 @@ export default {
       markdown: null,
       source: "",
       listeFichier: [],
+      urlStore: useUrlStore()
     };
   },
   methods: {
     Supprime(fichier){
-        fetch("http://localhost:8080/post/file/"+ this.postData["id_post"] + "/" + fichier, { 
+        fetch(this.urlStore.api + "/post/file/"+ this.postData["id_post"] + "/" + fichier, { 
           credentials: 'include'
         }).then((Response)=>{
-          return fetch("http://localhost:8080/post/" + this.$route.params.id, {credentials: 'include'});
+          return fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'});
     })
     .then(response => response.json())
     .then(data => {
@@ -80,7 +82,7 @@ export default {
       formData.append('published', this.postData["published"]);
       formData.append('text', this.source);
 
-      fetch("http://localhost:8080/post/put", { 
+      fetch(this.urlStore.api + "/post/put", { 
         method: "POST",
         credentials: 'include',
         body: formData
@@ -105,7 +107,7 @@ export default {
   }
 
   console.log(formData);
-  fetch("http://localhost:8080/post/put", {
+  fetch(this.urlStore.api + "/post/put", {
     method: "POST",
     credentials: 'include',
     body: formData
@@ -113,7 +115,7 @@ export default {
   .then(response => response.text())
   .then(data => { 
     console.log(data);
-    return fetch("http://localhost:8080/post/" + this.$route.params.id, {credentials: 'include'});
+    return fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'});
   })
   .then(response => response.json())
   .then(data => {
@@ -148,7 +150,7 @@ export default {
     }
   },
   created() {
-    fetch("http://localhost:8080/post/" + this.$route.params.id, {credentials: 'include'}).then((Response)=>{
+    fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'}).then((Response)=>{
       return Response.json()
     }).then((data)=>{
       console.log(data)
@@ -160,7 +162,7 @@ export default {
       .filter(key => !isNaN(key))
       .map(key => this.postData[key]);
 
-      return fetch("http://localhost:8080/user/name/" + data.id_creator, {credentials: 'include'}).then((Response)=>{
+      return fetch(this.urlStore.api + "/user/name/" + data.id_creator, {credentials: 'include'}).then((Response)=>{
         return Response.json()
       }).then((data)=>{
         this.creator = data.username;

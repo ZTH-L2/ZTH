@@ -32,11 +32,9 @@ const urlStore = useUrlStore();
   const isActive = (section) => activeSections.value.includes(section);
   
   fetch(urlStore.api + "/subscription/user" , {credentials: 'include'}).then((Response)=>{
-    console.log(Response)
     return Response.json()
   }).then((data)=>{
     data.forEach(button => {buttons.value.push({name: button.id_major, label: button.year + "-" + button.major_name})})
-    console.log(buttons.value)
   })
   
 

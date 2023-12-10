@@ -8,21 +8,16 @@
 import Posts from './../components/view_posts.vue'
 import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
+import { useUrlStore } from "../stores/url";
 
+const urlStore = useUrlStore();
 export default {
- // setup(){
- //   const route = useRoute()
- //   watch(
- //     () => route.params,
- //     newId => {
- //       this.id_course = newId.id_user
- //     },
- //   )
- // },
 data() {
   return {
     id_course: null,
-    id_category: null
+    id_category: null,
+    urlStore: useUrlStore()
+
     };
   },
   components: {
@@ -32,18 +27,6 @@ data() {
     this.id_course = this.$route.params.id_course
     this.category = this.$route.params.category
   },
-  //conmputed:{
-  //  id_course(){
-  //    console.log("azezae")
-  //    return this.$route.params.id_course
-  //  },
-  //  category(){
-  //    console.log("bzezae")
-  //    return this.$route.params.category
-  //  }
-  //  
-  //}
-
 };
 </script>
 
