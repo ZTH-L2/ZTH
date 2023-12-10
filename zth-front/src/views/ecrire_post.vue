@@ -154,7 +154,8 @@ export default {
       console.log(data)
       this.postData = data
       this.markdown = this.sanitize(this.postData["text"])
-      this.source = this.markdown
+      //this.source = this.markdown
+      this.source = this.postData["text"]
       this.listeFichier = Object.keys(this.postData)
       .filter(key => !isNaN(key))
       .map(key => this.postData[key]);
