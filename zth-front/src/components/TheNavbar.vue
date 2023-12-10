@@ -30,7 +30,7 @@ function logout(){
   <div>
     <nav class="TheNavBar white-shadow">
       <div class="navElement">
-        <button @click="toogleSideBarMenu">menu</button>
+        <button @click="toogleSideBarMenu" class="button">menu</button>
         <h2><RouterLink to="/" class="navElement">NoteSync</RouterLink></h2>
       </div>
 
@@ -38,7 +38,7 @@ function logout(){
         <RouterLink to="/connexion">Connexion</RouterLink>
       </div>
       <div class="navElement" v-else>
-        <button @click="toogleSideBarMe">Me</button>
+        <button @click="toogleSideBarMe" class="button">Me</button>
       </div>
     </nav>
     <SideBarMenu
@@ -55,7 +55,7 @@ function logout(){
   </div>
 </template>
 
-<style>
+<style scoped>
 .TheNavBar {
   display: flex;
   justify-content: space-between;
@@ -84,6 +84,22 @@ function logout(){
   position: absolute;
   top: 0px;
   left: 0px;
+}
+
+
+.button {
+  background-color: #007BFF; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  padding: 10px 15px; /* Espacement interne du bouton */
+  border: none; /* Supprimer la bordure du bouton */
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+}
+
+.button:hover {
+  background-color: #0056b3;
 }
 
 #SideBarMe {

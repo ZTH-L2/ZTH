@@ -79,12 +79,12 @@ async function envoi() {
 <template>
   <div class="inscription">
     <h1>Inscription</h1>
-    <input v-model="mail" placeholder="adresse mail" />
-    <input v-model="username" placeholder="nom utilisateur" />
-    <input v-model="password" type="password" placeholder="mot de passe" />
-    <button @click="envoi()">Envoyer</button>
-    {{ error }}
-    <p>déjà un compte ?</p>
+    <input v-model="mail" placeholder="Adresse mail" />
+    <input v-model="username" placeholder="Nom utilisateur" />
+    <input v-model="password" type="password" placeholder="Mot de passe" />
+    <button @click="envoi">Envoyer</button>
+    <p>{{ error }}</p>
+    <p>Déjà un compte ?</p>
     <nav>
       <RouterLink to="/connexion">Connectez-vous !</RouterLink>
     </nav>
@@ -92,9 +92,50 @@ async function envoi() {
 </template>
 
 <style>
+.inscription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0.5rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+nav {
+  margin-top: 0.5rem;
+}
+
+/* Ajoutez le style ci-dessous si vous souhaitez ajuster la mise en page sur les écrans larges */
 @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
+  .inscription {
+    min-height: 75vh;
     display: flex;
     align-items: center;
   }

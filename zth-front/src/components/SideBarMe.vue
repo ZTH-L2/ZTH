@@ -4,54 +4,28 @@ import { ref } from "vue";
 import { useUserStore } from "../stores/user";
 
 const userStore = useUserStore();
-userStore.init()
-
+userStore.init();
 </script>
 
 <template>
   <div class="sidebar-me">
     <!-- HEADER -->
     <div class="sidebar-header-me">
-      <p> {{  userStore.user.username }}</p>
-      <button @click="$emit('SideBarCloseMe')">Close</button>
+      <p>{{ userStore.user.username }}</p>
+      <button @click="$emit('SideBarCloseMe')" class="button-me">Close</button>
     </div>
     <!-- BODY -->
     <div class="sidebar-body-me">
-      <nav>
-        <ul>
-          <li>
-            <RouterLink to="/me">Me</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/" @click="$emit('logout')">Logout</RouterLink>
-          </li>
-          <li v-if="userStore.isAdmin">
-            <RouterLink to="/admin" @click="$emit('SideBarCloseMe')">page admin</RouterLink>
-          </li>
-        </ul>
+      <nav class="nav-me">
+        <RouterLink to="/me" class="button-me">Me</RouterLink>
+        <RouterLink to="/" @click="$emit('logout')" class="button-me">Logout</RouterLink>
+        <RouterLink v-if="userStore.isAdmin" to="/admin" @click="$emit('SideBarCloseMe')" class="button-me">page admin</RouterLink>
       </nav>
     </div>
   </div>
 </template>
 
-<style>
-/* ul {
-  list-style-type: none;
-}
-
-nav {
-  width: 14rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-nav ul li {
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
-
-  background-color: gold;
-} */
-
+<style scoped>
 .sidebar-me {
   height: 100%;
   z-index: 100;
@@ -66,6 +40,27 @@ nav ul li {
   height: 4rem;
 }
 
-/* .sidebar-body-me {
-} */
+.nav-me {
+  display: flex;
+  flex-direction: column; /* Aligner les boutons verticalement */
+  gap: 0.5rem; /* Espacement entre les boutons */
+  align-content: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.button-me {
+  background-color: #007BFF; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  padding: 10px 15px; /* Espacement interne du bouton */
+  border: none; /* Supprimer la bordure du bouton */
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+}
+
+.button-me:hover {
+  background-color: #0056b3;
+}
 </style>

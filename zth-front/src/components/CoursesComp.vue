@@ -67,13 +67,13 @@ button {
   padding: 14px 16px;
   text-decoration: none;
   overflow: hidden;
-  background-color: grey;
+  background-color: #6C757D;
   font-family: Arial;
   width: 100%;
 }
 
 button:hover {
-  background-color: red;
+  background-color: #ADB5BD;
 }
 
 .router-link-button {
@@ -83,17 +83,15 @@ button:hover {
   padding: 14px 0px;
   text-decoration: none;
   overflow: hidden;
-  background-color: blue;
+  background-color: #ADB5BD;
   font-family: Arial;
   width: 100%;
   display: block;
 }
 
 .router-link-button:hover {
-  background-color: red;
+  background-color: #CED4DA;
 }
 
-.active {
-  background-color: red;
-}
+
 </style>

@@ -8,6 +8,7 @@ const userStore = useUserStore();
 
 const username = ref('')
 const password = ref('')
+const error = ref('')
 async function envoi() {
   await fetch(urlStore.api + "/user/login", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -30,7 +31,7 @@ async function envoi() {
       })
     }
     else{
-      error.value = "erreur nom d'utilisateur ou mot de passe incorrecte"
+      error.value = "nom d'utilisateur ou mot de passe incorrecte"
       username.value = ''
       password.value = ''
     }
@@ -39,26 +40,67 @@ async function envoi() {
 </script>
 
 <template>
+  <div class="connexion">
+    <h1>Connexion</h1>
+    <input v-model="username" placeholder="Nom utilisateur">
+    <input v-model="password" type="password" placeholder="Mot de passe">
+    <button @click="envoi">Envoyer</button>
 
-<div class="connexion">
-  <h1>Connexion</h1>
-  <input v-model="username" placeholder="nom utilisateur">
-  <input v-model="password" type="password" placeholder="mot de passe">
-  <button @click="envoi()">Envoyer</button>
+    <p>{{ error }}</p>
 
-  <p>Pas de compte ?</p>
+    <p>Pas de compte ?</p>
   
-  <nav>
+    <nav>
       <RouterLink to="/inscription">Inscrivez-vous !</RouterLink>
-  </nav>
-</div>
-
+    </nav>
+  </div>
 </template>
 
-<style>
+<style scoped>
+.connexion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0.5rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+nav {
+  margin-top: 0.5rem;
+}
+
+/* Ajoutez le style ci-dessous si vous souhaitez ajuster la mise en page sur les écrans larges */
 @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
+  .connexion {
+    min-height: 75vh;
     display: flex;
     align-items: center;
   }

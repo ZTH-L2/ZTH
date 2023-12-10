@@ -10,8 +10,8 @@ const userStore = useUserStore();
   <div class="sidebar-menu">
     <!-- HEADER -->
     <div class="sidebar-header-menu">
-      HEADER
-      <button @click="$emit('SideBarCloseMenu')">Close</button>
+      
+      <button @click="$emit('SideBarCloseMenu')" class="button-menu">Close</button>
     </div>
     <!-- BODY -->
     <MajorComp v-if="userStore.isLoggedIn"></MajorComp>
@@ -35,4 +35,20 @@ const userStore = useUserStore();
 
 /* .sidebar-body-menu {
 } */
+
+.button-menu {
+  margin-left: 150px;
+  background-color: #007BFF; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  padding: 10px 15px; /* Espacement interne du bouton */
+  border: none; /* Supprimer la bordure du bouton */
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+}
+
+.button-menu:hover {
+  background-color: #0056b3;
+}
 </style>

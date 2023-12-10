@@ -36,26 +36,30 @@
 
         <h3><span class="nbr-note-label">Nombre de notes : {{ postData.nb_note }}</span></h3>
 
-        <button class="modifier-button" v-if="userStore.user.id_user == postData.id_creator">
-          <router-link :to="{ name: 'ecrire_post', params: { id: postData.id_post}}">Modifier</router-link>
-        </button>
+        <router-link
+          :to="{ name: 'ecrire_post', params: { id: postData.id_post }}"
+          class="modifier-button"
+          v-if="userStore.user.id_user == postData.id_creator"
+        >
+          Modifier
+        </router-link>
       </div>
     </div>
 
     <div id="read" class="post-content" v-if="creator">
       <div v-html="markdown"></div>
     </div>
-    
+
     <div class="button" v-if="creator">
       <button @click="montrer_cacher" v-if="Object.keys(postData).length > 13">Montrer/cacher les annexes</button>
     </div>
-    
+
     <div id="fichiers" class="file-list">
       <!-- Vos fichiers ici -->
     </div>
 
     <!-- espace commentaire -->
-    <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post" ></CommentsComp>
+    <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
   </div>
 </template>
 
@@ -184,6 +188,10 @@ export default {
   margin-top: 1rem;
 }
 
+.creator-link {
+  text-decoration: none;
+}
+
 .post-header {
   background-color: #f2f2f2;
   padding: 10px;
@@ -205,6 +213,18 @@ export default {
 
 .modifier-button {
   float: right;
+  background-color: #007BFF; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  padding: 10px 15px; /* Espacement interne du bouton */
+  border: none; /* Supprimer la bordure du bouton */
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+}
+
+.modifier-button:hover {
+  background-color: #0056b3;
 }
 
 .post-header h3 {
