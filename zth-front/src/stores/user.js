@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null, 
@@ -30,8 +31,11 @@ export const useUserStore = defineStore("user", {
       this.user["time"] = Date.now()
       localStorage.setItem("user", JSON.stringify(this.user))
     },
-    logout(){
+    async logout(){
       this.user = null
+      await fetch("http://localhost:8080/user/logout", {
+        credentials: 'include',
+      })
       localStorage.removeItem("user");
     }
   },

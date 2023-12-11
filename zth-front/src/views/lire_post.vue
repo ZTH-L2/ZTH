@@ -26,7 +26,6 @@
           >
             &#9733;
           </span>
-          <span v-else> votre note : </span>
           <span v-if="hoveredRating !== null" class="hovered-rating-text">
             {{ hoveredRating }}
           </span>
@@ -43,6 +42,7 @@
         >
           Modifier
         </router-link>
+        <button @click="supprimer" class="supprimer-button" v-if="userStore.user.id_user == postData.id_creator">Supprimer</button>
       </div>
     </div>
 
@@ -92,6 +92,14 @@ export default {
     };
   },
   methods: {
+    async supprimer(){
+      await await fetch(this.urlStore.api + "/post/" + this.postData.id_post, {
+        method: "DELETE",
+        credentials: "include"
+    }).then((Response)=>{
+      document.location.href='http://localhost:5173'
+    })
+    },
     sanitize(stringHTML) {
       const md = new MarkdownIt({
         html: true,
@@ -127,6 +135,7 @@ export default {
         this.postData.nb_note = data.nb_note
         this.postData.grade = data.grade
         this.userRating = true
+        this.hoveredRating = null
       })
     },
     montrer_cacher() {
@@ -209,6 +218,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .modifier-button {
@@ -227,6 +237,23 @@ export default {
   background-color: #0056b3;
 }
 
+
+
+.supprimer-button {
+  float: right;
+  background-color: red; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  padding: 10px 15px; /* Espacement interne du bouton */
+  border: none; /* Supprimer la bordure du bouton */
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+}
+
+.supprimer-button:hover {
+  background-color: #6E0A08;
+}
 .post-header h3 {
   margin: 0;
 }
