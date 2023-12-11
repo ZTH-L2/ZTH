@@ -14,5 +14,6 @@ import TheNavbar from "./components/TheNavbar.vue";
 * {
   margin: 0;
   padding: 0;
+  
 }
 </style>
