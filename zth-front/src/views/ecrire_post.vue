@@ -82,7 +82,7 @@ export default {
         let extension = fichier.split('.').pop();
         extension.toLowerCase();
         let pressePapier = "";
-        let PATH = urlStore.api + `/data/` + this.postData['id_post'] + "/";
+        let PATH = this.urlStore.api + `/data/` + this.postData['id_post'] + "/";
         let PATH_FICHIER = PATH + fichier;
         switch(extension){
           case 'png':
