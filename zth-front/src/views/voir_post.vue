@@ -6,8 +6,7 @@
 
 <script>
 import Posts from './../components/view_posts.vue'
-import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+
 import { useUrlStore } from "../stores/url";
 import { useUserStore } from "./../stores/user";
 

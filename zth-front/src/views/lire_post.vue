@@ -34,7 +34,7 @@ export default {
         method: "DELETE",
         credentials: "include"
     }).then((Response)=>{
-      router.push("/")
+      this.router.push("/")
     })
     },
     sanitize(stringHTML) {

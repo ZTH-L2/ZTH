@@ -15,6 +15,7 @@ import { useRoute } from 'vue-router'
 import { useUrlStore } from "../stores/url";
 import { useRouter } from "vue-router";
 
+
 const router = useRouter();
 const urlStore = useUrlStore();
 const route = useRoute()
