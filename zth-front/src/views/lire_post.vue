@@ -78,6 +78,11 @@ import "highlight.js/styles/github.css";
 import { useUrlStore } from "../stores/url";
 
 const urlStore = useUrlStore();
+
+// added to do the init()
+const userStoreC = useUserStore();
+userStoreC.init();
+
 export default {
   data() {
     return {
@@ -85,7 +90,8 @@ export default {
       creator: null,
       markdown: null,
       affichage: true,
-      userStore: useUserStore(),
+      // userStore: useUserStore(),
+      userStore: userStoreC,
       userRating: false,
       hoveredRating: null,
       urlStore: useUrlStore()
