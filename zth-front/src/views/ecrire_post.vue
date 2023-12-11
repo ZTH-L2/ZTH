@@ -76,7 +76,7 @@ export default {
     },
     async publier(){
       await this.testEnvoieFichier()
-      router.push("/")
+      this.router.push("/")
     },
     LienMarkDownFichier(fichier){
         let extension = fichier.split('.').pop();
