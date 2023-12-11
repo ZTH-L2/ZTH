@@ -6,7 +6,7 @@ import SideBarMenu from "./SideBarMenu.vue";
 import SideBarMe from "./SideBarMe.vue";
 
 const userStore = useUserStore();
-userStore.init()
+// userStore.init()
 const SideBarMenuState = ref(false);
 const SideBarMeState = ref(false);
 

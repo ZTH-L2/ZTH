@@ -22,47 +22,27 @@ async function reply(){
     getNbChildrens()
 }
 
-// async function reply() {
-//     let url = urlStore.api + "/comment"
-//     let data = {
-//         "id_post": idPost.value,
-//         "id_parent_comment": id_parent_comment,
-//         "content": comment.value
-//     }
-    
-//     let setting = {
-//         method: "POST",
-//         credentials: "include",
-//         body: JSON.stringify(data)
-//     }
-
-//     let resp = await fetch(url, setting).then(resp => resp.json())
-
-//     if (resp instanceof Object && 'error' in resp){
-//         console.log(resp.error)
-//     }
-//     message.value = "bien envoyé"
-//     comment.value = "";
-
-//     getNumberOfParents()
-//     getParents()
-
-// }
-
 const wantsToReply = ref(false);
 const replyComment = ref('');
 
 const wantsToSeeReplies = ref(false)
 const nbChildrens = ref(0)
 const childrens = ref([])
-const childrensPage = ref(0)
-const amountChildrenPerPage = 5
+// the api expect the first page to be 1 cause it do : (page-1) * amount
+const childrensPage = ref(1)
+const amountChildrenPerPage = ref(5)
 const canSeeMore= computed(()=> nbChildrens.value > childrens.value.length)
 
 function getNameCreator(){
     let url = urlStore.api + "/user/name/" + comment.value.id_user
     fetch(url, {credentials: "include"}).then(resp => resp.json()).then(data => comment.value.username = data.username)
 }
+
+function deleteComment(id_comment){
+    childrens.value = childrens.value.filter((e)=> e.id_comment != id_comment)
+    emit('delete', id_comment)
+}
+
 
 async function getNbChildrens(){
     let url = urlStore.api + "/comment/" + idPost.value + "/total/enfantof/" + comment.value.id_comment.toString()
@@ -74,20 +54,39 @@ async function getNbChildrens(){
         console.log("status: ",r.status)
     }
 }
+
+async function getChildrens(){
+    // /id_post/enfantof/id_parent/page/nb_by_page
+    let url = urlStore.api + "/comment/" + idPost.value + "/enfantof/" + comment.value.id_comment.toString() + "/"
+                    + childrensPage.value.toString() + "/" + amountChildrenPerPage.value.toString()
+    let r = await fetch(url, {credientials: "include"})
+    if (r.status == 200){
+        let resp = await r.json()
+        resp.forEach(element => {
+            childrens.value.push(element)
+        });
+        console.log(childrens.value)
+        childrensPage.value +=1
+    } else {
+        console.log(r.status)
+    }
+}
+
 async function seeReplies(){
     if (!wantsToSeeReplies.value){
-        // charge first if empty
-       
+        if (childrens.value.length == 0){
+            getChildrens()
+        }
     }
     wantsToSeeReplies.value = !wantsToSeeReplies.value
 }
 
-async function getChildrensTest(){
-    let url = urlStore.api + "/comment/" + idPost.value.toString() + "/parent/" + (currentPage.value + 1).toString() + "/"+ amountPerPage.value.toString()
-    
-    comments.value = []
-    comments.value = await fetch(url, {credentials: "include"}).then(resp => resp.json())
+async function getMoreReplies(){
+    if (canSeeMore){
+        getChildrens()
+    }
 }
+
 
 onMounted(()=>{
     getNameCreator()
@@ -116,7 +115,8 @@ onMounted(()=>{
         <div v-if="nbChildrens > 0">
             <button @click="seeReplies">Voir réponses</button>
             <div v-if="wantsToSeeReplies">
-                <button v-if="canSeeMore">Voir plus de réponses</button>
+                <CommentComp v-for="c in childrens" :idPost="idPost" :idParent="comment.id_comment" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentComp>
+                <button v-if="canSeeMore" @click="getMoreReplies">Voir plus de réponses</button>
             </div>
         </div>
 

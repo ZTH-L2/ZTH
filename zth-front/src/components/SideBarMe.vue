@@ -4,7 +4,7 @@ import { ref } from "vue";
 import { useUserStore } from "../stores/user";
 
 const userStore = useUserStore();
-userStore.init();
+// userStore.init();
 </script>
 
 <template>

@@ -24,6 +24,7 @@ async function envoi() {
 
       return Response.json().then((data)=>{
         userStore.setUser(data)
+        // userStore.init()
         //userStore.user = data.id_user
         username.value = ''
         password.value = ''

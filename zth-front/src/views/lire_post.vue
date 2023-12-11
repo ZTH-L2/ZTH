@@ -39,7 +39,7 @@
         <router-link
           :to="{ name: 'ecrire_post', params: { id: postData.id_post }}"
           class="modifier-button"
-          v-if="userStore.user.id_user == postData.id_creator"
+          v-if="userStore.user?.id_user == postData.id_creator"
         >
           Modifier
         </router-link>
@@ -81,7 +81,7 @@ const urlStore = useUrlStore();
 
 // added to do the init()
 const userStoreC = useUserStore();
-userStoreC.init();
+// userStoreC.init();
 
 export default {
   data() {
