@@ -1,5 +1,5 @@
 <template>
-    <div id="profil">
+    <div id="profil" v-if="userStore.isLoggedIn">
       <h1>Profil de {{ $route.params.username }}</h1>
   
       <div class="posts-section">

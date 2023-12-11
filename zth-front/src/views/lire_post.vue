@@ -1,5 +1,5 @@
 <template>
-  <div id="post">
+  <div id="post" v-if="userStore.isLoggedIn">
     <div class="post-header" v-if="creator">
       <div class="left-section">
         <h3>
@@ -77,7 +77,6 @@ import { useUserStore } from "./../stores/user";
 import "highlight.js/styles/github.css";
 import { useUrlStore } from "../stores/url";
 
-const urlStore = useUrlStore();
 export default {
   data() {
     return {

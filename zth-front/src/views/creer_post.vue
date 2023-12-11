@@ -1,5 +1,5 @@
 <template>
-    <div class="affichage center-container">
+    <div class="affichage center-container" v-if="userStore.isLoggedIn">
       <h1>Créer un post</h1>
       <div>
         <input v-model="titre" placeholder="Titre du post" class="custom-input" required/>

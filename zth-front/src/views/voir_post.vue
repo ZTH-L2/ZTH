@@ -1,5 +1,5 @@
 <template>
-    <div class="affichage">
+    <div class="affichage" v-if="userStore.isLoggedIn">
         <Posts></Posts>
     </div>
 </template>
@@ -9,14 +9,17 @@ import Posts from './../components/view_posts.vue'
 import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
 import { useUrlStore } from "../stores/url";
+import { useUserStore } from "./../stores/user";
 
-const urlStore = useUrlStore();
+
+
 export default {
 data() {
   return {
     id_course: null,
     id_category: null,
-    urlStore: useUrlStore()
+    urlStore: useUrlStore(),
+    userStore:useUserStore()
 
     };
   },

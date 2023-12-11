@@ -56,7 +56,9 @@ img {
 }
 
 /* Vos autres styles ici */
-
+li{
+  margin-top: 10px;
+}
 .home-section {
   padding: 50px;
   background-color: rgba(255, 255, 255, 0.5);

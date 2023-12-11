@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import { useUrlStore } from "../stores/url";
 import MajorItem from "../components/MajorItem.vue";
+import { useUserStore } from "./../stores/user";
 
 const urlStore = useUrlStore();
 const majors = ref([]);
@@ -55,7 +56,7 @@ const majorsFiltered = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div v-if="userStore.isLoggedIn">
     <div class="header">
       <input
         type="text"
