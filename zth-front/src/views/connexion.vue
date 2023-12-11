@@ -2,9 +2,12 @@
 import { ref } from 'vue'
 import { useUserStore } from "./../stores/user";
 import { useUrlStore } from "../stores/url";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const urlStore = useUrlStore();
 const userStore = useUserStore();
+
 
 const username = ref('')
 const password = ref('')
@@ -28,7 +31,7 @@ async function envoi() {
         //userStore.user = data.id_user
         username.value = ''
         password.value = ''
-        document.location.href='http://localhost:5173'
+        router.push("/")
       })
     }
     else{

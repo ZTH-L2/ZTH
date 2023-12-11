@@ -6,11 +6,11 @@ import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "./../stores/user";
 import "highlight.js/styles/github.css";
 import { useUrlStore } from "../stores/url";
+import { useRouter } from "vue-router";
 
-const urlStore = useUrlStore();
 
 // added to do the init()
-const userStoreC = useUserStore();
+
 // userStoreC.init();
 
 export default {
@@ -21,10 +21,11 @@ export default {
       markdown: null,
       affichage: true,
       // userStore: useUserStore(),
-      userStore: userStoreC,
+      userStore: useUserStore();,
       userRating: false,
       hoveredRating: null,
-      urlStore: useUrlStore()
+      urlStore: useUrlStore(),
+      router: useRouter()
     };
   },
   methods: {
@@ -33,7 +34,7 @@ export default {
         method: "DELETE",
         credentials: "include"
     }).then((Response)=>{
-      document.location.href='http://localhost:5173'
+      router.push("/")
     })
     },
     sanitize(stringHTML) {
