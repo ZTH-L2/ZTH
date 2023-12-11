@@ -39,8 +39,7 @@ async function envoi(){
     }).then((Response)=>{
         return Response.json()
     }).then((data)=>{
-        document.location.href='http://localhost:5173/ecrire_post/' + data.id_post
-
+      router.push("/ecrire_post/" + data.id_post)
     })
   }
 }

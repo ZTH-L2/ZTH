@@ -17,7 +17,7 @@
       <h2>Fichier disponible:</h2>
       <div v-for="(item, index) in listeFichier" :key="index">
         <div class="file-link">
-          <a :href="`http://localhost:8080/data/${this.postData['id_post']}/${item}`">{{ item }}</a>
+          <a :href=" urlStore.api + `/data/${this.postData['id_post']}/${item}`">{{ item }}</a>
           <p @click="Supprime(item)">X</p>
         </div>
       </div>
