@@ -41,6 +41,7 @@ import { ref, computed, onMounted, watch } from "vue";
 
 import "highlight.js/styles/github.css";
 import { useUrlStore } from "../stores/url";
+import { useRouter } from "vue-router";
 
 
 export default {
@@ -51,7 +52,8 @@ export default {
       markdown: null,
       source: "",
       listeFichier: [],
-      urlStore: useUrlStore()
+      urlStore: useUrlStore(),
+      router: useRouter()
     };
   },
   methods: {
@@ -73,7 +75,7 @@ export default {
     },
     async publier(){
       await this.testEnvoieFichier()
-      document.location.href='http://localhost:5173'
+      router.push("/")
     },
     Envoie() {
       const formData = new FormData();

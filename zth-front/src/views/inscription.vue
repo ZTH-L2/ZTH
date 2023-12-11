@@ -1,14 +1,18 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "./../stores/user";
-const userStore = useUserStore();
-import { useUrlStore } from "../stores/url";
 
+import { useUrlStore } from "../stores/url";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const userStore = useUserStore();
 const urlStore = useUrlStore();
 const mail = ref("");
 const username = ref("");
 const password = ref("");
 const error = ref("");
+
 function validateEmail(email) {
   var regex = /\S+@\S+\.\S+/;
   return regex.test(email);
@@ -61,7 +65,7 @@ async function envoi() {
               userStore.setUser(data)
               username.value = ''
               password.value = ''
-              document.location.href='http://localhost:5173'
+              router.push("/")
             })
           })
           } else {
