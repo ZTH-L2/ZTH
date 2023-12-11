@@ -21,7 +21,7 @@ export default {
       markdown: null,
       affichage: true,
       // userStore: useUserStore(),
-      userStore: useUserStore();,
+      userStore: useUserStore(),
       userRating: false,
       hoveredRating: null,
       urlStore: useUrlStore(),
