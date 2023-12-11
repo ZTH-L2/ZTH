@@ -32,7 +32,7 @@ async function envoi() {
       })
     }
     else{
-      error.value = "nom d'utilisateur ou mot de passe incorrecte"
+      error.value = "nom d'utilisateur ou mot de passe incorrect"
       username.value = ''
       password.value = ''
     }
@@ -45,14 +45,14 @@ async function envoi() {
     <h1>Connexion</h1>
     <input v-model="username" placeholder="Nom utilisateur">
     <input v-model="password" type="password" placeholder="Mot de passe">
-    <button @click="envoi">Envoyer</button>
+    <button @click="envoi">Se connecter</button>
 
     <p>{{ error }}</p>
 
     <p>Pas de compte ?</p>
   
     <nav>
-      <RouterLink to="/inscription">Inscrivez-vous !</RouterLink>
+      <RouterLink to="/inscription" class="custom-button">Inscrivez-vous !</RouterLink>
     </nav>
   </div>
 </template>
@@ -96,6 +96,24 @@ p {
 
 nav {
   margin-top: 0.5rem;
+}
+
+.custom-button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+
+  
+}
+
+.custom-button:hover {
+  background-color: #45a049;
 }
 
 /* Ajoutez le style ci-dessous si vous souhaitez ajuster la mise en page sur les écrans larges */

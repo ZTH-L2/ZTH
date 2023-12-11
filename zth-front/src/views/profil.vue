@@ -48,9 +48,10 @@
   
   <style scoped>
   #profil {
-    margin: 5% 5%;
+    margin-left: 1rem;
+    margin-top: 1rem;
   }
-  
+
   h1 {
     font-size: 2em;
     color: #333;

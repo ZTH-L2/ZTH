@@ -33,11 +33,11 @@ function logout(){
         <button @click="toogleSideBarMenu" class="button">menu</button>
         <h2><RouterLink to="/" class="navElement">NoteSync</RouterLink></h2>
       </div>
-
       <div class="navElement" v-if="!userStore.isLoggedIn">
-        <RouterLink to="/connexion">Connexion</RouterLink>
+        <RouterLink to="/connexion" class="button">Connexion</RouterLink>
       </div>
       <div class="navElement" v-else>
+        <router-link to="/filiere" v-if="userStore.isLoggedIn" class="button" id="filieres">Filières</router-link>
         <button @click="toogleSideBarMe" class="button">Me</button>
       </div>
     </nav>
@@ -63,6 +63,9 @@ function logout(){
   height: 4rem;
 }
 
+#filieres{
+  margin-right: 30px;
+}
 .white-shadow {
   background-color: #ffffff;
   box-shadow: -2px 7px 11px -11px rgba(0, 0, 0, 0.23);

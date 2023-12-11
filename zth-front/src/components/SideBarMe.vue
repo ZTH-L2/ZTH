@@ -17,7 +17,7 @@ const userStore = useUserStore();
     <!-- BODY -->
     <div class="sidebar-body-me">
       <nav class="nav-me">
-        <RouterLink to="/me" class="button-me">Me</RouterLink>
+        <router-link :to="{ name: 'profil', params: { id: userStore.id_user, username: userStore.username }}" class="button-me">Me</router-link>
         <RouterLink to="/" @click="$emit('logout')" class="button-me">Logout</RouterLink>
         <RouterLink v-if="userStore.isAdmin" to="/admin" @click="$emit('SideBarCloseMe')" class="button-me">page admin</RouterLink>
       </nav>

@@ -10,7 +10,7 @@ const userStore = useUserStore();
   <div class="sidebar-menu">
     <!-- HEADER -->
     <div class="sidebar-header-menu">
-      
+      <h2>Menu</h2>
       <button @click="$emit('SideBarCloseMenu')" class="button-menu">Close</button>
     </div>
     <!-- BODY -->
@@ -37,7 +37,6 @@ const userStore = useUserStore();
 } */
 
 .button-menu {
-  margin-left: 150px;
   background-color: #007BFF; /* Couleur de fond du bouton */
   color: white; /* Couleur du texte du bouton */
   padding: 10px 15px; /* Espacement interne du bouton */
