@@ -19,6 +19,7 @@
         <div class="file-link">
           <a :href=" urlStore.api + `/data/${this.postData['id_post']}/${item}`">{{ item }}</a>
           <p @click="Supprime(item)">X</p>
+          <p @click="LienMarkDownFichier(item)">Insérer dans le MarkDown</p>
         </div>
       </div>
 
@@ -76,6 +77,41 @@ export default {
     async publier(){
       await this.testEnvoieFichier()
       router.push("/")
+    },
+    LienMarkDownFichier(fichier){
+        let extension = fichier.split('.').pop();
+        extension.toLowerCase();
+        let pressePapier = "";
+        let PATH = urlStore.api + `/data/` + this.postData['id_post'] + "/";
+        let PATH_FICHIER = PATH + fichier;
+        switch(extension){
+          case 'png':
+          case 'jpeg':
+          case 'webp':
+          pressePapier = "![Image non chargée]("+PATH_FICHIER+")";
+          break;
+          case 'pdf':
+          pressePapier = "<object data='"+PATH_FICHIER+"' type='application/pdf'></object>";
+          break;
+          case 'mp4':
+          pressePapier = "<object data='"+PATH_FICHIER+"' type='video/mp4'></object>";
+          break;
+          case 'csv':
+          pressePapier = "<object data='"+PATH_FICHIER+"' type='text/csv'></object>";
+          break;
+          case 'xlsx':
+          pressePapier = "<object data='"+PATH_FICHIER+"' type='application/vnd.ms-excel'></object>";
+          break;
+          default:
+          pressePapier = "[Légende]("+PATH_FICHIER+")";
+        };
+        navigator.clipboard.writeText(pressePapier)
+        .then(() => {
+            alert('Le texte a été copié');
+        })
+        .catch(err => {
+            console.error('Erreur lors de la copie : ', err);
+        });
     },
     Envoie() {
       const formData = new FormData();
@@ -145,9 +181,13 @@ export default {
         linkify: true,
         typographer: true,
       });
-
-      const htmlContent = md.render(stringHTML)
-      const sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object"], ADD_ATTR:['data']})
+      const styleDefault = `<style>
+                              img{ width:100%; height:auto; }
+                              object{ width:100%; height:auto; }
+                            </style>`
+                            ;
+      const htmlContent = md.render(stringHTML + styleDefault);
+      const sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object","img"], ADD_ATTR:['data','src']});
 
       return sanitizedHtml
     }
