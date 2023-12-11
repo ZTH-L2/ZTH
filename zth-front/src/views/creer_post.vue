@@ -13,7 +13,9 @@ import { ref, watch, computed } from 'vue'
 import { useUserStore } from "./../stores/user";
 import { useRoute } from 'vue-router'
 import { useUrlStore } from "../stores/url";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const urlStore = useUrlStore();
 const route = useRoute()
 const userStore = useUserStore();
@@ -39,7 +41,7 @@ async function envoi(){
     }).then((Response)=>{
         return Response.json()
     }).then((data)=>{
-      this.router.push("/ecrire_post/" + data.id_post)
+      router.push("/ecrire_post/" + data.id_post)
     })
   }
 }
