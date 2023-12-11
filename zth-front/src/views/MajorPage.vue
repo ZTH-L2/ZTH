@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 import { useUrlStore } from "../stores/url";
 import MajorItem from "../components/MajorItem.vue";
 import { useUserStore } from "./../stores/user";
-
+const userStore = useUserStore();
 const urlStore = useUrlStore();
 const majors = ref([]);
 const loading = ref(false);
