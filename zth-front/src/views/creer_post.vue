@@ -39,7 +39,7 @@ async function envoi(){
     }).then((Response)=>{
         return Response.json()
     }).then((data)=>{
-      router.push("/ecrire_post/" + data.id_post)
+      this.router.push("/ecrire_post/" + data.id_post)
     })
   }
 }
