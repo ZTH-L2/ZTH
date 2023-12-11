@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-
+import { useUrlStore } from "./url.js"
 export const useUserStore = defineStore("user", {
   state: () => ({
+    urlStore: useUrlStore(),
+    route: useRouter(),
     user: null, 
   }),
   getters: {
@@ -15,16 +17,34 @@ export const useUserStore = defineStore("user", {
   actions: {
     init() { 
       let u = localStorage.getItem("user")
-      const route = useRouter();
       // check if we had it for more than 20 min
-      if (u && Date.now() - JSON.parse(u)["time"] >= 20 * 60 * 1000)
+      if (u)
       {
-        localStorage.removeItem("user");
-        u = null;
-        route.push("/connexion");
-      }
+        const elapsedTime = Date.now() - JSON.parse(u)["time"];
+        const remainingTime = Math.max(20 * 60 * 1000 - elapsedTime, 0);
+        
+        if (remainingTime > 0)
+        {
+          const logoutTimer = setTimeout(() => {
+              this.route.push("/connexion");
+              this.removeUser()
+              this.removeTimer()
+          }, remainingTime);
+  
+          localStorage.setItem("logoutTimer", JSON.stringify({ timerId: logoutTimer }));
+        } 
+        else 
+        {
+          this.route.push("/connexion");
+          this.removeUser()
+        }
 
-      this.user = u ? JSON.parse(u) : null
+        this.user = JSON.parse(u)
+      }
+      else
+      {
+        this.user = null
+      }
     },
     setUser(data){
       this.user = data
@@ -32,11 +52,32 @@ export const useUserStore = defineStore("user", {
       localStorage.setItem("user", JSON.stringify(this.user))
     },
     async logout(){
+      this.route.push("/");
+      this.removeTimer()
+      console.log(await this.removeUser())
+      
+    },
+    removeTimer(){
+      const storedTimer = JSON.parse(localStorage.getItem("logoutTimer"));
+      if (storedTimer) {
+        clearTimeout(storedTimer.timerId);
+        console.log("cleared")
+        localStorage.removeItem("logoutTimer");
+      }
+    },
+    async removeUser(){
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user){
+        localStorage.removeItem("user");
+      }
       this.user = null
-      await fetch("http://localhost:8080/user/logout", {
-        credentials: 'include',
-      })
-      localStorage.removeItem("user");
+
+      let rep = await fetch(this.urlStore.api+"/user/logout", {credentials:"include"})
+      return rep.status==204
     }
   },
+  // testing this
+  onBeforeMount() {
+    this.init(); // Call the init method when the store is imported or a component is mounted
+  }
 });

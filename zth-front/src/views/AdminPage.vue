@@ -10,7 +10,7 @@ import MCLAdmin from '../components/AdminMCL/MCLAdmin.vue'
 
 
 const userStore = useUserStore()
-userStore.init()
+// userStore.init()
 
 const states = ref({
     user: "user",

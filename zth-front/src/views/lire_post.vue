@@ -1,73 +1,3 @@
-<template>
-  <div id="post" v-if="userStore.isLoggedIn">
-    <div class="post-header" v-if="creator">
-      <div class="left-section">
-        <h3>
-          {{ postData.title }} créé par :
-          <router-link
-            :to="{ name: 'profil', params: { id: postData.id_creator, username: creator }}"
-            class="creator-link"
-          >
-            {{ creator }}
-          </router-link>
-        </h3>
-      </div>
-
-      <div class="right-section">
-        <h3>
-          <span
-            v-if="!userRating"
-            v-for="i in 5"
-            :key="i"
-            @click="noter(i)"
-            @mouseover="setHoveredRating(i)"
-            @mouseout="clearHoveredRating"
-            class="note"
-          >
-            &#9733;
-          </span>
-          <span v-if="hoveredRating !== null" class="hovered-rating-text">
-            {{ hoveredRating }}
-          </span>
-        </h3>
-
-        <h3><span class="note-label">Note : {{ postData.grade }}</span></h3>
-
-        <h3><span class="nbr-note-label">Nombre de notes : {{ postData.nb_note }}</span></h3>
-
-        <router-link
-          :to="{ name: 'ecrire_post', params: { id: postData.id_post }}"
-          class="modifier-button"
-          v-if="userStore.user.id_user == postData.id_creator"
-        >
-          Modifier
-        </router-link>
-        <button @click="supprimer" class="supprimer-button" v-if="userStore.user.id_user == postData.id_creator">Supprimer</button>
-      </div>
-    </div>
-
-    <div id="read" class="post-content" v-if="creator">
-      <div v-html="markdown"></div>
-    </div>
-
-    <div class="button" v-if="creator">
-      <button @click="montrer_cacher" v-if="Object.keys(postData).length > 13">Montrer/cacher les annexes</button>
-    </div>
-
-    <div id="fichiers" class="file-list">
-      <!-- Vos fichiers ici -->
-    </div>
-
-    <!-- espace commentaire -->
-    <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
-  </div>
-</template>
-
-<!-- for comments -->
-<script setup>
-import CommentsComp from "../components/Comments/CommentsComp.vue"
-</script>
-
 <script>
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
@@ -77,6 +7,12 @@ import { useUserStore } from "./../stores/user";
 import "highlight.js/styles/github.css";
 import { useUrlStore } from "../stores/url";
 
+const urlStore = useUrlStore();
+
+// added to do the init()
+const userStoreC = useUserStore();
+// userStoreC.init();
+
 export default {
   data() {
     return {
@@ -84,7 +20,8 @@ export default {
       creator: null,
       markdown: null,
       affichage: true,
-      userStore: useUserStore(),
+      // userStore: useUserStore(),
+      userStore: userStoreC,
       userRating: false,
       hoveredRating: null,
       urlStore: useUrlStore()
@@ -189,6 +126,83 @@ export default {
   },
 };
 </script>
+
+<script setup>
+import CommentsComp from "../components/Comments/CommentsComp.vue"
+
+</script>
+
+
+
+
+
+<template>
+  <div id="post" v-if="userStore.isLoggedIn">
+    <div class="post-header" v-if="creator">
+      <div class="left-section">
+        <h3>
+          {{ postData.title }} créé par :
+          <router-link
+            :to="{ name: 'profil', params: { id: postData.id_creator, username: creator }}"
+            class="creator-link"
+          >
+            {{ creator }}
+          </router-link>
+        </h3>
+      </div>
+
+      <div class="right-section">
+        <h3>
+          <span
+            v-if="!userRating"
+            v-for="i in 5"
+            :key="i"
+            @click="noter(i)"
+            @mouseover="setHoveredRating(i)"
+            @mouseout="clearHoveredRating"
+            class="note"
+          >
+            &#9733;
+          </span>
+          <span v-if="hoveredRating !== null" class="hovered-rating-text">
+            {{ hoveredRating }}
+          </span>
+        </h3>
+
+        <h3><span class="note-label">Note : {{ postData.grade }}</span></h3>
+
+        <h3><span class="nbr-note-label">Nombre de notes : {{ postData.nb_note }}</span></h3>
+
+        <router-link
+          :to="{ name: 'ecrire_post', params: { id: postData.id_post }}"
+          class="modifier-button"
+          v-if="userStore.user?.id_user == postData.id_creator"
+        >
+          Modifier
+        </router-link>
+        <button @click="supprimer" class="supprimer-button" v-if="userStore.user.id_user == postData.id_creator">Supprimer</button>
+      </div>
+    </div>
+
+    <div id="read" class="post-content" v-if="creator">
+      <div v-html="markdown"></div>
+    </div>
+
+    <div class="button" v-if="creator">
+      <button @click="montrer_cacher" v-if="Object.keys(postData).length > 13">Montrer/cacher les annexes</button>
+    </div>
+
+    <div id="fichiers" class="file-list">
+      <!-- Vos fichiers ici -->
+    </div>
+
+    <!-- espace commentaire -->
+    <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
+  </div>
+</template>
+
+<!-- for comments -->
+
 
 <style scoped>
 #post {
