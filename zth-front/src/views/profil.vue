@@ -22,13 +22,14 @@
   <script>
   import Post from './../components/view_post.vue';
   import { useUrlStore } from "../stores/url";
+  import { useUserStore } from "./../stores/user";
 
   export default {
     data() {
       return {
         postData: null,
-        urlStore: useUrlStore()
-
+        urlStore: useUrlStore(),
+        userStore: useUserStore()
       };
     },
     components: {
