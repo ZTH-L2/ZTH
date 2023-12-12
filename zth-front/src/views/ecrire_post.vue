@@ -127,7 +127,7 @@ export default {
         body: formData
       });
     },
-    testEnvoieFichier(){
+    async testEnvoieFichier(){
   console.log("Envoie Fichier");
 
   const formData = new FormData();
@@ -146,6 +146,35 @@ export default {
   }
 
   console.log(formData);
+
+  /**|--|**/
+
+  let response = await fetch(this.urlStore.api + "/post/put", {
+    method: "POST",
+    credentials: 'include',
+    body: formData
+  });
+
+  console.log(response);
+
+  if(response.status!=200){       // si différent de bon alors afficher
+    let message = await response.json();
+      this.DivErrorPrint( message.error );
+      //console.log( await response.json());
+    }
+
+    fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'})  
+        .then(response => response.json())
+        .then(data => {
+          this.postData = data; // Mettre à jour postData avec les nouvelles données
+          this.listeFichier = Object.keys(this.postData)
+          .filter(key => !isNaN(key))
+          .map(key => this.postData[key]);
+        })
+      
+
+  /**|--|**/
+        /*
   fetch(this.urlStore.api + "/post/put", {
     method: "POST",
     credentials: 'include',
@@ -154,10 +183,12 @@ export default {
   //.then(response => response.text())
   .then(response => { 
     console.log(response.status);   // affiche le code du message renvoyé par le serveur
-    console.log(response.text());  // affiche le message d'erreur retourner par le serveur
+    //console.log(response.text());  // affiche le message d'erreur retourner par le serveur
+    //const rep = await response.json();
+    //console.log(rep);  // affiche le message d'erreur retourner par le serveur
 
     if(response.status!=200){       // si différent de bon alors afficher
-      DivErrorPrint( response );
+      this.DivErrorPrint( response.json() );
     }
     
     return fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'});
@@ -171,6 +202,7 @@ export default {
   })
   //.then( (_) => {console.log('yop');} )
   //.catch(error => console.error('Error:', error));
+  */
     },
 
     create(tag, text=null, container) {
@@ -182,10 +214,12 @@ export default {
 },
 
 createTextError( SERVEUR_RESPONSE, container ){
-  container.innerHTML = SERVEUR_RESPONSE.text();
+  console.log(SERVEUR_RESPONSE);
+  container.innerHTML = SERVEUR_RESPONSE;
 },
 
     DivErrorPrint( SERVEUR_RESPONSE ){
+      //console.log(SERVEUR_RESPONSE);
         let HTML_BODY = document.querySelector("body");
 
         let container = document.createElement("div");
