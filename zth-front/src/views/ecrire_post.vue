@@ -127,7 +127,7 @@ export default {
         body: formData
       });
     },
-    testEnvoieFichier(){
+    async testEnvoieFichier(){
   console.log("Envoie Fichier");
 
   const formData = new FormData();
@@ -146,26 +146,69 @@ export default {
   }
 
   console.log(formData);
-  fetch(this.urlStore.api + "/post/put", {
+
+  /**|--|**/
+
+  let response = await fetch(this.urlStore.api + "/post/put", {
     method: "POST",
     credentials: 'include',
     body: formData
-  })
-  .then(response => response.text())
-  .then(data => { 
-    console.log(data);
-    return fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'});
-  })
-  .then(response => response.json())
-  .then(data => {
-    this.postData = data; // Mettre à jour postData avec les nouvelles données
-    this.listeFichier = Object.keys(this.postData)
-    .filter(key => !isNaN(key))
-    .map(key => this.postData[key]);
-  })
-  .then( (_) => {console.log('yop');} )
-  .catch(error => console.error('Error:', error));
+  });
+
+  console.log(response);
+
+  if(response.status!=200){       // si différent de bon alors afficher
+    let message = await response.json();
+      this.DivErrorPrint( message.error );
+      //console.log( await response.json());
+    }
+
+    fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'})  
+        .then(response => response.json())
+        .then(data => {
+          this.postData = data; // Mettre à jour postData avec les nouvelles données
+          this.listeFichier = Object.keys(this.postData)
+          .filter(key => !isNaN(key))
+          .map(key => this.postData[key]);
+        })
     },
+
+    create(tag, text=null, container) {
+	let el = document.createElement(tag)
+	if (text)
+		el.appendChild(document.createTextNode(text))
+	container.appendChild(el)
+	return el
+},
+
+createTextError( SERVEUR_RESPONSE, container ){
+  console.log(SERVEUR_RESPONSE);
+  container.innerHTML = SERVEUR_RESPONSE;
+},
+
+    DivErrorPrint( SERVEUR_RESPONSE ){
+      //console.log(SERVEUR_RESPONSE);
+        let HTML_BODY = document.querySelector("body");
+
+        let container = document.createElement("div");
+        container.setAttribute("style","height:90vh; width :90vw; bottom: calc(50% - (90vh/2)); right: calc(50% - (90vw/2)) ;")
+		
+		    let bouttonClose = this.create("div",null,container)
+		    let CharClose = this.create("p","❌",bouttonClose) //Img ?
+		    bouttonClose.setAttribute("id", "buttonClose")
+		
+		    //Evenement bouttonClose vider caractéristique et caché
+		    bouttonClose.addEventListener("click",function(){
+			    console.log("Affichage erreur ouverture")
+			    container.parentNode.removeChild(container) // suppression de container
+		    })
+		
+		this.createTextError( SERVEUR_RESPONSE, container );
+
+        HTML_BODY.appendChild(container);
+
+	},
+
     sanitize(stringHTML) {
       const md = new MarkdownIt({
         html: true,
