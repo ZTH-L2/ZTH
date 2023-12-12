@@ -151,15 +151,9 @@ export default {
     credentials: 'include',
     body: formData
   })
-  //.then(response => response.text())
-  .then(response => { 
-    console.log(response.status);   // affiche le code du message renvoyé par le serveur
-    console.log(response.text());  // affiche le message d'erreur retourner par le serveur
-
-    if(response.status!=200){       // si différent de bon alors afficher
-      DivErrorPrint( response );
-    }
-    
+  .then(response => response.text())
+  .then(data => { 
+    console.log(data);
     return fetch(this.urlStore.api + "/post/" + this.$route.params.id, {credentials: 'include'});
   })
   .then(response => response.json())
@@ -169,44 +163,9 @@ export default {
     .filter(key => !isNaN(key))
     .map(key => this.postData[key]);
   })
-  //.then( (_) => {console.log('yop');} )
-  //.catch(error => console.error('Error:', error));
+  .then( (_) => {console.log('yop');} )
+  .catch(error => console.error('Error:', error));
     },
-
-    create(tag, text=null, container) {
-	let el = document.createElement(tag)
-	if (text)
-		el.appendChild(document.createTextNode(text))
-	container.appendChild(el)
-	return el
-},
-
-createTextError( SERVEUR_RESPONSE, container ){
-  container.innerHTML = SERVEUR_RESPONSE.text();
-},
-
-    DivErrorPrint( SERVEUR_RESPONSE ){
-        let HTML_BODY = document.querySelector("body");
-
-        let container = document.createElement("div");
-        container.setAttribute("style","height:90vh; width :90vw; bottom: calc(50% - (90vh/2)); right: calc(50% - (90vw/2)) ;")
-		
-		    let bouttonClose = this.create("div",null,container)
-		    let CharClose = this.create("p","❌",bouttonClose) //Img ?
-		    bouttonClose.setAttribute("id", "buttonClose")
-		
-		    //Evenement bouttonClose vider caractéristique et caché
-		    bouttonClose.addEventListener("click",function(){
-			    console.log("Affichage erreur ouverture")
-			    container.parentNode.removeChild(container) // suppression de container
-		    })
-		
-		this.createTextError( SERVEUR_RESPONSE, container );
-
-        HTML_BODY.appendChild(container);
-
-	},
-
     sanitize(stringHTML) {
       const md = new MarkdownIt({
         html: true,
@@ -226,9 +185,7 @@ createTextError( SERVEUR_RESPONSE, container ){
       const htmlContent = md.render(stringHTML);
       let sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object","img"], ADD_ATTR:['data','src'],FORBID_TAGS: ['style']});
 
-      sanitizedHtml = styleDefault + sanitizedHtml;
-
-      return sanitizedHtml;
+      return sanitizedHtml
     }
   },
   created() {
