@@ -15,7 +15,7 @@ const idParent = ref(props.idParent)
 const comment = computed(()=>props.content)
 const del = ref(false);
 const createComment = computed(()=>props.createComment)
-
+const hover = ref(false)
 
 async function reply(){
     await createComment.value(comment.value.id_comment, replyComment)
@@ -98,30 +98,124 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div>
-        <p>user name : {{ comment.username }}</p>
-        {{comment.content}}
-        <button v-if="comment.id_user == user.id_user" @click="del = true">X</button>
-        <PopUp v-if="del" message="Voulez vous vraiment supprimer ce commentaire ?" confirmMessage="supprimer" @confirm="$emit('delete', comment.id_comment)" @close="del = false"></PopUp>
-        <!-- can't reply to your own comments -->
-        <button v-if="comment.id_user != user.id_user" @click="wantsToReply = !wantsToReply">Répondre</button>
-        
-        <form v-if="wantsToReply" @submit.prevent="reply()">
-            <textarea v-model="replyComment" id="c" name="c" rows="4" placeholder="rédiger votre réponse" required></textarea>            
-            <button type="submit">commenter</button>
-        </form>
-        
-        
-        <div v-if="nbChildrens > 0">
-            <button @click="seeReplies">Voir réponses</button>
-            <div v-if="wantsToSeeReplies">
-                <CommentComp v-for="c in childrens" :idPost="idPost" :idParent="comment.id_comment" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentComp>
-                <button v-if="canSeeMore" @click="getMoreReplies">Voir plus de réponses</button>
+    <div class="comment" >
+        <div class="my" @mouseover="hover=true" @mouseleave="hover=false">
+            <div class="annexe" v-if="hover">
+            <button v-if="comment.id_user == user.id_user" @click="del = true">X</button>
+            </div>
+            <div class="header">
+                <p class="username">{{ comment.username }}</p>
+            </div>
+            <div class="content">
+                <p>{{comment.content}}</p>
             </div>
         </div>
+        
+        
+        <div class="replies">
+            <!-- can't reply to your own comments -->
+            <button v-if="comment.id_user != user.id_user" class="reply-button" @click="wantsToReply = !wantsToReply">Répondre</button>
+            <div class="form">
+                <form v-if="wantsToReply" @submit.prevent="reply()">
+                    <div>
+                        <textarea class="area" v-model="replyComment" id="c" name="c" rows="4" placeholder="rédiger votre réponse" required></textarea>            
+                    </div>
+                    <div>
+                        <button type="submit" class="commmenter">commenter</button>
+                    </div>
+                </form>
+            </div>
+            <div v-if="nbChildrens > 0">
+                <button @click="seeReplies">Voir réponses</button>
+                <div v-if="wantsToSeeReplies">
+                    <CommentComp v-for="c in childrens" :idPost="idPost" :idParent="comment.id_comment" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentComp>
+                    <button v-if="canSeeMore" @click="getMoreReplies">Voir plus de réponses</button>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+       
+        
+
+        <PopUp v-if="del" message="Voulez vous vraiment supprimer ce commentaire ?" confirmMessage="supprimer" @confirm="$emit('delete', comment.id_comment)" @close="del = false"></PopUp>
 
     </div>
 </template>
-<style>
+
+<style scoped>
+.comment {
+    
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* margin: 1rem 1rem 1rem 1rem; */
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+.my {
+    position: relative;
+}
+
+.content {
+    max-width: 20rem;
+}
+
+
+.username {
+
+}
+
+.annexe{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+/* reply */
+.reply-button, button {
+    /* background-color: rgb(201, 139, 226); */
+    /* border-radius: 6px;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid; */
+    border: none;
+    background-color: white;
+    color: rgb(201, 139, 226);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* .reply-button:hover {
+    background-color: white;
+    color: rgb(201, 139, 226);
+    border-color: rgb(201, 139, 226);
+    border-width: 1px;
+} */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.area {
+  width: 20rem;
+  height: 3rem; 
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  /* resize: none; */
+}
+
+.commmenter {
+    border: none;
+    background-color: white;
+    color: rgb(201, 139, 226);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 
 </style>

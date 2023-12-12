@@ -101,9 +101,19 @@ getParents()
         <p>page de commentaire :{{ currentPage + 1 }}/{{ nbPages > 0 ? nbPages : 1 }}</p>
         <button @click="currentPage = (currentPage + 1) % nbPages">Page suivante</button>
         <button @click="currentPage = (((currentPage - 1) % nbPages) + nbPages) % nbPages">Page précédente</button>
-        <CommentCompt v-for="c in comments" :idPost="idPost" :idParent="null" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentCompt>
+
+        <div class="comment-space">
+            <CommentCompt v-for="c in comments" :idPost="idPost" :idParent="null" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentCompt>
+        </div>
     </div>
 </template>
-<style>
+
+<style scoped>
+
+.comment-space{
+    display: flex;
+    flex-direction: column;
+}
+
 
 </style>
