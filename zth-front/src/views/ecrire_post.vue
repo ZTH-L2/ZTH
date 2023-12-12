@@ -88,22 +88,16 @@ export default {
           case 'png':
           case 'jpeg':
           case 'webp':
-          pressePapier = "![Image non chargée]("+PATH_FICHIER+")";
+          pressePapier = "![Image non chargée](<"+PATH_FICHIER+">)";
           break;
           case 'pdf':
           pressePapier = "<object data='"+PATH_FICHIER+"' type='application/pdf'></object>";
           break;
           case 'mp4':
-          pressePapier = "<object data='"+PATH_FICHIER+"' type='video/mp4'></object>";
-          break;
-          case 'csv':
-          pressePapier = "<object data='"+PATH_FICHIER+"' type='text/csv'></object>";
-          break;
-          case 'xlsx':
-          pressePapier = "<object data='"+PATH_FICHIER+"' type='application/vnd.ms-excel'></object>";
+          pressePapier = "<video controls><source src='"+PATH_FICHIER+"' type='video/mp4'/></video>";
           break;
           default:
-          pressePapier = "[Légende]("+PATH_FICHIER+")";
+          pressePapier = "[Légende](<"+PATH_FICHIER+">)";
         };
         navigator.clipboard.writeText(pressePapier)
         .then(() => {
