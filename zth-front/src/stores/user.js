@@ -21,7 +21,7 @@ export const useUserStore = defineStore("user", {
       if (u)
       {
         const elapsedTime = Date.now() - JSON.parse(u)["time"];
-        const remainingTime = Math.max(20 * 60 * 1000 - elapsedTime, 0);
+        const remainingTime = Math.max(1 * 60 * 1000 - elapsedTime, 0);
         
         if (remainingTime > 0)
         {
