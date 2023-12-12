@@ -52,7 +52,7 @@ export default {
         linkify: true,
         typographer: true,
       });
-      
+
       const styleDefault = "<style>img{ width:100%; height:auto; }object{ width:100%; height:auto; }</style>";
       const htmlContent = md.render(stringHTML);
       let sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object","img"], ADD_ATTR:['data','src'],FORBID_TAGS: ['style']});
@@ -114,19 +114,12 @@ export default {
         let div = document.querySelector("#fichiers");
         for (let i = 0; i < Object.keys(this.postData).length - 13; i++) {
           let ext = this.postData[i].split('.').pop();
-          if (ext == 'png') {
-            let fichier = document.createElement('img');
 
-            fichier.src = this.urlStore.api + "/data/" + this.postData.id_post + "/" + this.postData[i];
-            div.appendChild(fichier);
-          } else {
-            let fichier = document.createElement('iframe');
-            fichier.height = 700;
-            fichier.src = this.urlStore.api + "/data/" + this.postData.id_post + "/" + this.postData[i];
-            fichier.classList.add('file-iframe');
+            let fichier = document.createElement('a');
+            fichier.href = this.urlStore.api + "/data/" + this.postData.id_post + "/" + this.postData[i];
+            fichier.innerText = this.postData[i]
             div.appendChild(fichier);
           }
-        }
       });
   },
 };
