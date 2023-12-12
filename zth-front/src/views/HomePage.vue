@@ -60,7 +60,9 @@ li{
 }
 .home-section {
   padding: 50px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.2);
   margin: 20px 0;
+  color :purple; 
+  font-family: Comic Sans MS, Comic Sans, cursive;
 }
 </style>

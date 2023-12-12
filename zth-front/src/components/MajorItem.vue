@@ -46,13 +46,33 @@ async function abonne(){
 // mettre un bouton pour se désabonner
 </script>
 <template>
-  <div>
-    <p>{{ props.year }} - {{ props.name }}</p>
-    <button @click="abonne" v-if="!sub">S'abonner</button>
-    <button @click="desabonne" v-else>Se désabonner</button>
-  </div>
+    <h3>{{ props.year }} - {{ props.name }}</h3>
+    <button @click="abonne" v-if="!sub" class="modifier-button">S'abonner</button>
+    <button @click="desabonne" v-else class="modifier-button">Se désabonner</button>
 </template>
 
 
 <style scoped>
+
+
+.major{
+  display:flex;
+}
+.modifier-button {
+  float: right;
+  background-color: #007BFF; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  padding: 10px 15px; /* Espacement interne du bouton */
+  border: none; /* Supprimer la bordure du bouton */
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 20px;
+  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+}
+
+.modifier-button:hover {
+  background-color: #0056b3;
+}
+
 </style>

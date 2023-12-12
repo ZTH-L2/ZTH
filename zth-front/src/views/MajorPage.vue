@@ -66,8 +66,8 @@ const majorsFiltered = computed(() => {
 
       <p v-if="nbPages > 0">Page: {{ currentPage + 1 }}/{{ nbPages }}</p>
       <p v-else>Page: 1/1</p>
-      <button @click="nextPage">Page suivante</button>
       <button @click="previousPage">Page précédente</button>
+      <button @click="nextPage">Page suivante</button>
 
       <select v-model="filterYear">
         <option disabled value="">Année</option>
@@ -81,7 +81,7 @@ const majorsFiltered = computed(() => {
     </div>
     <div v-if="loading">Loading</div>
     <div v-else class="majors">
-      <div v-for="major in majorsFiltered" :key="major.id_major">
+      <div v-for="major in majorsFiltered" :key="major.id_major" class="major">
         <MajorItem
           :id="major.id_major"
           :name="major.name"
@@ -92,22 +92,25 @@ const majorsFiltered = computed(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .majors {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 20px; /* Ajout d'un espacement entre les éléments */
-  place-items: center; /* Centrage des éléments */
+  gap: 10px; /* Adjusted gap value to reduce spacing */
+  place-items: center; /* Centering the items */
 }
-
+.major{
+  display: flex;
+  align-items: center;
+  flex-direction: column
+}
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
-
 
 .majors div {
-  background-color: rgb(186, 134, 186); /* Couleur de fond légèrement modifiée */
-  padding: 20px; /* Ajout de rembourrage pour un look plus esthétique */
+  background-color: #ff6b35;
+  padding: 20px;
 }
 </style>
