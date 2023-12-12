@@ -166,6 +166,8 @@ export default {
   .then( (_) => {console.log('yop');} )
   .catch(error => console.error('Error:', error));
     },
+
+    
     sanitize(stringHTML) {
       const md = new MarkdownIt({
         html: true,
@@ -181,15 +183,13 @@ export default {
         linkify: true,
         typographer: true,
       });
-      const styleDefault = `<style>
-                              img{ width:100%; height:auto; }
-                              object{ width:100%; height:auto; }
-                            </style>`
-                            ;
-      const htmlContent = md.render(stringHTML + styleDefault);
-      const sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object","img"], ADD_ATTR:['data','src']});
+      const styleDefault = "<style>img{ width:100%; height:auto; }object{ width:100%; height:auto; }</style>";
+      const htmlContent = md.render(stringHTML);
+      const sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object","img"], ADD_ATTR:['data','src'],FORBID_TAGS: ['style']});
 
-      return sanitizedHtml
+      sanitizedHtml = styleDefault + sanitizedHtml;
+
+      return sanitizedHtml;
     }
   },
   created() {

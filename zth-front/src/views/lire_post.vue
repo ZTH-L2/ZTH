@@ -52,9 +52,12 @@ export default {
         linkify: true,
         typographer: true,
       });
-
+      const styleDefault = "<style>img{ width:100%; height:auto; }object{ width:100%; height:auto; }</style>";
       const htmlContent = md.render(stringHTML);
-      const sanitizedHtml = DOMPurify.sanitize(htmlContent, { ADD_TAGS: ['object'], ADD_ATTR: ['data'] });
+      const sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object","img"], ADD_ATTR:['data','src'],FORBID_TAGS: ['style']});
+
+      sanitizedHtml = styleDefault + sanitizedHtml;
+
       return sanitizedHtml;
     },
     async noter(rating){
