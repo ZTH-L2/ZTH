@@ -101,7 +101,8 @@ onMounted(()=>{
     <div class="comment" >
         <div class="my" @mouseover="hover=true" @mouseleave="hover=false">
             <div class="annexe" v-if="hover">
-            <button v-if="comment.id_user == user.id_user" @click="del = true">X</button>
+                <button v-if="comment.id_user != user.id_user" class="reply-button" @click="wantsToReply = !wantsToReply">Répondre</button>
+                <button v-if="comment.id_user == user.id_user" @click="del = true" class="delete-button">X</button>
             </div>
             <div class="header">
                 <p class="username">{{ comment.username }}</p>
@@ -114,7 +115,6 @@ onMounted(()=>{
         
         <div class="replies">
             <!-- can't reply to your own comments -->
-            <button v-if="comment.id_user != user.id_user" class="reply-button" @click="wantsToReply = !wantsToReply">Répondre</button>
             <div class="form">
                 <form v-if="wantsToReply" @submit.prevent="reply()">
                     <div>
@@ -126,10 +126,15 @@ onMounted(()=>{
                 </form>
             </div>
             <div v-if="nbChildrens > 0">
-                <button @click="seeReplies">Voir réponses</button>
+                <div class="seeReplies">
+                    <button @click="seeReplies">{{ wantsToSeeReplies ? "masquer" : "voir les réponses"}}</button>
+                </div>
                 <div v-if="wantsToSeeReplies">
                     <CommentComp v-for="c in childrens" :idPost="idPost" :idParent="comment.id_comment" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentComp>
-                    <button v-if="canSeeMore" @click="getMoreReplies">Voir plus de réponses</button>
+                    <div class="seeReplies">
+                        <button v-if="canSeeMore" @click="getMoreReplies">Voir plus de réponses</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -150,6 +155,7 @@ onMounted(()=>{
     /* display: flex; */
     /* flex-direction: column; */
     /* margin: 1rem 1rem 1rem 1rem; */
+    max-width: 25rem;
     padding: 1rem 1rem 1rem 1rem;
 }
 
@@ -158,12 +164,15 @@ onMounted(()=>{
 }
 
 .content {
-    max-width: 20rem;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 
 
 .username {
-
+    font-size: large;
+    font-weight: bold;
+    color: rgb(78, 56, 88);
 }
 
 .annexe{
@@ -172,8 +181,9 @@ onMounted(()=>{
     right: 0px;
 }
 
+
 /* reply */
-.reply-button, button {
+.reply-button {
     /* background-color: rgb(201, 139, 226); */
     /* border-radius: 6px;
     border-color: white;
@@ -181,20 +191,39 @@ onMounted(()=>{
     border-style: solid; */
     border: none;
     background-color: white;
-    color: rgb(201, 139, 226);
+    color: rgb(78, 56, 88);
+    font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
 }
 
-/* .reply-button:hover {
+.delete-button {
+    border: none;
     background-color: white;
-    color: rgb(201, 139, 226);
-    border-color: rgb(201, 139, 226);
-    border-width: 1px;
-} */
+    color: rgb(197, 51, 40);
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.seeReplies {
+    display: flex;
+    justify-content: center;
+}
+.seeReplies button {
+    border: none;
+    background-color: white;
+    color: rgb(78, 56, 88);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 
 form {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
 }
@@ -207,12 +236,13 @@ form {
   border-radius: 4px;
   background-color: #f8f8f8;
   /* resize: none; */
+  word-wrap: break-word;
 }
 
 .commmenter {
     border: none;
     background-color: white;
-    color: rgb(201, 139, 226);
+    color: rgb(78, 56, 88);
     text-align: center;
     text-decoration: none;
     display: inline-block;
