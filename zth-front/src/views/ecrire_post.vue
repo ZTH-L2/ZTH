@@ -30,6 +30,13 @@
         <button type="button" @click="publier()">Publier</button>
 
       </div>
+
+      <div  v-if="this.PrintErrorTOGGLE" 
+            id="DivError"
+            @click="this.PrintErrorTOGGLE = false;"
+            >
+            <div v-html="this.PrintErrorString"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +61,10 @@ export default {
       source: "",
       listeFichier: [],
       urlStore: useUrlStore(),
-      router: useRouter()
+      router: useRouter(),
+
+      PrintErrorTOGGLE: false,
+      PrintErrorString: ""
     };
   },
   methods: {
@@ -182,6 +192,7 @@ createTextError( SERVEUR_RESPONSE, container ){
 
     DivErrorPrint( SERVEUR_RESPONSE ){
       //console.log(SERVEUR_RESPONSE);
+      /*
         let HTML_BODY = document.querySelector("body");
 
         let container = document.createElement("div");
@@ -200,7 +211,10 @@ createTextError( SERVEUR_RESPONSE, container ){
 		this.createTextError( SERVEUR_RESPONSE, container );
 
         HTML_BODY.appendChild(container);
-
+        */
+       console.log("yap");
+       this.PrintErrorTOGGLE = true;
+       this.PrintErrorString = SERVEUR_RESPONSE;
 	},
 
     sanitize(stringHTML) {
@@ -218,7 +232,8 @@ createTextError( SERVEUR_RESPONSE, container ){
         linkify: true,
         typographer: true,
       });
-      const styleDefault = "<style>img{ width:100%; height:auto; }object{ width:100%; height:auto; }</style>";
+      const styleDefault = "<style>img{ width:auto; height:auto; max-width: 100%; max-height: 100%; }object{ width:auto; height:auto; max-width: 100%; max-height: 100%; }video{ width:auto; height:auto; max-width: 100%; max-height: 100%; }</style>";
+      //const styleDefault = "<style>img{ width:100%; height:auto; }object{ width:100%; height:auto; }</style>";
       const htmlContent = md.render(stringHTML);
       
       let sanitizedHtml = DOMPurify.sanitize(htmlContent, {ADD_TAGS: ["object","img"], ADD_ATTR:['data','src'],FORBID_TAGS: ['style']});
@@ -344,4 +359,18 @@ p:hover {
 .file-link p:hover {
   text-decoration: underline;
 }
+
+#DivError {
+  background-color: red;
+
+  position:fixed;
+
+  height:90vh;
+  width :90vw;
+  bottom: calc(50% - (90vh/2));
+  right: calc(50% - (90vw/2)) ;
+		
+  overflow: auto;
+}
+
 </style>
