@@ -158,7 +158,6 @@ onMounted(()=>{
 
 <style scoped>
 .comment {
-    
     /* display: flex; */
     /* flex-direction: column; */
     /* margin: 1rem 1rem 1rem 1rem; */

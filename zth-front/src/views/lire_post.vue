@@ -196,7 +196,9 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
     </div>
 
     <!-- espace commentaire -->
-    <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
+    <div class="comment-zone">
+      <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
+    </div>
   </div>
 </template>
 
@@ -293,5 +295,14 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
 .hovered-rating-text {
   font-size: 0.8rem;
   color: #555;
+}
+
+
+/* comments */
+
+.comment-zone{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

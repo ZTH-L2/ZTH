@@ -90,9 +90,9 @@ getParents()
 
 <template>
     <div class="comments">
-        <div class="pages">
+        <div class="pages" v-if="nbPages > 0">
             <button class="page-button" @click="currentPage = (((currentPage - 1) % nbPages) + nbPages) % nbPages">-</button>
-            <p class="page-display">{{ currentPage + 1 }}/{{ nbPages > 0 ? nbPages : 1 }}</p>
+            <p class="page-display">{{ currentPage + 1 }}/{{nbPages}}</p>
             <button class="page-button" @click="currentPage = (currentPage + 1) % nbPages">+</button>
         </div>
         
@@ -123,7 +123,7 @@ getParents()
 }
 
 form {
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem 0rem 1rem 0rem;
     display: flex;
     flex-direction: column;
     max-width: 15rem;
@@ -165,7 +165,7 @@ form {
 }
 
 .area {
-  width: 20rem;
+  width: 15rem;
   height: 3rem; 
   box-sizing: border-box;
   border: none;
