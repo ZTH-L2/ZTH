@@ -75,6 +75,9 @@ async function envoi() {
           }
         });
       }
+      else{
+        error.value = "erreur nom d'utilisateur ou email déjà utilisé";
+      }
     });
   }
 }
@@ -89,13 +92,11 @@ async function envoi() {
     <button @click="envoi">S'inscrire</button>
     <p>{{ error }}</p>
     <p>Déjà un compte ?</p>
-    <nav>
-      <RouterLink to="/connexion" class="custom-button">Connectez-vous !</RouterLink>
-    </nav>
+    <RouterLink to="/connexion" class="custom-button">Connectez-vous !</RouterLink>
   </div>
 </template>
 
-<style>
+<style scoped>
 .inscription {
   display: flex;
   flex-direction: column;
@@ -132,9 +133,6 @@ p {
   margin-bottom: 0;
 }
 
-nav {
-  margin-top: 0.5rem;
-}
 
 .custom-button {
   padding: 10px 20px;
@@ -146,6 +144,7 @@ nav {
   cursor: pointer;
   font-size: 16px;
   text-decoration: none;
+  margin-top: 6px;
 
 }
 

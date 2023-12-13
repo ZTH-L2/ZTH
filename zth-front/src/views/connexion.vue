@@ -54,9 +54,7 @@ async function envoi() {
 
     <p>Pas de compte ?</p>
   
-    <nav>
-      <RouterLink to="/inscription" class="custom-button">Inscrivez-vous !</RouterLink>
-    </nav>
+    <RouterLink to="/inscription" class="custom-button">Inscrivez-vous !</RouterLink>
   </div>
 </template>
 
@@ -111,8 +109,8 @@ nav {
   cursor: pointer;
   font-size: 16px;
   text-decoration: none;
+  margin-top: 6px;
 
-  
 }
 
 .custom-button:hover {

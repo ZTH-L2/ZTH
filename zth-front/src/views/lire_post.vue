@@ -233,6 +233,11 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
   flex-wrap: wrap;
 }
 
+.post-content{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #dce1e3;
+}
 .modifier-button {
   float: right;
   background-color: #007BFF; /* Couleur de fond du bouton */

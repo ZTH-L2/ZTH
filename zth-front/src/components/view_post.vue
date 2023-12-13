@@ -47,7 +47,7 @@ export default {
 <style scoped>
 .mesPosts {
   display: inline-block;
-  border: 1px solid #ddd;
+  border: 3px solid #ddd;
   padding: 10px;
   margin-bottom: 30px;
   margin-right: 30px; /* Espacement entre les éléments */
@@ -66,7 +66,6 @@ export default {
 
 .link-creator {
   display: flex; /* Utiliser la flexbox */
-  align-items: center; /* Aligner les éléments verticalement au centre */
 }
 
 .creator {
@@ -100,5 +99,6 @@ export default {
 .creator-link {
   text-decoration: none;
   font-size: 16px;
+  margin-left: 5px;
 }
 </style>
