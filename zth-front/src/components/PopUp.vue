@@ -40,7 +40,7 @@ onUnmounted(()=>{
 <style>
 
 .popup {
-    position: absolute;
+    position: fixed;
     background-color: white;
     z-index: 100;
     left: 50vw;
@@ -50,12 +50,14 @@ onUnmounted(()=>{
 
 .unclickable{
     pointer-events: none;
+    /* unscrollable */
+    overflow: hidden;
 }
 
 .background{
     opacity: 50%;
     background-color: grey;
-    position: absolute;
+    position: fixed;
     left: 0;
     top:0;
     width: 100vw;
