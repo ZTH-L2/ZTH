@@ -257,7 +257,8 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
 .post-content{
   margin-top: 10px;
   margin-bottom: 10px;
-  background-color: #dce1e3;
+  border-bottom: 1px solid #ddd;
+  background-color: #f2f2f2;
 }
 .modifier-button {
   float: right;
