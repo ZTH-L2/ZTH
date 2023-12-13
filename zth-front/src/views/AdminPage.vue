@@ -66,7 +66,8 @@ const currentState = ref("user")
     </div>
 </template>
 
-<style scoped>
+<!-- NE PAS METTRE EN SCOPED -->
+<style>
 
 .header, .content{
     display: flex;
