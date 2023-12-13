@@ -62,6 +62,7 @@ export default {
   text-decoration: none;
   margin-bottom: 5px;
   display: block;
+  overflow: hidden;
 }
 
 .link-creator {
