@@ -100,7 +100,7 @@ getParents()
             <form @submit.prevent="handleCreation">
                 <textarea class="area" v-model="comment" id="comment" name="comment" rows="4" placeholder="écrire un commentaire" required></textarea>            
                 <div>
-                    <button type="submit">commenter</button>
+                    <button type="submit" class="commenter">commenter</button>
                 </div>
             </form>
             <p>{{ message }}</p>
@@ -110,7 +110,7 @@ getParents()
         
 
         <div class="comment-space">
-            <CommentCompt v-for="c in comments" :idPost="idPost" :idParent="null" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentCompt>
+            <CommentCompt v-for="c in comments" :idPost="idPost" :idParent="null" :content="c" :user="user" :createComment="createComment" :parentName="null" @delete="deleteComment"></CommentCompt>
         </div>
     </div>
 </template>
@@ -175,5 +175,13 @@ form {
   word-wrap: break-word;
 }
 
+.commenter {
+    border: none;
+    background-color: white;
+    color: rgb(78, 56, 88);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 
 </style>

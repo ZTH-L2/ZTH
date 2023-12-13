@@ -7,7 +7,7 @@ import PopUp from "@/components/PopUp.vue";
 const urlStore = useUrlStore()
 
 const emit = defineEmits(['delete', 'reply'])
-const props = defineProps(['user','idPost', 'idParent', 'content', 'createComment'])
+const props = defineProps(['user','idPost', 'idParent', 'content', 'createComment', 'parentName'])
 
 const user = ref(props.user)
 const idPost = ref(props.idPost)
@@ -15,6 +15,7 @@ const idParent = ref(props.idParent)
 const comment = computed(()=>props.content)
 const del = ref(false);
 const createComment = computed(()=>props.createComment)
+const parentName = computed(()=>props.parentName)
 const hover = ref(false)
 
 async function reply(){
@@ -32,6 +33,7 @@ const childrens = ref([])
 const childrensPage = ref(1)
 const amountChildrenPerPage = ref(5)
 const canSeeMore= computed(()=> nbChildrens.value > childrens.value.length)
+
 
 function getNameCreator(){
     let url = urlStore.api + "/user/name/" + comment.value.id_user
@@ -105,7 +107,12 @@ onMounted(()=>{
                 <button v-if="comment.id_user == user.id_user" @click="del = true" class="delete-button">X</button>
             </div>
             <div class="header">
-                <p class="username">{{ comment.username }}</p>
+                <p class="username">
+                    {{ comment.username }}
+                    <p v-if="parentName != null" class="parentname">
+                          {{ " à " + parentName }}
+                    </p>
+                </p>
             </div>
             <div class="content">
                 <p>{{comment.content}}</p>
@@ -130,7 +137,7 @@ onMounted(()=>{
                     <button @click="seeReplies">{{ wantsToSeeReplies ? "masquer" : "voir les réponses"}}</button>
                 </div>
                 <div v-if="wantsToSeeReplies">
-                    <CommentComp v-for="c in childrens" :idPost="idPost" :idParent="comment.id_comment" :content="c" :user="user" :createComment="createComment" @delete="deleteComment"></CommentComp>
+                    <CommentComp v-for="c in childrens" :idPost="idPost" :idParent="comment.id_comment" :content="c" :user="user" :createComment="createComment" :parentName="comment.username" @delete="deleteComment"></CommentComp>
                     <div class="seeReplies">
                         <button v-if="canSeeMore" @click="getMoreReplies">Voir plus de réponses</button>
                     </div>
@@ -156,7 +163,7 @@ onMounted(()=>{
     /* flex-direction: column; */
     /* margin: 1rem 1rem 1rem 1rem; */
     max-width: 25rem;
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem 0rem 1rem 0rem;
 }
 
 .my {
@@ -172,6 +179,14 @@ onMounted(()=>{
 .username {
     font-size: large;
     font-weight: bold;
+    color: rgb(78, 56, 88);
+    display: flex;
+    flex-direction: row;
+}
+.parentname {
+    margin-left: 0.5rem;
+    font-size: large;
+    font-weight: normal;
     color: rgb(78, 56, 88);
 }
 
