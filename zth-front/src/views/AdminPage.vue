@@ -69,7 +69,7 @@ const currentState = ref("user")
     </div>
 </template>
 
-<style>
+<style scoped>
 
 
 .states{

@@ -30,7 +30,7 @@ function logout(){
   <div>
     <nav class="TheNavBar white-shadow">
       <div class="navElement">
-        <button @click="toogleSideBarMenu" class="button">menu</button>
+        <button @click="toogleSideBarMenu" class="button" v-if="userStore.isLoggedIn">menu</button>
         <h2><RouterLink to="/" class="navElement">NoteSync</RouterLink></h2>
       </div>
       <div class="navElement" v-if="!userStore.isLoggedIn">

@@ -37,7 +37,7 @@ onUnmounted(()=>{
     </div>
 </template>
 
-<style>
+<style scoped>
 
 .popup {
     position: fixed;

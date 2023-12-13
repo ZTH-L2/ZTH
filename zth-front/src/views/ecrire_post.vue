@@ -1,6 +1,6 @@
 <template>
   <div id='mainContent'>
-    <div v-if="creator" >
+    <div v-if="creator && postData.id_creator == userStore.id_user" >
       <div class="post-header">
       <h3>titre : {{ postData.title }}</h3>
       <h3>createur : {{ creator }}</h3>
@@ -50,6 +50,7 @@ import { ref, computed, onMounted, watch } from "vue";
 import "highlight.js/styles/github.css";
 import { useUrlStore } from "../stores/url";
 import { useRouter } from "vue-router";
+import { useUserStore } from "./../stores/user";
 
 
 export default {
@@ -62,6 +63,7 @@ export default {
       listeFichier: [],
       urlStore: useUrlStore(),
       router: useRouter(),
+      userStore : useUserStore(),
 
       PrintErrorTOGGLE: false,
       PrintErrorString: ""

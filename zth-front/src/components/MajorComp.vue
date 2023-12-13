@@ -1,11 +1,14 @@
 <template>
-    <div class="sidebar-body-menu">
+    <div class="sidebar-body-menu" v-if="buttons.length > 0">
         <div v-for="button in buttons">
-      <button @click="toggleSection(button.name)">
-        {{ button.label }}
-      </button>
-      <CoursesComp v-if="isActive(button.name)" :id="button.name">></CoursesComp>
+          <button @click="toggleSection(button.name)">
+            {{ button.label }}
+          </button>
+          <CoursesComp v-if="isActive(button.name)" :id="button.name">></CoursesComp>
+        </div>
     </div>
+    <div v-else class="sub">
+      <h3>Veulliez vous abonner à une filière</h3>
     </div>
   </template>
   
@@ -55,6 +58,9 @@ const urlStore = useUrlStore();
   }
   button:hover{
     background-color: #6C757D;
+  }
+  .sub{
+    margin-top: 30px;
   }
 </style>
   

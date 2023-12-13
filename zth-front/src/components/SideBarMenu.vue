@@ -18,7 +18,7 @@ const userStore = useUserStore();
   </div>
 </template>
 
-<style>
+<style scoped>
 .sidebar-menu {
   height: 100%;
   z-index: 100;
