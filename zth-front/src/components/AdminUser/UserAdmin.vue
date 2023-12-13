@@ -10,7 +10,8 @@ const userHeader = [
     "permission",
     "restricted",
     "first_connexion",
-    "data_size"
+    "data_size",
+    "modification"
 ]
 
 const urlStore = useUrlStore()
@@ -18,7 +19,7 @@ const urlStore = useUrlStore()
 const users = ref(null)
 
 const currentPage = ref(0)
-const amountPerPage = ref(10)
+const amountPerPage = ref(5)
 watch(currentPage, get_users);
 
 
@@ -57,15 +58,15 @@ get_users()
 
 </script>
 <template>
-    <div >
+    <div class="all">
         <div class="page-data">
             <button @click="previousPage">Page precedente</button>
-            <button @click="nextPage">Page suivante</button>
             <p>page : {{ currentPage }}</p>
+            <button @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">
-            <p v-for="el in userHeader">{{ el }}</p>
+            <p v-for="el in userHeader" class="text-header">{{ el }}</p>
         </div>
         <UserComp v-for="user in users" :data="user" @delete-user="deleteUser"></UserComp>
     </div>
@@ -73,15 +74,8 @@ get_users()
 
 <style scoped>
 
-.page-data{
-    display: inline-block;
-}
-
 .grid {
-    display: grid;
     grid-template-columns: repeat(8, 10rem);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
 }
 
 </style>

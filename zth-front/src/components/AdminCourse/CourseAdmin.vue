@@ -6,6 +6,7 @@ import { useUrlStore } from "../../stores/url";
 const courseHeader = [
     "id_course",
     "name",
+    "modification",
 ]
 
 const urlStore = useUrlStore()
@@ -13,7 +14,7 @@ const urlStore = useUrlStore()
 const courses = ref(null)
 
 const currentPage = ref(0)
-const amountPerPage = ref(10)
+const amountPerPage = ref(5)
 
 watch(currentPage, get_courses);
 
@@ -95,27 +96,32 @@ get_courses()
 
 </script>
 <template>
-    <div >
+    <div class="all">
         <div class="page-data">
             <button @click="previousPage">Page precedente</button>
-            <button @click="nextPage">Page suivante</button>
             <p>page : {{ currentPage }}</p>
+            <button @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">
-            <p v-for="el in courseHeader">{{ el }}</p>
+            <p v-for="el in courseHeader" class="text-header">{{ el }}</p>
         </div>
         <CourseComp v-for="course in courses" :data="course" @delete-course="deleteCourse"></CourseComp>
 
-        <div>
-            <h4>Creer une matiere</h4>
+        <div class="creer">
             <form @submit.prevent="createCourse">
-            <label for="courseName">Course Name:</label>
-            <input v-model="courseName" type="text" id="courseName" required />
+                <div class="champs">
+                    <label for="courseName">Nom de la matière</label>
+                    <input v-model="courseName" type="text" id="courseName" placeholder="Saisir texte" required />
+                </div>
 
-            <p v-if="customerror !== null">{{ customerror }}</p>
-            <p v-if="message">{{ message }}</p>
-            <button type="submit">Create course</button>
+                <div class="message">
+                    <p v-if="customerror !== null">{{ customerror }}</p>
+                    <p v-if="message">{{ message }}</p>
+                </div>
+                <div class="creer-button">
+                    <button type="submit">Créer une matière</button>
+                </div>
             </form>
         </div>
     </div>
@@ -123,15 +129,12 @@ get_courses()
 
 <style scoped>
 
-.page-data{
+/* .page-data{
     display: inline-block;
-}
+} */
 
 .grid {
-    display: grid;
     grid-template-columns: repeat(3, 10rem);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
 }
 
 </style>

@@ -199,11 +199,6 @@ onMounted(()=>{
 
 /* reply */
 .reply-button {
-    /* background-color: rgb(201, 139, 226); */
-    /* border-radius: 6px;
-    border-color: white;
-    border-width: 1px;
-    border-style: solid; */
     border: none;
     background-color: white;
     color: rgb(78, 56, 88);

@@ -28,9 +28,12 @@ onUnmounted(()=>{
 <template>
     <div>
         <div class="popup">
-            <p>{{ message }}</p>
-            <button @click="confirm" class="confirm">{{ confirmMessage }}</button>
-            <button @click="$emit('close')" class="cancel">Annuler</button>
+            <p class="popup-element">{{ message }}</p>
+            <div class="popup-element">
+                <button class="popup-button confirm" @click="confirm">{{ confirmMessage }}</button>
+                <button class="popup-button cancel" @click="$emit('close')">Annuler</button>
+            </div>
+            
         </div>
         <div class="background"></div>
         
@@ -42,10 +45,25 @@ onUnmounted(()=>{
 .popup {
     position: fixed;
     background-color: white;
-    z-index: 100;
-    left: 50vw;
-    top: 50vh;
+    border-radius: 4%;
+    z-index: 110;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     pointer-events: all;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.popup-element {
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+.popup-button {
+    margin: 0rem 1rem 0rem 1rem;
 }
 
 .unclickable{
@@ -62,15 +80,31 @@ onUnmounted(()=>{
     top:0;
     width: 100vw;
     height: 100vh;
-    z-index: 99;
+    z-index: 105;
 }
 
 .confirm {
+    border-color: red;
     background-color: red;
+    color: white;
+}
+
+.confirm:hover{
+    border-color: red;
+    background-color: white;
+    color: red;
 }
 
 .cancel{
+    border-color: green;
     background-color: green;
+    color: white;
+}
+
+.cancel:hover {
+    border-color: green;
+    background-color: white;
+    color: green;
 }
 
 
