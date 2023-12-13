@@ -26,7 +26,7 @@ const urlStore = useUrlStore()
 const posts = ref(null)
 
 const currentPage = ref(0)
-const amountPerPage = ref(10)
+const amountPerPage = ref(5)
 
 watch(currentPage, get_posts);
 

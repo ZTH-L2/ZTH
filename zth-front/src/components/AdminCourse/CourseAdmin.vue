@@ -14,7 +14,7 @@ const urlStore = useUrlStore()
 const courses = ref(null)
 
 const currentPage = ref(0)
-const amountPerPage = ref(10)
+const amountPerPage = ref(5)
 
 watch(currentPage, get_courses);
 
