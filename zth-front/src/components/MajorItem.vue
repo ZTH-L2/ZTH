@@ -46,9 +46,11 @@ async function abonne(){
 // mettre un bouton pour se désabonner
 </script>
 <template>
+  <div class="major">
     <h3>{{ props.year }} - {{ props.name }}</h3>
     <button @click="abonne" v-if="!sub" class="modifier-button">S'abonner</button>
     <button @click="desabonne" v-else class="modifier-button">Se désabonner</button>
+  </div>
 </template>
 
 
@@ -57,22 +59,51 @@ async function abonne(){
 
 .major{
   display:flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10rem;
+  /* border: 1px solid white(78, 56, 88); */
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  background-color: rgb(238, 178, 68);
 }
+
+.major h3 {
+  margin-bottom: 1rem;
+}
+/*
 .modifier-button {
   float: right;
-  background-color: #007BFF; /* Couleur de fond du bouton */
-  color: white; /* Couleur du texte du bouton */
-  padding: 10px 15px; /* Espacement interne du bouton */
-  border: none; /* Supprimer la bordure du bouton */
-  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 15px;
+  border: none; 
+  border-radius: 4px; 
   cursor: pointer;
   text-decoration: none;
   margin-top: 20px;
-  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+  transition: background-color 0.3s;
 }
 
 .modifier-button:hover {
   background-color: #0056b3;
+}
+*/
+
+.modifier-button {
+    width: 8rem;
+    background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 15px; /* Espacement interne du bouton */
+    border: 1px solid rgb(78, 56, 88);
+    border-radius: 4px; /* Ajouter un peu de bord arrondi */
+    cursor: pointer;
+    text-decoration: none;
+    transition: all ease 0.3s;
+}
+.modifier-button:hover {
+    border: 1px solid rgb(78, 56, 88);
+    background-color: white;
+    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
 }
 
 </style>
