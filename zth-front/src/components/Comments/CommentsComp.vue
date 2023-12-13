@@ -13,7 +13,6 @@ const counter = ref(props.initialCounter)
 
 const urlStore = useUrlStore()
 const comment = ref("");
-const message = ref("")
 
 const nbParents = ref(0);
 const amountPerPage = ref(10);
@@ -43,10 +42,6 @@ const createComment = async (id_parent_comment, commentRef) => {
 
     let resp = await fetch(url, setting).then(resp => resp.json())
 
-    if (resp instanceof Object && 'error' in resp){
-        console.log(resp.error)
-    }
-    message.value = "bien envoyé"
     commentRef.value = "";
 
     getNumberOfParents()
@@ -90,9 +85,9 @@ getParents()
 
 <template>
     <div class="comments">
-        <div class="pages">
+        <div class="pages" v-if="nbPages > 0">
             <button class="page-button" @click="currentPage = (((currentPage - 1) % nbPages) + nbPages) % nbPages">-</button>
-            <p class="page-display">{{ currentPage + 1 }}/{{ nbPages > 0 ? nbPages : 1 }}</p>
+            <p class="page-display">{{ currentPage + 1 }}/{{nbPages}}</p>
             <button class="page-button" @click="currentPage = (currentPage + 1) % nbPages">+</button>
         </div>
         
@@ -103,7 +98,6 @@ getParents()
                     <button type="submit" class="commenter">commenter</button>
                 </div>
             </form>
-            <p>{{ message }}</p>
         </div>
         
         
@@ -123,7 +117,7 @@ getParents()
 }
 
 form {
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem 0rem 1rem 0rem;
     display: flex;
     flex-direction: column;
     max-width: 15rem;
@@ -165,7 +159,7 @@ form {
 }
 
 .area {
-  width: 20rem;
+  width: 15rem;
   height: 3rem; 
   box-sizing: border-box;
   border: none;

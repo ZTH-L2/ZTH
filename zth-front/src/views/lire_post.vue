@@ -145,8 +145,9 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
   <div id="post" v-if="userStore.isLoggedIn">
     <div class="post-header" v-if="creator">
       <div class="left-section">
-        <h3>
-          {{ postData.title }} créé par :
+        <h3 class="post-title">{{ postData.title }}</h3>
+        <h3 class="post-creator">
+           créé par :
           <router-link
             :to="{ name: 'profil', params: { id: postData.id_creator, username: creator }}"
             class="creator-link"
@@ -204,7 +205,9 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
 
 
     <!-- espace commentaire -->
-    <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
+    <div class="comment-zone">
+      <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
+    </div>
   </div>
 </template>
 
@@ -216,7 +219,15 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
   margin-left: 1rem;
   margin-top: 1rem;
 }
+.post-title{
+  max-width: 25rem;
+  overflow: hidden;
+  /* margin-right: 3rem; */
+}
 
+.post-creator {
+  padding-left: 1rem;
+}
 .creator-link {
   text-decoration: none;
 }
@@ -227,10 +238,12 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .left-section {
   width: 70%;
+  display: flex;
 }
 
 .right-section {
@@ -301,5 +314,14 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
 .hovered-rating-text {
   font-size: 0.8rem;
   color: #555;
+}
+
+
+/* comments */
+
+.comment-zone{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
