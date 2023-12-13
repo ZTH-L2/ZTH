@@ -60,9 +60,9 @@ get_users()
 <template>
     <div class="all">
         <div class="page-data">
-            <button @click="previousPage">Page precedente</button>
+            <button class="page-admin-button" @click="previousPage">Page precedente</button>
             <p>page : {{ currentPage }}</p>
-            <button @click="nextPage">Page suivante</button>
+            <button class="page-admin-button" @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">

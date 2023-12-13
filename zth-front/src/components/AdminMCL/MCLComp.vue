@@ -16,7 +16,7 @@ const deletePopUp = ref(false);
             <p v-for="value in data" class="comp-element">{{ value }}</p>
             
             <div class="comp-element">
-                <button @click="deletePopUp=true">
+                <button class="page-admin-button" @click="deletePopUp=true">
                     Supprimer
                 </button>
             </div>

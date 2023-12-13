@@ -31,7 +31,7 @@ const currentState = ref("user")
                 <nav>
                     <ul class="states">
                         <li v-for="state in states" @click="currentState=state" class="state">
-                            <button class="onglet" :class="{stateselected: currentState==state}">{{  state }}</button>
+                            <button class="onglet page-admin-button" :class="{stateselected: currentState==state}">{{  state }}</button>
                         </li>
                     </ul>
                 </nav>
@@ -115,7 +115,7 @@ const currentState = ref("user")
     align-items: center;
 }
 
-button {
+.page-admin-button {
     background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
     color: white; /* Couleur du texte du bouton */
     padding: 10px 15px; /* Espacement interne du bouton */
@@ -125,7 +125,7 @@ button {
     text-decoration: none;
     transition: all ease 0.3s;
 }
-button:hover {
+.page-admin-button:hover {
     border: 1px solid rgb(78, 56, 88);
     background-color: white;
     color: rgb(78, 56, 88); /* Couleur du texte du bouton */

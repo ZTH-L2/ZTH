@@ -83,6 +83,23 @@ onUnmounted(()=>{
     z-index: 105;
 }
 
+
+button {
+    background-color:white; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 15px; /* Espacement interne du bouton */
+    border: 1px solid white;
+    border-radius: 4px; /* Ajouter un peu de bord arrondi */
+    cursor: pointer;
+    text-decoration: none;
+    transition: all ease 0.3s;
+}
+button:hover {
+    border: 1px solid white;
+    background-color: white;
+    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
+}
+
 .confirm {
     border-color: red;
     background-color: red;

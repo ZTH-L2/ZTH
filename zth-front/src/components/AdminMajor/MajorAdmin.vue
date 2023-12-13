@@ -97,9 +97,9 @@ get_majors()
 <template>
     <div class="all">
         <div class="page-data">
-            <button @click="previousPage">Page precedente</button>
+            <button class="page-admin-button" @click="previousPage">Page precedente</button>
             <p>page : {{ currentPage }}</p>
-            <button @click="nextPage">Page suivante</button>
+            <button class="page-admin-button" @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">
@@ -122,7 +122,7 @@ get_majors()
                     <p v-if="message">{{ message }}</p>
                 </div>
                 <div class="creer-button">
-                    <button type="submit">créer un major</button>
+                    <button class="page-admin-button" type="submit">créer un major</button>
                 </div>
             </form>
         </div>

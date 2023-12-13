@@ -102,9 +102,9 @@ get_mcls()
 <template>
     <div class="all">
         <div class="page-data">
-            <button @click="previousPage">Page precedente</button>
+            <button class="page-admin-button" @click="previousPage">Page precedente</button>
             <p>page : {{ currentPage }}</p>
-            <button @click="nextPage">Page suivante</button>
+            <button class="page-admin-button" @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">
@@ -127,7 +127,7 @@ get_mcls()
                     <p v-if="message">{{ message }}</p>
                 </div>
                 <div class="creer-button">
-                    <button type="submit">Créer un lien filière - matière</button>
+                    <button class="page-admin-button" type="submit">Créer un lien filière - matière</button>
                 </div>
             </form>
         </div>

@@ -13,7 +13,7 @@ const deletePopUp = ref(false);
     <div>
         <div class="grid">
             <p v-for="value in data" class="comp-element">{{ value }}</p>
-            <div class="comp-element"><button @click="deletePopUp=true">Supprimer</button></div>
+            <div class="comp-element"><button class="page-admin-button" @click="deletePopUp=true">Supprimer</button></div>
         </div>
         <PopUp message="Voulez vous vraiment supprimer cet filiere ?" confirm-message="supprimer" @confirm="$emit('deleteMajor', data[0])" @close="deletePopUp = false" v-if="deletePopUp" >
         </PopUp>
