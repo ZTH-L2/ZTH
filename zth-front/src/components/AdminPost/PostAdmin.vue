@@ -16,7 +16,9 @@ const postHeader = [
     "nb_note",
     "nb_report",
     "size",
-    "text"
+    "text",
+    "modification"
+
 ]
 
 const urlStore = useUrlStore()
@@ -62,15 +64,15 @@ get_posts()
 
 </script>
 <template>
-    <div >
+    <div class="all">
         <div class="page-data">
             <button @click="previousPage">Page precedente</button>
-            <button @click="nextPage">Page suivante</button>
             <p>page : {{ currentPage }}</p>
+            <button @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">
-            <p v-for="el in postHeader">{{ el }}</p>
+            <p v-for="el in postHeader" class="text-header">{{ el }}</p>
         </div>
         <PostComp v-for="post in posts" :data="post" @delete-post="deletePost"></PostComp>
     </div>
@@ -78,15 +80,8 @@ get_posts()
 
 <style scoped>
 
-.page-data{
-    display: inline-block;
-}
-
 .grid {
-    display: grid;
     grid-template-columns: repeat(14, 10rem);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
 }
 
 </style>

@@ -7,6 +7,7 @@ const majorHeader = [
     "id_major",
     "name",
     "year",
+    "modification"
 ]
 
 const urlStore = useUrlStore()
@@ -94,30 +95,35 @@ get_majors()
 
 </script>
 <template>
-    <div >
+    <div class="all">
         <div class="page-data">
             <button @click="previousPage">Page precedente</button>
-            <button @click="nextPage">Page suivante</button>
             <p>page : {{ currentPage }}</p>
+            <button @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">
-            <p v-for="el in majorHeader">{{ el }}</p>
+            <p v-for="el in majorHeader" class="text-header">{{ el }}</p>
         </div>
         <MajorComp v-for="major in majors" :data="major" @delete-major="deleteMajor"></MajorComp>
 
-        <div>
-            <h4>Creer un major</h4>
+        <div class="creer">
             <form @submit.prevent="createMajor">
-            <label for="majorName">Major Name:</label>
-            <input v-model="majorName" type="text" id="majorName" required />
+                <div class="champs">
+                    <label for="majorName">Nom de la filière</label>
+                    <input v-model="majorName" type="text" id="majorName" placeholder="Saisir texte" required />
 
-            <label for="majorYear">Major Year:</label>
-            <input v-model="majorYear" type="text" id="majorYear" required />
-            
-            <p v-if="customerror !== null">{{ customerror }}</p>
-            <p v-if="message">{{ message }}</p>
-            <button type="submit">Create Major</button>
+                    <label for="majorYear">Année de la filière</label>
+                    <input v-model="majorYear" type="text" id="majorYear" placeholder="Saisir texte" required />
+                </div>
+                
+                <div class="message">
+                    <p v-if="customerror !== null">{{ customerror }}</p>
+                    <p v-if="message">{{ message }}</p>
+                </div>
+                <div class="creer-button">
+                    <button type="submit">créer un major</button>
+                </div>
             </form>
         </div>
     </div>
@@ -125,15 +131,9 @@ get_majors()
 
 <style scoped>
 
-.page-data{
-    display: inline-block;
+.grid {
+    grid-template-columns: repeat(4, 10rem);
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4, 10rem);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-}
 
 </style>

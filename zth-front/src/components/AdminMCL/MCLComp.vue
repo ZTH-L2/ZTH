@@ -12,8 +12,14 @@ const deletePopUp = ref(false);
 <template>
     <div>
         <div class="grid">
-            <p v-for="value in data">{{ value }}</p>
-            <div><button @click="deletePopUp=true">Supprimer</button></div>
+            
+            <p v-for="value in data" class="comp-element">{{ value }}</p>
+            
+            <div class="comp-element">
+                <button @click="deletePopUp=true">
+                    Supprimer
+                </button>
+            </div>
         </div>
         <PopUp message="Voulez vous vraiment supprimer ce lien filiere-matiere ?" confirm-message="supprimer" @confirm="$emit('deleteMcl', data[0])" @close="deletePopUp = false" v-if="deletePopUp" >
         </PopUp>
@@ -23,10 +29,10 @@ const deletePopUp = ref(false);
 
 <style scoped>
 .grid {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: repeat(4, 10rem);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+    /* grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto); */
 }
 
 </style>

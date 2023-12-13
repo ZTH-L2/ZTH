@@ -6,7 +6,8 @@ import { useUrlStore } from "../../stores/url";
 const mclHeader = [
     "id_majors_courses_link",
     "id_major",
-    "id_course"
+    "id_course",
+    "modification",
 ]
 
 const urlStore = useUrlStore()
@@ -99,45 +100,49 @@ get_mcls()
 
 </script>
 <template>
-    <div >
+    <div class="all">
         <div class="page-data">
             <button @click="previousPage">Page precedente</button>
-            <button @click="nextPage">Page suivante</button>
             <p>page : {{ currentPage }}</p>
+            <button @click="nextPage">Page suivante</button>
         </div>
         
         <div class="grid">
-            <p v-for="el in mclHeader">{{ el }}</p>
+            <p v-for="el in mclHeader" class="text-header">{{ el }}</p>
         </div>
         <MCLComp v-for="mcl in mcls" :data="mcl" @delete-mcl="deleteMCL"></MCLComp>
 
-        <h4>Creer un major course link</h4>
-        <form @submit.prevent="createMCL">
-        <label for="idMajor">Id Major:</label>
-        <input v-model="idMajor" type="text" id="idMajor" required />
+        <div class="creer">
+            <form @submit.prevent="createMCL">
+                <div class="champs">
+                    <label for="idMajor">Id de la filière</label>
+                    <input v-model="idMajor" type="text" id="idMajor" placeholder="Saisir texte" required />
 
-        <label for="idCourse">Id Course:</label>
-        <input v-model="idCourse" type="text" id="idCourse" required />
-
-        <p v-if="customerror !== null">{{ customerror }}</p>
-        <p v-if="message">{{ message }}</p>
-        <button type="submit">Create major course link</button>
-        </form>
+                    <label for="idCourse">Id de la matière</label>
+                    <input v-model="idCourse" type="text" id="idCourse" placeholder="Saisir texte" required />
+                </div>
+                
+                <div class="message">
+                    <p v-if="customerror !== null">{{ customerror }}</p>
+                    <p v-if="message">{{ message }}</p>
+                </div>
+                <div class="creer-button">
+                    <button type="submit">Créer un lien filière - matière</button>
+                </div>
+            </form>
+        </div>
+        
 
     </div>
 </template>
 
 <style scoped>
 
-.page-data{
-    display: inline-block;
-}
-
 .grid {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: repeat(4, 10rem);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+    /* grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto); */
 }
 
 </style>
