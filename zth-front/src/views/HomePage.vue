@@ -46,7 +46,7 @@
 
 img {
   width: 100%;
-  height: 91vh;
+  height: 93vh;
   object-fit: cover;
   position: absolute;
   top: 0;
@@ -61,7 +61,7 @@ li{
 .home-section {
   padding: 50px;
   background-color: rgba(255, 255, 255, 0.2);
-  margin: 20px 0;
+  margin-bottom: 20px;
   color :purple; 
   font-family: Comic Sans MS, Comic Sans, cursive;
 }
