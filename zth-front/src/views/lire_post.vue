@@ -7,6 +7,7 @@ import { useUserStore } from "./../stores/user";
 import "highlight.js/styles/github.css";
 import { useUrlStore } from "../stores/url";
 import { useRouter } from "vue-router";
+import PopUp from "@/components/PopUp.vue";
 
 
 // added to do the init()
@@ -20,6 +21,7 @@ export default {
       creator: null,
       markdown: null,
       affichage: true,
+      del:false,
       // userStore: useUserStore(),
       userStore: useUserStore(),
       userRating: false,
@@ -29,13 +31,16 @@ export default {
     };
   },
   methods: {
-    async supprimer(){
-      await await fetch(this.urlStore.api + "/post/" + this.postData.id_post, {
+    supprimer(){
+      this.del = true
+    },
+    async delete_post(){
+      await fetch(this.urlStore.api + "/post/" + this.postData.id_post, {
         method: "DELETE",
         credentials: "include"
-    }).then((Response)=>{
-      this.router.push("/")
-    })
+      }).then((Response)=>{
+        this.router.push("/")
+      })
     },
     sanitize(stringHTML) {
       const md = new MarkdownIt({
@@ -112,6 +117,7 @@ export default {
       .then((data) => {
         this.markdown = this.sanitize(this.postData.text);
         this.creator = data.username;
+
         let div = document.querySelector("#fichiers");
         for (let i = 0; i < Object.keys(this.postData).length - 13; i++) {
           let ext = this.postData[i].split('.').pop();
@@ -194,6 +200,8 @@ import CommentsComp from "../components/Comments/CommentsComp.vue"
     <div id="fichiers" class="file-list">
       <!-- Vos fichiers ici -->
     </div>
+    <PopUp v-if="del" message="Voulez vous vraiment supprimer ce post ?" confirmMessage="supprimer" @confirm="delete_post" @close="del = false"></PopUp>
+
 
     <!-- espace commentaire -->
     <CommentsComp v-if="postData" :user="userStore.user" :idPost="postData.id_post"></CommentsComp>
