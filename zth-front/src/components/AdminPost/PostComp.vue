@@ -24,7 +24,7 @@ const deletePopUp = ref(false);
 <style scoped>
 .grid {
     display: grid;
-    grid-template-columns: repeat(14, 10rem);
+    grid-template-columns: repeat(14, 7rem);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
 }

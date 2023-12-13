@@ -81,7 +81,7 @@ get_posts()
 <style scoped>
 
 .grid {
-    grid-template-columns: repeat(14, 10rem);
+    grid-template-columns: repeat(14, 7rem);
 }
 
 </style>
