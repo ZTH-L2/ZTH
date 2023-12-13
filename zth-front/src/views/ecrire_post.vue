@@ -164,7 +164,7 @@ export default {
 
   console.log(response);
 
-  if(response.status!=200){       // si différent de bon alors afficher
+  if(response.status==400){       // si pas bon en 400 alors
     let message = await response.json();
       this.DivErrorPrint( message.error );
       //console.log( await response.json());
