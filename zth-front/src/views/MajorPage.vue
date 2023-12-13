@@ -49,36 +49,41 @@ const majorsFiltered = computed(() => {
     )
     .filter(
       (el, i) =>
-        el.name.includes(filterName.value) &&
+        el.name.toUpperCase().includes(filterName.value.toUpperCase()) &&
         el.year.toUpperCase().includes(filterYear.value)
     );
 });
 </script>
 
 <template>
-  <div v-if="userStore.isLoggedIn">
+  <div v-if="userStore.isLoggedIn" class="major-page">
     <div class="header">
-      <input
+      <div class="filter">
+        <select v-model="filterYear">
+          <option disabled value="">Année</option>
+          <option value="">Toutes</option>
+          <option>L1</option>
+          <option>L2</option>
+          <option>L3</option>
+          <option>M1</option>
+          <option>M2</option>
+        </select>
+
+        <input
         type="text"
         v-model="filterName"
         placeholder="Filtrer par nom de filière"
-      />
+        />
+      </div>
+      
 
-      <p v-if="nbPages > 0">Page: {{ currentPage + 1 }}/{{ nbPages }}</p>
-      <p v-else>Page: 1/1</p>
-      <button @click="previousPage">Page précédente</button>
-      <button @click="nextPage">Page suivante</button>
-
-      <select v-model="filterYear">
-        <option disabled value="">Année</option>
-        <option value="">Toutes</option>
-        <option>L1</option>
-        <option>L2</option>
-        <option>L3</option>
-        <option>M1</option>
-        <option>M2</option>
-      </select>
+      <div class="page-data" v-if="nbPages > 0">
+        <button class="page-button" @click="previousPage">Page précédente</button>
+        <p>{{ currentPage + 1 }}/{{ nbPages }}</p>
+        <button class="page-button" @click="nextPage">Page suivante</button>
+      </div>
     </div>
+
     <div v-if="loading">Loading</div>
     <div v-else class="majors">
       <div v-for="major in majorsFiltered" :key="major.id_major" class="major">
@@ -93,12 +98,25 @@ const majorsFiltered = computed(() => {
 </template>
 
 <style scoped>
+.major-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .majors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  /* 168p is the width of a major */
+  max-width: calc(15rem * 3);
+
+  /*
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 10px; /* Adjusted gap value to reduce spacing */
-  place-items: center; /* Centering the items */
+  gap: 10px;
+  place-items: center; */
 }
 .major{
   display: flex;
@@ -106,11 +124,70 @@ const majorsFiltered = computed(() => {
   flex-direction: column
 }
 .header {
-  margin-bottom: 30px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter select {
+  margin-right: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.filter input {
+  margin-left: 0.5rem;
+  text-align: center;
+}
+
+.filter input::placeholder{
+  font-style: italic;
+  text-align: center;
 }
 
 .majors div {
-  background-color: #ff6b35;
+  /* background-color: #ff6b35; */
   padding: 20px;
 }
+
+
+.page-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.page-button {
+    background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 15px; /* Espacement interne du bouton */
+    border: 1px solid rgb(78, 56, 88);
+    border-radius: 4px; /* Ajouter un peu de bord arrondi */
+    cursor: pointer;
+    text-decoration: none;
+    transition: all ease 0.3s;
+}
+.page-button:hover {
+    border: 1px solid rgb(78, 56, 88);
+    background-color: white;
+    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
+}
+
+.page-data button {
+    width: 10rem;
+}
+
+.page-data p {
+  text-align: center;
+  width: 5rem;
+}
+
 </style>
