@@ -13,7 +13,6 @@ const counter = ref(props.initialCounter)
 
 const urlStore = useUrlStore()
 const comment = ref("");
-const message = ref("")
 
 const nbParents = ref(0);
 const amountPerPage = ref(10);
@@ -43,10 +42,6 @@ const createComment = async (id_parent_comment, commentRef) => {
 
     let resp = await fetch(url, setting).then(resp => resp.json())
 
-    if (resp instanceof Object && 'error' in resp){
-        console.log(resp.error)
-    }
-    message.value = "bien envoyé"
     commentRef.value = "";
 
     getNumberOfParents()
@@ -103,7 +98,6 @@ getParents()
                     <button type="submit" class="commenter">commenter</button>
                 </div>
             </form>
-            <p>{{ message }}</p>
         </div>
         
         
