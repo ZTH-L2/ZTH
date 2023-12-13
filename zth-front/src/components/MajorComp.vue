@@ -17,7 +17,7 @@
   import { useUrlStore } from "./../stores/url";
 
   import { ref } from "vue";
-const urlStore = useUrlStore();
+  const urlStore = useUrlStore();
 
   const buttons = ref([]);
   

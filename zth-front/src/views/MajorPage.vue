@@ -13,6 +13,7 @@ const amountPerPage = ref(6);
 const filterName = ref("");
 const filterYear = ref("");
 
+
 async function get_all_majors() {
   loading.value = true;
 
@@ -32,27 +33,34 @@ async function get_all_majors() {
 }
 
 function nextPage() {
-  currentPage.value = currentPage.value + (1 % nbPages.value);
+  let m = filterName.value =="" && filterYear.value =="" ? nbPages.value : nbPageFiltered.value
+  currentPage.value = (currentPage.value + 1 )% m;
 }
 
 function previousPage() {
-  currentPage.value = currentPage.value - (1 % nbPages.value);
+  let m = filterName.value =="" && filterYear.value =="" ? nbPages.value : nbPageFiltered.value
+  currentPage.value = (((currentPage.value - 1 ) % m) + m) % m;
 }
-
+  
 get_all_majors();
 
 const majorsFiltered = computed(() => {
   return majors.value
-    .slice(
-      currentPage.value * amountPerPage.value,
-      (currentPage.value + 1) * amountPerPage.value
-    )
     .filter(
       (el, i) =>
         el.name.toUpperCase().includes(filterName.value.toUpperCase()) &&
         el.year.toUpperCase().includes(filterYear.value)
+    )
+    .slice(
+      currentPage.value * amountPerPage.value,
+      (currentPage.value + 1) * amountPerPage.value
     );
 });
+
+const nbPageFiltered = computed(()=>{
+  return Math.floor(majorsFiltered.value.length / amountPerPage.value) + 1
+})
+
 </script>
 
 <template>
@@ -79,7 +87,7 @@ const majorsFiltered = computed(() => {
 
       <div class="page-data" v-if="nbPages > 0">
         <button class="page-button" @click="previousPage">Page précédente</button>
-        <p>{{ currentPage + 1 }}/{{ nbPages }}</p>
+        <p>{{ currentPage + 1 }}/{{ filterName=="" && filterYear=="" ? nbPages : nbPageFiltered }}</p>
         <button class="page-button" @click="nextPage">Page suivante</button>
       </div>
     </div>
