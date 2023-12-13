@@ -15,6 +15,12 @@
       </div>
 
       <h2>Fichier disponible:</h2>
+      <div  v-if="this.PrintErrorTOGGLE" 
+            id="DivError"
+            @click="this.PrintErrorTOGGLE = false;"
+            >
+            <div v-html="this.PrintErrorString"></div>
+      </div>
       <div v-for="(item, index) in listeFichier" :key="index">
         <div class="file-link">
           <a :href=" urlStore.api + `/data/${this.postData['id_post']}/${item}`">{{ item }}</a>
@@ -22,6 +28,8 @@
           <p @click="LienMarkDownFichier(item)">Insérer dans le MarkDown</p>
         </div>
       </div>
+
+      
 
       <div class="button">
         <button type="button" @click="Envoie()">Save</button>
@@ -31,12 +39,7 @@
 
       </div>
 
-      <div  v-if="this.PrintErrorTOGGLE" 
-            id="DivError"
-            @click="this.PrintErrorTOGGLE = false;"
-            >
-            <div v-html="this.PrintErrorString"></div>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -163,7 +166,7 @@ export default {
 
   console.log(response);
 
-  if(response.status!=200){       // si différent de bon alors afficher
+  if(response.status==400){       // si pas bon en 400 alors
     let message = await response.json();
       this.DivErrorPrint( message.error );
       //console.log( await response.json());
@@ -366,12 +369,13 @@ p:hover {
   background-color: red;
 
   position:fixed;
-
+  /*
   height:90vh;
   width :90vw;
   bottom: calc(50% - (90vh/2));
   right: calc(50% - (90vw/2)) ;
-		
+	*/
+  width: 100%;
   overflow: auto;
 }
 
