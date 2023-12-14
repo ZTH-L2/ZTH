@@ -32,7 +32,7 @@
       
 
       <div class="button">
-        <button type="button" @click="Envoie()">Save</button>
+        <button type="button" @click="Envoie()">Sauvegarder</button>
         <input type="file" id="inputTest" multiple />
         <button type="button" @click="testEnvoieFichier()">Envoyer fichier externe</button>
         <button type="button" @click="publier()">Publier</button>
