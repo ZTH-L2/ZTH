@@ -4,6 +4,9 @@ import TheNavbar from "./components/TheNavbar.vue";
 </script>
 
 <template>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>  
+  </head>
   <header>
     <TheNavbar></TheNavbar>
   </header>
@@ -12,6 +15,7 @@ import TheNavbar from "./components/TheNavbar.vue";
 
 <style>
 * {
+  font-family: 'Lato' ;
   margin: 0;
   padding: 0;
   

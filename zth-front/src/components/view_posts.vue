@@ -73,17 +73,19 @@ watch(flag, () => {
 }
 
 .router-link-button {
-  display: inline-block;
-  padding: 10px 15px;
-  background-color: #3498db;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-  margin-bottom: 30px;
+    background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 15px; /* Espacement interne du bouton */
+    border: 1px solid rgb(78, 56, 88);
+    border-radius: 4px; /* Ajouter un peu de bord arrondi */
+    cursor: pointer;
+    text-decoration: none;
+    transition: all ease 0.3s;
+    margin-bottom: 30px;
 }
-
 .router-link-button:hover {
-  background-color: #2980b9;
+    border: 1px solid rgb(78, 56, 88);
+    background-color: white;
+    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
 }
 </style>

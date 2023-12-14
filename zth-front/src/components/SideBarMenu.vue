@@ -37,17 +37,18 @@ const userStore = useUserStore();
 } */
 
 .button-menu {
-  background-color: #007BFF; /* Couleur de fond du bouton */
-  color: white; /* Couleur du texte du bouton */
-  padding: 10px 15px; /* Espacement interne du bouton */
-  border: none; /* Supprimer la bordure du bouton */
-  border-radius: 4px; /* Ajouter un peu de bord arrondi */
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
+    background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 15px; /* Espacement interne du bouton */
+    border: 1px solid rgb(78, 56, 88);
+    border-radius: 4px; /* Ajouter un peu de bord arrondi */
+    cursor: pointer;
+    text-decoration: none;
+    transition: all ease 0.3s;
 }
-
 .button-menu:hover {
-  background-color: #0056b3;
+    border: 1px solid rgb(78, 56, 88);
+    background-color: white;
+    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
 }
 </style>

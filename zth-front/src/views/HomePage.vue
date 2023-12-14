@@ -63,6 +63,5 @@ li{
   background-color: rgba(255, 255, 255, 0.2);
   margin-bottom: 20px;
   color :purple; 
-  font-family: Comic Sans MS, Comic Sans, cursive;
 }
 </style>
