@@ -29,7 +29,7 @@
       Inscrivez-vous : Créez votre compte en quelques clics et commencez à explorer les fonctionnalités de NoteSync.
     </li>
     <li>
-      Créez Vos Notes : Commencez à prendre des notes dans des documents clairs et bien organisés.
+      Créez Vos Notes : Commencez à prendre des notes dans des documents clairs et bien organisés grace au Markdown.
     </li>
     <li>
       Soyez Productif : Profitez d'une expérience utilisateur fluide et concentrez-vous sur ce qui compte vraiment - vos idées !

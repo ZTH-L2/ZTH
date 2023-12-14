@@ -14,7 +14,7 @@ const userStore = useUserStore();
       <button @click="$emit('SideBarCloseMenu')" class="button-menu">Close</button>
     </div>
     <!-- BODY -->
-    <MajorComp v-if="userStore.isLoggedIn"></MajorComp>
+    <MajorComp v-if="userStore.isLoggedIn" @side-bar-close-menu="$emit('SideBarCloseMenu')"></MajorComp>
   </div>
 </template>
 
