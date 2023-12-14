@@ -13,8 +13,6 @@
           <div v-html="markdown"></div>
         </div>
       </div>
-
-      <h2>Fichier disponible:</h2>
       <div
         v-if="this.PrintErrorTOGGLE"
         id="DivError"
@@ -22,6 +20,20 @@
       >
         <div v-html="this.PrintErrorString"></div>
       </div>
+      <div class="button">
+        <div id="sauvegardePost">
+          <button type="button" @click="Envoie()">Sauvegarder</button>
+          <button type="button" @click="publier()">Publier</button>
+        </div>
+        <div id="fichier">
+          <input type="file" id="inputTest" multiple />
+          <button type="button" @click="testEnvoieFichier()">
+          Envoyer fichier externe
+          </button>
+        </div>
+      </div>
+      <h2>Fichier disponible:</h2>
+      <br>
       <div v-for="(item, index) in listeFichier" :key="index">
         <div class="file-link">
           <a
@@ -31,15 +43,6 @@
           <p @click="Supprime(item)">X</p>
           <p @click="LienMarkDownFichier(item)">Insérer dans le MarkDown</p>
         </div>
-      </div>
-
-      <div class="button">
-        <button type="button" @click="Envoie()">Sauvegarder</button>
-        <input type="file" id="inputTest" multiple />
-        <button type="button" @click="testEnvoieFichier()">
-          Envoyer fichier externe
-        </button>
-        <button type="button" @click="publier()">Publier</button>
       </div>
     </div>
   </div>
@@ -229,7 +232,7 @@ export default {
         typographer: true,
       });
       const styleDefault =
-        "<style>img{ width:auto; height:auto; max-width: 100%; max-height: 100%; }object{ width:auto; height:auto; max-width: 100%; max-height: 100%; }video{ width:auto; height:auto; max-width: 100%; max-height: 100%; }</style>";
+        "<style>img{ width:auto; height:auto; max-width: 100%; max-height: 100%; }object{ width:50rem; height:47rem; max-width: 100%; max-height: 100%; }video{ width:auto; height:auto; max-width: 100%; max-height: 100%; }</style>";
       //const styleDefault = "<style>img{ width:100%; height:auto; }object{ width:100%; height:auto; }</style>";
       const htmlContent = md.render(stringHTML);
 
@@ -390,4 +393,22 @@ p:hover {
   width: 100%;
   overflow: auto;
 }
+
+#sauvegardePost {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#fichier {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
 </style>
