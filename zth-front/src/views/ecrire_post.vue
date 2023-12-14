@@ -111,6 +111,7 @@ export default {
         case "png":
         case "jpeg":
         case "webp":
+        case "jpg":
           pressePapier = "![Image non chargée](<" + PATH_FICHIER + ">)";
           break;
         case "pdf":
