@@ -17,7 +17,7 @@ const userStore = useUserStore();
     <!-- BODY -->
     <div class="sidebar-body-me">
       <nav class="nav-me">
-        <router-link :to="{ name: 'profil', params: { id: userStore.id_user, username: userStore.username }}" class="button-me">Me</router-link>
+        <router-link :to="{ name: 'profil', params: { id: userStore.id_user, username: userStore.username }}" @click="$emit('SideBarCloseMe')" class="button-me">Me</router-link>
         <RouterLink to="/" @click="$emit('logout')" class="button-me">Logout</RouterLink>
         <RouterLink v-if="userStore.isAdmin" to="/admin" @click="$emit('SideBarCloseMe')" class="button-me">page admin</RouterLink>
       </nav>
@@ -44,9 +44,13 @@ const userStore = useUserStore();
   display: flex;
   flex-direction: column; /* Aligner les boutons verticalement */
   gap: 0.5rem; /* Espacement entre les boutons */
-  align-content: flex-start;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
+}
+
+.nav-me * {
+  width: 5rem;
+  text-align: center;
 }
 
 .button-me {
