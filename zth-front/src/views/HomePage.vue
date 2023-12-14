@@ -11,7 +11,7 @@
   <div id="home">
     <a href="#home" class="goread">Découvrir</a>
     <section class="home-section">
-      <h1>
+      <h1 id="titre">
         Bienvenue sur NoteSync !
       </h1>
     Découvrez une nouvelle façon de capturer, organiser et partager vos idées avec NoteSync, la plateforme de partage de prises de notes collaborative.
@@ -63,7 +63,19 @@
   top: calc(95% - 4rem);
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: rgb(78, 56, 88)  ; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  padding: 10px 15px; /* Espacement interne du bouton */
+  border: 1px solid rgb(78, 56, 88);
+  border-radius: 4px; /* Ajouter un peu de bord arrondi */
+  cursor: pointer;
   text-decoration: none;
+  transition: all ease 0.3s;
+}
+.goread:hover {
+    border: 1px solid rgb(78, 56, 88);
+    background-color: white;
+    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
 }
 
 .main-title{
@@ -82,12 +94,31 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
+  font-size: 20px;
 }
+
+img {
+
+  /* width: max(100vh,100vw); */
+  /* height: max(100vh,100vw); */
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  /* filter: blur(10px); */
+  background-attachment: fixed;
+}
+
 
 /* Vos autres styles ici */
 li{
   margin-top: 10px;
+  padding: 20px;
+  background-color: rgb(69, 39, 160, 0.4);
+  border-radius: 30px;
+  margin: 2%;
 }
 .home-section {
   padding: 50px;
@@ -95,5 +126,30 @@ li{
   background-color: white;
   margin-bottom: 20px;
   color :#FF5722; 
+  background-color: rgb(149, 117, 205, 0.4);
+  margin-bottom: 20px;
+  color : black; 
+  border-radius: 50px;
+  margin: 2%;
+
 }
+#titre {
+    padding-bottom: 3%;
+    text-align: center;
+    font-size: 50px;
+    color :#4527A0;
+    vertical-align: middle;
+}
+
+#pres {
+  right: 10px;
+  max-width:20em;
+  top: 0%;
+  width: 10%;
+  vertical-align: middle;
+  right:0%
+}
+
+
 </style>
+

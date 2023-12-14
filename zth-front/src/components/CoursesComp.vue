@@ -6,22 +6,22 @@
       </button>
       <ul v-if="isActive(button.name)">
         <li>
-          <router-link :to="{ name: 'voir_post', params: { id_course: button.name, category: 'cm' }}" class="router-link-button">
+          <router-link @click="$emit('SideBarCloseMenu')" :to="{ name: 'voir_post', params: { id_course: button.name, category: 'cm' }}" class="router-link-button">
             CM
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'voir_post', params: { id_course: button.name, category: 'td' }}" class="router-link-button">
+          <router-link @click="$emit('SideBarCloseMenu')" :to="{ name: 'voir_post', params: { id_course: button.name, category: 'td' }}" class="router-link-button">
             TD
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'voir_post', params: { id_course: button.name, category: 'tp' }}" class="router-link-button">
+          <router-link @click="$emit('SideBarCloseMenu')" :to="{ name: 'voir_post', params: { id_course: button.name, category: 'tp' }}" class="router-link-button">
             TP
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'voir_post', params: { id_course: button.name, category: 'exam' }}" class="router-link-button">
+          <router-link @click="$emit('SideBarCloseMenu')" :to="{ name: 'voir_post', params: { id_course: button.name, category: 'exam' }}" class="router-link-button">
             EXAM
           </router-link>
         </li>
