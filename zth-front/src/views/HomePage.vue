@@ -45,14 +45,17 @@
 }
 
 img {
-  width: 100%;
-  height: 93vh;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+
+  width: max(100vh,100vw);
+  height: max(100vh,100vw);
+
+  position: fixed;
+  top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   z-index: -1;
 }
+
 
 /* Vos autres styles ici */
 li{
