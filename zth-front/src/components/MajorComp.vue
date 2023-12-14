@@ -4,7 +4,7 @@
           <button @click="toggleSection(button.name)">
             {{ button.label }}
           </button>
-          <CoursesComp v-if="isActive(button.name)" :id="button.name">></CoursesComp>
+          <CoursesComp v-if="isActive(button.name)" :id="button.name" @side-bar-close-menu="$emit('SideBarCloseMenu')"></CoursesComp>
         </div>
     </div>
     <div v-else class="sub">
