@@ -116,7 +116,7 @@ const currentState = ref("user")
 }
 
 .page-admin-button {
-    background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
+    background-color: rgb(78, 56, 88)  ; /* Couleur de fond du bouton */
     color: white; /* Couleur du texte du bouton */
     padding: 10px 15px; /* Espacement interne du bouton */
     border: 1px solid rgb(78, 56, 88);

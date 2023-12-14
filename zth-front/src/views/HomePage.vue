@@ -2,14 +2,20 @@
 </script>
 
 <template>
-  <div id="home">
+  <section id="hero">
     <img src="./../img/background.png" alt="Background Image">
+    <h1 class="main-title">NoteSync</h1>
+    <a href="#home" class="goread">Découvrir</a>
+  </section>
+
+  <div id="home">
+    <a href="#home" class="goread">Découvrir</a>
     <section class="home-section">
       <h1>
         Bienvenue sur NoteSync !
       </h1>
     Découvrez une nouvelle façon de capturer, organiser et partager vos idées avec NoteSync, la plateforme de partage de prises de notes collaborative.
-  </section>
+    </section>
     <section class="home-section">
       <h3>
         Pourquoi NoteSync ?
@@ -23,30 +29,56 @@
         </li>
       </ul>
     </section>
-<section class="home-section"><h3>Comment Ça Marche ?</h3>
-  <ul>
-    <li>
-      Inscrivez-vous : Créez votre compte en quelques clics et commencez à explorer les fonctionnalités de NoteSync.
-    </li>
-    <li>
-      Créez Vos Notes : Commencez à prendre des notes dans des documents clairs et bien organisés.
-    </li>
-    <li>
-      Soyez Productif : Profitez d'une expérience utilisateur fluide et concentrez-vous sur ce qui compte vraiment - vos idées !
-    </li>
-  </ul>
-</section>
+    <section class="home-section"><h3>Comment Ça Marche ?</h3>
+      <ul>
+        <li>
+          Inscrivez-vous : Créez votre compte en quelques clics et commencez à explorer les fonctionnalités de NoteSync.
+        </li>
+        <li>
+          Créez Vos Notes : Commencez à prendre des notes dans des documents clairs et bien organisés.
+        </li>
+        <li>
+          Soyez Productif : Profitez d'une expérience utilisateur fluide et concentrez-vous sur ce qui compte vraiment - vos idées !
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
 <style scoped>
 #home {
   position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+#hero{
+  position: relative;
+  top: 0;
+  height: calc(100vh - 4rem);
+  width: 100vw;
+}
+.goread{
+  position: absolute;
+  top: calc(95% - 4rem);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+  color: ;
+}
+
+.main-title{
+  z-index: 50;
+  position: absolute;
+  top: calc(50% - 4rem);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size:xx-large;
 }
 
 img {
-  width: 100%;
-  height: 93vh;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   position: absolute;
   top: 0;
@@ -60,8 +92,9 @@ li{
 }
 .home-section {
   padding: 50px;
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
+  background-color: white;
   margin-bottom: 20px;
-  color :purple; 
+  color :#FF5722; 
 }
 </style>

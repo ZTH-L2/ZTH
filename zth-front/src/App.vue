@@ -8,7 +8,7 @@ import TheNavbar from "./components/TheNavbar.vue";
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>  
   </head>
   <header>
-    <TheNavbar></TheNavbar>
+    <TheNavbar class="navbar"></TheNavbar>
   </header>
   <RouterView />
 </template>
