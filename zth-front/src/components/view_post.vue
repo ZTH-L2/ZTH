@@ -8,7 +8,7 @@
     <div class="post-details">
       <div class="post-info">
         <span class="note-label">Note:</span>
-        <span class="note-value">{{ note }}</span>
+        <span class="note-value">{{ Math.floor(note * 10) / 10 }}</span>
       </div>
       <div class="post-info">
         <span class="nbr-note-label">Nombre de notes:</span>
