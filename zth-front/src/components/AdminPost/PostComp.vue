@@ -29,4 +29,11 @@ const deletePopUp = ref(false);
     grid-auto-rows: minmax(100px, auto);
 }
 
+.comp-element {
+    text-align: center;
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: 10rem;
+}
+
 </style>
