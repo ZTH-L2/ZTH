@@ -155,7 +155,7 @@ const currentState = ref("user")
 
 .comp-element {
     text-align: center;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 
