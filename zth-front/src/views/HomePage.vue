@@ -53,7 +53,7 @@
 #decouvrir {
   position: relative;
   height: calc(100vh - 4rem);
-  width: 100vw;
+  width: 100%;
 }
 .compris {
   margin-bottom: 1rem;
@@ -66,7 +66,7 @@
   position: relative;
   top: 0;
   height: calc(100vh - 4rem);
-  width: 100vw;
+  width: 100%;
 }
 
 
@@ -122,7 +122,7 @@
 }
 
 img {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   position: absolute;
