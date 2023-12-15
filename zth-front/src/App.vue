@@ -7,7 +7,7 @@ import TheNavbar from "./components/TheNavbar.vue";
   <head>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>  
   </head>
-  <header>
+  <header id="home-page">
     <TheNavbar class="navbar"></TheNavbar>
   </header>
   <RouterView />
@@ -18,6 +18,7 @@ import TheNavbar from "./components/TheNavbar.vue";
   font-family: 'Lato' ;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
   
 }
 </style>

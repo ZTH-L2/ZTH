@@ -5,16 +5,17 @@
   <section id="hero">
     <img src="./../img/background.png" alt="Background Image">
     <h1 class="main-title">NoteSync</h1>
-    <a href="#home" class="goread">Découvrir</a>
+    <a href="#decouvrir" class="goread nicebutton">Découvrir</a>
   </section>
 
-  <div id="home">
-    <a href="#home" class="goread">Découvrir</a>
+  <div id="decouvrir">
     <section class="home-section">
       <h1 id="titre">
         Bienvenue sur NoteSync !
       </h1>
-    Découvrez une nouvelle façon de capturer, organiser et partager vos idées avec NoteSync, la plateforme de partage de prises de notes collaborative.
+      <div class="li">
+        Découvrez une nouvelle façon de capturer, organiser et partager vos idées avec NoteSync, la plateforme de partage de prises de notes collaborative.
+      </div>
     </section>
     <section class="home-section">
       <h3>
@@ -42,14 +43,23 @@
         </li>
       </ul>
     </section>
+    <div class="wrapper">
+      <a href="#home-page" class="nicebutton compris">Compris !</a>
+    </div>
   </div>
 </template>
 
 <style scoped>
-#home {
+#decouvrir {
   position: relative;
-  height: 100vh;
+  height: calc(100vh - 4rem);
   width: 100vw;
+}
+.compris {
+  margin-bottom: 1rem;
+}
+.wrapper {
+  height: 4rem;
 }
 
 #hero{
@@ -58,24 +68,47 @@
   height: calc(100vh - 4rem);
   width: 100vw;
 }
-.goread{
+
+
+.nicebutton{
   position: absolute;
-  top: calc(95% - 4rem);
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(78, 56, 88)  ; /* Couleur de fond du bouton */
+  background-color: #673AB7  ; /* Couleur de fond du bouton */
   color: white; /* Couleur du texte du bouton */
   padding: 10px 15px; /* Espacement interne du bouton */
-  border: 1px solid rgb(78, 56, 88);
+  border: 1px solid #673AB7;
   border-radius: 4px; /* Ajouter un peu de bord arrondi */
   cursor: pointer;
   text-decoration: none;
   transition: all ease 0.3s;
 }
-.goread:hover {
-    border: 1px solid rgb(78, 56, 88);
+.nicebutton:hover {
+    border: 1px solid #673AB7;
     background-color: white;
-    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
+    color: #673AB7; /* Couleur du texte du bouton */
+}
+
+.goread{
+  position: absolute;
+  top: calc(95% - 4rem);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: #673AB7  ; 
+  color: rgba(red, green, blue, 0); 
+  padding: 10px 15px; 
+  border: 1px solid #673AB7;
+  border-radius: 4px; 
+  cursor: pointer;
+  text-decoration: none;
+  transition: all ease 0.3s; */
+
+}
+
+.goread:hover {
+  background-color: rgba(255, 255 ,255, 0%);
+  color: white;
+  border-color: white;
 }
 
 .main-title{
@@ -85,16 +118,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size:xx-large;
+  color: #4527A0;
 }
 
 img {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 20px;
 }
 
 img {
@@ -116,17 +149,24 @@ img {
 li{
   margin-top: 10px;
   padding: 20px;
-  background-color: rgb(69, 39, 160, 0.4);
+  background-color: #9575CD;
   border-radius: 30px;
   margin: 2%;
+  list-style: none;
+}
+
+.li {
+  background-color: #9575CD;
+  border-radius: 30px;
+  padding: 1rem 1rem 1rem 1rem;
 }
 .home-section {
-  padding: 50px;
+  padding: 3rem;
   /* background-color: rgba(255, 255, 255, 0.2); */
   background-color: white;
   margin-bottom: 20px;
   color :#FF5722; 
-  background-color: rgb(149, 117, 205, 0.4);
+  background-color: white;
   margin-bottom: 20px;
   color : black; 
   border-radius: 50px;

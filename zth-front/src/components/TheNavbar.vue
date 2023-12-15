@@ -31,7 +31,7 @@ function logout(){
     <nav class="TheNavBar white-shadow">
       <div class="navElement">
         <button @click="toogleSideBarMenu" class="button" v-if="userStore.isLoggedIn">menu</button>
-        <h2><RouterLink to="/">NoteSync</RouterLink></h2>
+        <h2 class="main-title"><RouterLink to="/">NoteSync</RouterLink></h2>
       </div>
       <div class="navElement" v-if="!userStore.isLoggedIn">
         <RouterLink to="/connexion" class="button">Connexion</RouterLink>
@@ -61,6 +61,10 @@ function logout(){
   justify-content: space-between;
   align-items: center;
   height: 4rem;
+}
+
+.main-title {
+  color: #4527A0;
 }
 
 #filieres{
