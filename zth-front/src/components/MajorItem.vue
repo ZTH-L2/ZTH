@@ -64,8 +64,8 @@ async function abonne(){
   width: 10rem;
   /* border: 1px solid white(78, 56, 88); */
   border-radius: 4px; /* Ajouter un peu de bord arrondi */
-  border:  1px solid #FF5722;
-  background-color: #FF5722;
+  border:  1px solid #9575CD;
+  background-color: #9575CD;
 }
 
 .major h3 {
@@ -92,19 +92,19 @@ async function abonne(){
 
 .modifier-button {
     width: 8rem;
-    background-color: #673AB7; /* Couleur de fond du bouton */
-    color: white; /* Couleur du texte du bouton */
+    background-color: white; /* Couleur de fond du bouton */
+    color: #673AB7; /* Couleur du texte du bouton */
     padding: 10px 15px; /* Espacement interne du bouton */
     border: 1px solid #673AB7;
     border-radius: 4px; /* Ajouter un peu de bord arrondi */
     cursor: pointer;
     text-decoration: none;
-    transition: all ease 0.3s;
+    transition: all ease 0.4s;
 }
 .modifier-button:hover {
-    border: 1px solid #673AB7;
+    border: 1px solid #EF6C00;
     background-color: white;
-    color: #673AB7; /* Couleur du texte du bouton */
+    color: #EF6C00; /* Couleur du texte du bouton */
 }
 
 </style>
