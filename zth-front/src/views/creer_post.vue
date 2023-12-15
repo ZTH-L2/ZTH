@@ -77,7 +77,7 @@ watch(flag, () => {
 .custom-button {
   padding: 10px 20px;
   margin: 10px;
-  background-color: #4CAF50;
+  background-color: #F57C00;
   color: white;
   border: none;
   border-radius: 5px;
@@ -86,6 +86,6 @@ watch(flag, () => {
 }
 
 .custom-button:hover {
-  background-color: #45a049;
+  background-color: #EF6C00;
 }
 </style>

@@ -102,9 +102,9 @@ const currentState = ref("user")
     width: 10rem;
 }
 .stateselected {
-    border: 1px solid rgb(78, 56, 88);
+    border: 1px solid #673AB7;
     background-color: white;
-    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
+    color: #673AB7; /* Couleur du texte du bouton */
 }
 
 .all {
@@ -116,19 +116,19 @@ const currentState = ref("user")
 }
 
 .page-admin-button {
-    background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
+    background-color: #673AB7; /* Couleur de fond du bouton */
     color: white; /* Couleur du texte du bouton */
     padding: 10px 15px; /* Espacement interne du bouton */
-    border: 1px solid rgb(78, 56, 88);
+    border: 1px solid #673AB7;
     border-radius: 4px; /* Ajouter un peu de bord arrondi */
     cursor: pointer;
     text-decoration: none;
     transition: all ease 0.3s;
 }
 .page-admin-button:hover {
-    border: 1px solid rgb(78, 56, 88);
+    border: 1px solid #673AB7;
     background-color: white;
-    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
+    color: #673AB7; /* Couleur du texte du bouton */
 }
 .page-data{
     display: flex;

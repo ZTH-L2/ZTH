@@ -97,7 +97,7 @@ button {
 button:hover {
     border: 1px solid white;
     background-color: white;
-    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
+    color: #673AB7; /* Couleur du texte du bouton */
 }
 
 .confirm {

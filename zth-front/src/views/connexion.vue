@@ -78,20 +78,20 @@ input {
 }
 
 button {
-    background-color: rgb(78, 56, 88); /* Couleur de fond du bouton */
+    background-color: #673AB7; /* Couleur de fond du bouton */
     color: white; /* Couleur du texte du bouton */
     padding: 0.5em 1em;
     margin-right: 0.5em;
-    border: 1px solid rgb(78, 56, 88);
+    border: 1px solid #673AB7;
     border-radius: 4px; /* Ajouter un peu de bord arrondi */
     cursor: pointer;
     text-decoration: none;
     transition: all ease 0.3s;
 }
 button:hover {
-    border: 1px solid rgb(78, 56, 88);
+    border: 1px solid #673AB7;
     background-color: white;
-    color: rgb(78, 56, 88); /* Couleur du texte du bouton */
+    color: #673AB7; /* Couleur du texte du bouton */
 }
 
 p {
@@ -106,7 +106,7 @@ nav {
 .custom-button {
   padding: 10px 20px;
   margin: 10px;
-  background-color: #4CAF50;
+  background-color: #F57C00;
   color: white;
   border: none;
   border-radius: 5px;
@@ -118,7 +118,7 @@ nav {
 }
 
 .custom-button:hover {
-  background-color: #45a049;
+  background-color: #EF6C00;
 }
 
 /* Ajoutez le style ci-dessous si vous souhaitez ajuster la mise en page sur les écrans larges */
