@@ -20,18 +20,7 @@
       >
         <div v-html="this.PrintErrorString"></div>
       </div>
-      <div class="button">
-        <div id="sauvegardePost">
-          <button type="button" @click="Envoie()">Sauvegarder</button>
-          <button type="button" @click="publier()">Publier</button>
-        </div>
-        <div id="fichier">
-          <input type="file" id="inputTest" multiple />
-          <button type="button" @click="testEnvoieFichier()">
-          Envoyer fichier externe
-          </button>
-        </div>
-      </div>
+      
       <h2>Fichier disponible:</h2>
       <br>
       <div v-for="(item, index) in listeFichier" :key="index">
@@ -43,6 +32,14 @@
           <p @click="Supprime(item)">X</p>
           <p @click="LienMarkDownFichier(item)">Insérer dans le MarkDown</p>
         </div>
+      </div>
+      <div class="button">
+        <button type="button" @click="Envoie()">Sauvegarder</button>
+        <input type="file" id="inputTest" multiple />
+        <button type="button" @click="testEnvoieFichier()">
+        Envoyer fichier externe
+        </button>  
+        <button type="button" @click="publier()">Publier</button>
       </div>
     </div>
   </div>
