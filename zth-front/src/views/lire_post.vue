@@ -187,7 +187,7 @@ import CommentsComp from "../components/Comments/CommentsComp.vue";
         </h3>
 
         <h3>
-          <span class="note-label">Note : {{ postData.grade }}</span>
+          <span class="note-label">Note : {{ Math.floor(postData.grade * 10) / 10 }}</span>
         </h3>
 
         <h3>
@@ -327,10 +327,11 @@ import CommentsComp from "../components/Comments/CommentsComp.vue";
   background-color: red; /* Couleur de fond du bouton */
   color: white; /* Couleur du texte du bouton */
   padding: 10px 15px; /* Espacement interne du bouton */
-  border: none; /* Supprimer la bordure du bouton */
+  border: 1px solid red;
   border-radius: 4px; /* Ajouter un peu de bord arrondi */
   cursor: pointer;
   text-decoration: none;
+  font-size: 16px;
   transition: background-color 0.3s; /* Ajouter une transition pour une animation fluide */
 }
 

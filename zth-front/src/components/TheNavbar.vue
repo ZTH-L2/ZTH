@@ -74,18 +74,22 @@ function logout(){
   background-color: #ffffff;
   box-shadow: -2px 7px 11px -11px rgba(0, 0, 0, 0.23);
 }
-
+.navElement>*{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
 .navElement {
+  display:flex;
   flex-direction: row;
+  justify-content: center;
   margin: 1rem;
   padding: 0.5rem;
 }
 
-.navElement * {
-  display: inline-block;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
+
 
 #SideBarMenu {
   position: absolute;
