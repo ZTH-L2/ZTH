@@ -44,9 +44,13 @@ const userStore = useUserStore();
   display: flex;
   flex-direction: column; /* Aligner les boutons verticalement */
   gap: 0.5rem; /* Espacement entre les boutons */
-  align-content: flex-start;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
+}
+
+.nav-me * {
+  width: 5rem;
+  text-align: center;
 }
 
 .button-me {

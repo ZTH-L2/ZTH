@@ -64,7 +64,8 @@ async function abonne(){
   width: 10rem;
   /* border: 1px solid white(78, 56, 88); */
   border-radius: 4px; /* Ajouter un peu de bord arrondi */
-  background-color: rgb(238, 178, 68);
+  border:  1px solid #FF5722;
+  background-color: #FF5722;
 }
 
 .major h3 {
